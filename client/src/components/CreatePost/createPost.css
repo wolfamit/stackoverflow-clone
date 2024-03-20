@@ -1,0 +1,85 @@
+.createPost-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 70%);
+  padding: 20px;
+  width: 220px; /* Instead of max-width to set a fixed width */
+  background-color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  border-radius: 20px;
+  border: 2px solid var(--text-color-1);
+}
+
+.createPost {
+  font-size: 24px;
+  color: var(--text-color-1);
+}
+.plus-mid {
+  transform: translateX(40%);
+  width: 100%;
+}
+
+/* MODEL CSS */
+.model {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(0.2rem);
+}
+
+.model .model-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+}
+
+.model .model-content .close {
+  color: var(--text-color-1);
+  font-size: 50px;
+  float: right;
+  font-weight: 700;
+}
+
+.close:hover,
+.close:focus {
+  background-color: rgb(237, 198, 198);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.model .model-content textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+  border: none;
+}
+.model .model-content textarea[type="text"] {
+  font-size: 20px;
+  color: var(--text-color-1);
+  padding: 20px;
+  overflow-y: scroll;
+}
+
+.model .model-content button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.model .model-content button:hover {
+  background-color: #0056b3;
+}

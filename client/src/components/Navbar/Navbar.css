@@ -1,0 +1,143 @@
+.hamburger {
+  z-index: 1000;
+  cursor: pointer;
+}
+.top-nav {
+  width: 100%;
+  max-height: 80px;
+  border-top: solid 4px var(--border-color-1);
+  border-bottom: solid 1px var(--border-color-2);
+  margin: 0 auto;
+  box-shadow: inset;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  background-color: var(--bg-color-1);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+} 
+/* .top-nav Link {
+  text-decoration:none;
+  outline: none;
+} */
+
+.navbar {
+  display: flex;
+  height: 100%;
+  min-width: 85%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-item {
+  margin: 0 3px;
+  font-size: small;
+  font-weight: 500;
+  transition: 0.2s;
+  color: var(--text-color-1);
+  text-decoration: none;
+  outline: none;
+  padding: 10px 20px;
+}
+
+.nav-item:hover {
+  background-color: var(--border-color-2);
+}
+
+.dark-logo{
+  width: 140px;
+  border-radius: 20px;
+}
+.navbar button {
+  padding: 8px 11px;
+  height: 60%;
+  border: 4px solid black;
+  border-radius: 10px;
+  background-color: var(--bg-color-1);
+  color: var(--text-color-1);
+}
+
+.navbar button:hover{
+  background-color: lightblue
+}
+
+.search {
+  height: 90%;
+  position: relative;
+  flex-grow: 1;
+  outline: none;
+}
+
+.search input {
+  cursor: pointer;
+  outline: none;
+  padding: 2px 2px 4px 19px;
+  box-shadow: 0 0 2px rgba(10, 19, 134, 0.2);
+  border-radius: 4px;
+  border: solid 1px #eee;
+  flex-grow: 1;
+  width: 100%;
+}
+.search input::placeholder {
+  font-size: 1rem;
+  letter-spacing: 0.3rem;
+}
+.search img {
+  padding: 2px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.dropdown {  
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 20;
+  background-color: var(--bg-color-1);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 4px;
+  z-index: 100;
+}
+
+.open {
+  display: block;
+}
+
+
+.dropdown li{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 300;
+    color: var(--text-color-1);
+    list-style: none;
+    padding: 10px 5px;
+    width: 100%;
+}
+
+@media screen and (min-width:768px){
+  .hamburger{
+    padding: 0 20px
+  }
+}
+@media screen and (max-width: 740px) {
+  .search {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+
+  .hd {
+    display: none;
+  }
+
+  .logo {
+    padding: 7px;
+  }
+  .dark-logo{
+    width: 100px;
+  }
+}

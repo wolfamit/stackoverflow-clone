@@ -1,0 +1,6 @@
+.vip-container{
+    padding-top: 70px;
+    width: 100%;
+    min-height: 100vh ;
+    background: linear-gradient(45deg, rgba(0,212,255,1) 0%, rgba(11,3,45,1) 100%);    
+}

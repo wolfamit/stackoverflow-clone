@@ -1,0 +1,72 @@
+#checkout-page {
+    margin-top: 50px;
+    padding: 50px 0;
+    background: linear-gradient(45deg, rgb(165, 216, 226) 0%, rgba(11, 3, 45, 1) 100%);
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px 60PX;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.selected{
+    border: 10px solid green;
+}
+
+.card h2 {
+    color: #333;
+}
+
+.card p {
+    margin-bottom: 10px;
+}
+
+.membership-duration {
+    padding:10px;
+}
+
+.membership-duration input[type="radio"] {
+    display: none; 
+    /* Hide the actual radio buttons */
+    
+}
+
+.membership-duration label {
+    display: inline-block;
+    cursor: pointer;
+    padding: 5px 10px;
+    
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.membership-duration input[type="radio"]:checked + label {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+    
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: #ccc
+}

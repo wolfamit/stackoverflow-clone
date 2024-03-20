@@ -1,0 +1,122 @@
+.below-topnav-user{
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-color-2);
+  padding-bottom: 30px;
+}
+
+.below-topnav-user h1,
+.below-topnav-user h2,
+.below-topnav-user h3,
+.below-topnav-user h4,
+.below-topnav-user p{
+  color: var(--text-color-2);
+  padding: 10px 0;
+  font-family: sans-serif;
+  font-weight: 400;
+}
+
+.user-details-container {
+    width: 90%;
+    background-color: var(--bg-color-1);
+    margin: 50px auto;
+    padding: 20px ;
+  }
+  
+  .user-details {
+    display: flex;
+    width: 70%;
+    padding: 30px 0;
+  }
+  
+  .user-name {
+    padding-left: 20px;
+  }
+  .user-name p {
+    color: #7e7e7e;
+  }
+  .edit-profile-btn {
+    padding: 8px 10px;
+    border: solid 1px #7e7e7e;
+    border-radius: 2px;
+    background-color: var(--bg-color-2);
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .edit-profile-btn:hover {
+    background-color: darkgray;
+  }
+  .edit-profile-title {
+    padding: 20px 0px;
+    border-bottom: solid 1px #dbd9d9;
+  }
+  .edit-profile-title-2 {
+    color: grey;
+    font-weight: 400;
+  }
+  .edit-profile-form {
+    padding: 20px;
+    border: solid 1px #dbd9d9;
+    border-radius: 5px;
+  }
+  .edit-profile-form label h3 {
+    margin: 0%;
+    padding: 3px 0px;
+  }
+  .edit-profile-form label p {
+    margin: 0%;
+    padding: 3px 0px;
+  }
+  .edit-profile-form label input,
+  .edit-profile-form label textarea {
+    padding: 5px;
+    margin-bottom: 20px;
+    border: solid 1px #dbd9d9;
+    width: 80%;
+  }
+  
+  .user-submit-btn {
+    padding: 14px 10px;
+    background-color: #0a95ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: 0.2s;
+    cursor: pointer;
+  }
+  
+  .user-submit-btn:hover {
+    background-color: #0074cc;
+  }
+  
+  .user-cancel-btn {
+    padding: 14px 10px;
+    color: #0a95ff;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  
+  /* chat gpt */
+  .profile-bio-container {
+    padding: 20px;
+  }
+  
+  .tags-section, .friend-list-section, .location-section, .impressions-section, .occupation-section, .about-section {
+    margin-bottom: 20px;
+  }
+  
+  .tags-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+  }
+  
+  .tag, .friend {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+  }

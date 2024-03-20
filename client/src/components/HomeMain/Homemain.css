@@ -1,0 +1,131 @@
+#below-topnav{
+  padding: 0;
+  margin-left: 220px;
+  transition: .5s linear
+}
+
+#w100{
+  margin-left: 0;
+  padding-bottom: 0;
+  transition: .5s linear;
+}
+
+.main-bar {
+    min-height: 100vh;
+    padding: 70px 10px 0px 10px;
+    color: var(--text-color-1);
+    background-color: var(--bg-color-3);
+    min-width: 330px;
+  }
+  
+  .main-bar-header {
+    display: block;
+    margin-inline: auto;
+    max-width: 700px ;
+    gap: 10px;
+    
+  }
+
+  .d-flex{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .d-flex h1 {
+    font-weight: 400;
+    margin: 10px;
+  }
+  
+  .main-bar-header .ask-btn {
+    padding: 10px 15px;
+    border-radius: 4px;
+    background-color: #009dff;
+    color: white;
+    border: none;
+    text-decoration: none;
+    margin: 10px ;
+    transition: 0.3s;
+  }
+  
+  .main-bar-header .ask-btn:hover {
+    background-color: #0086d8;
+    color: #000;
+  }
+  
+  .display-question-container {
+    min-height: 80px;
+    width: 100%;
+    padding: 20px 10px;
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-color-3);
+    border-bottom: solid 1px #edeff0;
+  }
+  
+  .display-question-container .display-votes-ans {
+    display: flex;
+    padding: 10px;
+    gap: 2em;
+  }
+  
+  .display-question-container .display-votes-ans p {
+    margin: 0%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .display-question-details {
+    flex-grow: 1;
+    padding: 10px;
+    margin: 0%;
+  }
+
+  
+  .question-title-link {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--text-color-3);
+    transition: 0.3s;
+  }
+  
+  .question-title-link:hover {
+    color: #adb8f3;
+  }
+  
+  .display-tags {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .display-tags-time {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    
+  }
+  
+  .display-tags p {
+    margin: 2px;
+    padding: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    background-color: var(--bg-color-2);
+    color: #39739d;
+  }
+  .display-time {
+    font-size: 13px;
+    font-weight: 600;
+
+  }
+
+  @media screen and (max-width: 740px) {
+    
+    .display-question-container .display-votes-ans {
+      padding: 10px;
+    }
+  }
+  
