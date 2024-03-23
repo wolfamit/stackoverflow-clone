@@ -1,18 +1,16 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 import Navbar from './components/Navbar/Navbar';
 import AllRoutes from './AllRoutes';
 import { fetchAllQuestions } from './actions/question.js';
 import { fetchAllUsers } from './actions/user.js';
 import { getAllPost } from './actions/posts.js';
-
 import './App.css';
-
+import Chatbot from './components/ChatBot/Chatbot.jsx';
 
 
 function App() {
@@ -24,24 +22,18 @@ function App() {
     const longitude = position.coords.longitude;
     fetchWeather(latitude, longitude);
   })
-
   const fetchWeather = (latitude, longitude) => {
-    const apikey = process.env.REACT_APP_WEATHER_API_KEY || '0a9b29b237c2443a9b133021241002'
+    const apikey = process.env.REACT_APP_WEATHER_API_KEY;
     const baseUrl = `http://api.weatherapi.com/v1/current.json?key=${apikey}&lat=${latitude}&long=${longitude}&q=India`
     fetch(baseUrl)
       .then(response => response.json())
       .then(data => setIsDaytime(data.current.is_day))
   }
 
-  const user = useSelector( state => state.CurrentUserReducer)
-  const customerId = user?.data?.result.stripeCustomerId;
-
-  console.log(customerId)
   useEffect(() => {
     dispatch(fetchAllQuestions())
     dispatch(fetchAllUsers())
     dispatch(getAllPost())
-    
   }, [dispatch]);
 
   return (
@@ -61,6 +53,7 @@ function App() {
 />
         <AllRoutes />
       </Router>
+      <Chatbot isDaytime={isDaytime}/>
     </div>
 
   );

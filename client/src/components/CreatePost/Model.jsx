@@ -4,10 +4,9 @@ import Avatar from '../Avatar/Avatar';
 import './createPost.css'
 
 
-const Model = ({User, setFile ,onCloseModal, onSubmit, setDescription }) => {
+const Model = ({User, setFile, onCloseModal, onSubmit, setDescription}) => {
     const [imagePreview, setImagePreview] = useState(null);
 
-    
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
@@ -26,6 +25,7 @@ const Model = ({User, setFile ,onCloseModal, onSubmit, setDescription }) => {
             setImagePreview(null);
         }
     };
+    
     return (
         <div className="model">
             <div className="model-content">

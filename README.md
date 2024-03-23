@@ -1,7 +1,71 @@
+# StackOverflow Clone
+
+## Introduction
+Welcome to our StackOverflow Clone project! This project aims to recreate the core features and functionality of the popular Q&A platform Stack Overflow. Whether you're a developer looking for answers or someone eager to share knowledge, our platform provides a space for you to ask questions, provide answers, and engage with a community of fellow developers.
+
+## Features
+- **User Authentication**: Securely register, log in, and manage your account.
+- **website Theme**: The theme of the website chnages according to the timeline of the user's location.
+- **Asking Questions**: Post questions on various topics and categories.
+- **Answering Questions**: Provide answers to questions posted by other users.
+- **Voting System**: Upvote or downvote questions and answers based on their quality and relevance.
+- **Comments**: Add comments to questions and answers to provide feedback or seek clarification.
+- **Tagging**: Tag questions with relevant keywords to make them easier to find and categorize.
+- **social media Functionality**: post images and videos for community and commenting , liking in the community
+- **User Profile**: View and manage your profile, including your questions, answers, and activity history.
+- **subscribe**: Subscribe to plans for additional benefits of posting questions and answers
+- **absisive word Filter**: A filter to filter words which are appropriate for community.
+- **Chatbot**: User can ask programming related questions to the chatbot powered by openAI. 
+- **otp verification** : User have to authenticate through phone number before asking questions for the chatbot.
+
+
+## Technologies Used
+- **Frontend**: React.js, HTML, CSS, JavaScript
+- **Backend**: Node.js, Express.js 
+- **Database**: MongoDB
+- **Authentication**: jwt authentication , Firebase Authentication for phone number authentication
+- **Other Tools**: Git, GitHub, VS Code, Heroku (for deployment)
+
+## Installation
+1. Clone the repository to your local machine:
+   ```bash
+   git clone https://github.com/yourusername/stackoverflow-clone.git
+
+2. Navigate to the project directory:
+   cd stackoverflow-clone
+
+3. Navigate to the client directory:
+    npm install
+
+4. Navigate to the server directory:
+    npm install
+
+5. Create a .env file in the client directory and add your Firebase configuration and stripe configuration:
+
+6. Create a .env file in the server directory and add your Port , stripe secret and cloudinary configuration:
+
+7. Start the development server for on both client and server directories:
+   ```npm start
+
+# Contributing
+We welcome contributions from the community! If you'd like to contribute to the project, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix: git checkout -b feature-name.
+3. Make your changes and commit them: git commit -m "Your message here".
+4. Push to the branch: git push origin feature-name.
+5. Submit a pull request detailing your changes.
+
+# License
+
+
+# Contact
+
+If you have any questions, feedback, or suggestions, please feel free to contact us at amitabhambastha52@gmail.com
+
 # Change the website color or theme according to time or weather: Use the system time or any API to fetch the weather of the user's current location and change the website's theme/color accordingly. For example, if it's daytime, you can keep the website color light, and if it's nighttime or bad weather, you can change the website color to dark colors.
 
 tasks done:-
-
 1. navbar done
 2. display questions page done
 3. tags page 12/2
@@ -12,24 +76,7 @@ tasks done:-
 8. public interface 14/2
 
 task pending:-
-
-1. I want to save the theme in the local storage for user to see the theme same again later
-
-5. overflow blog componets {hidden: true}
-
-6. Make the website responsive: Add extra CSS and media queries to make the website responsive (you can change some components on different devices except desktop).
-
-tasks done:-
-
-1. navbar done
-2. display questions page done
-3. Auth page
-4. display answers page 12/2
-5. users page 13/2
-6. users/:id page 13/2
-7. public 14/2
-
-task pending:-
+1. I want to save the theme in the local storage for user to see the theme same again later and make a button in navbar for changing the theme
 
 # Create a public space: Add one more page and allow users to share images, videos, text, and other things. Add a filter that detects abusive or hateful words and remove the content.
 
@@ -50,7 +97,8 @@ pending:-
 1. manage deleting a comment
 2. make UI for who commented 
 3. Edit a comment 
-4. filter work 
+4. make UI for video posting
+
 
 # Integrate a chatbot feature where users can ask their questions directly to the chatbot. It should answer all programing related questions
 
@@ -58,59 +106,32 @@ Authenticate with OTP before asking questions
 
 tasks done:-
 
-1.
-2.
+1. Work on implementing a chatbot feature.
+2. Utilize the OpenAI API to fetch responses to user questions.
+3. Design an impressive UI for the chatbot feature.
+1. Configure Firebase for OTP SMS services.
 
 task pending:-
-1. Work on implementing a chatbot feature.
-2. Configure Firebase for OTP SMS services.
-3. Create a middleware to handle user phone number verification with OTP.
-4. Utilize the OpenAI API to fetch responses to user questions.
-5. Design an impressive UI for the chatbot feature.
-
-`User Authentication with OTP:`
-
-1. Implement a user authentication system that requires users to sign up or log in using their email and password.
-   Integrate OTP authentication as an additional step. When users sign up or log in, they should receive an OTP via email or SMS.
-   Allow users to enter the OTP they received to complete the authentication process.
-   Chatbot Integration:
-
-2. `Choose a chatbot platform` or library that supports natural language processing (NLP) and programming-related queries. For example, Dialogflow, IBM Watson Assistant, or Rasa.
-   Set up and configure the chatbot according to your requirements, including defining intents, entities, and responses for programming-related questions.
-   Integrate the chatbot into your StackOverflow clone's user interface, such as a chat window or sidebar.
-   Implement functionality to send user queries to the chatbot and display the responses within the application.
-   Programming Question Recognition:
-
-3. Define specific intents or entities in the chatbot for recognizing programming-related questions. For example, you can define intents like "JavaScript syntax", "Python libraries", etc.
-   Train the chatbot to accurately recognize and respond to these types of queries by providing sample questions and responses for each intent.
-
-`User Interaction:` 4. Allow users to interact with the chatbot by typing their questions or selecting predefined options.
-Display the chatbot's responses in a conversational format within the user interface.
-Implement features such as typing indicators and message timestamps to enhance the user experience.
-Error Handling and Feedback:
-
-5. `Implement error handling` mechanisms to handle cases where the chatbot cannot understand the user's query or encounters errors.
-   Provide feedback to users when their queries are successfully processed or when there are issues with the chatbot's responses.
-   Testing and Iteration:
-
-6. `Test the chatbot` feature thoroughly to ensure it functions as expected, including authentication flows, chatbot interactions, and response accuracy.
-   Gather feedback from users and iterate on the chatbot's functionality based on their input and usage patterns.
+1. Store the number in database.
+2. OpenAI does not work , so implement chatbot using Gemini
 
 # Create subscriptions using a payment gateway (like stripe, razorpay) to post questions in stackoverflow.
 
 Testcase: Free Plan can post only 1 question a day, silver plan will be ₹100/month which can post 5 questions a day and gold plan can post unlimited questions and priced at ₹1000/month.
+
 tasks done:-
 
 1. Modify Database Schema to store your subscription details such that plan they are subscribed to and the no of questions they have posted
 2. Add fiels to your User model to store subscription related information
 3. Middleware that checks the user's subscription status and limits the no of questions they can post based on their subscription.
-1. Design a section in home page for cards show
-2. API integration for the subscription related actions, such as subscribing to a plan or fetching subscription details
-3. form validation: Implement form validation to enforce the daily question limit based on the user's subscription plan.
+4. Design a section in home page for cards show
+5. API integration for the subscription related actions, such as subscribing to a plan or fetching subscription details
+6. form validation: Implement form validation to enforce the daily question limit based on the user's subscription plan.
 
 task pending:-
-4. API endpoint to handle subscription management, such as sbscribing to the plan , Upgrading/downgrading plans and fetching the subscription details 
-4. NOTIFICATION: Display notifations or messages to user when they reach their daily question limit or when they need to upgrade their plan.
+1. API endpoint to handle subscription management, such as subscribing to the plan , Upgrading/downgrading plans and fetching the subscripion details 
+2. NOTIFICATION: Display notifations or messages to user when they reach their daily question limit or when they need to upgrade their plan.
+3. test the webhook endpoint for subscription status management
 
 
 

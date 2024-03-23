@@ -47,7 +47,7 @@ export const stripeSubscription = async (req, res) => {
 };
 
 export const paymentSuccess = async (req, res) => {
-    const { sessionId, userId } = req.query; // Assuming Stripe sends parameters as query parameters
+    const { sessionId } = req.query;
 
     try {
         // Retrieve session details from Stripe
@@ -60,23 +60,28 @@ export const paymentSuccess = async (req, res) => {
                 // Retrieve subscription details from Stripe
                 const subscription = await stripe.subscriptions.retrieve(subscriptionId);
 
-                // Retrieve user from MongoDB
-               const user = await User.findOne({ stripeCustomerId: customerId });
+                // Update user's subscription in your database
+                const user = await User.findOneAndUpdate(
+                    { stripeCustomerId: subscription.customer },
+                    {
+                        $push: {
+                            subscription: {
+                                plan: subscription.plan.id,
+                                // Adjust subscription start and end dates according to your requirements
+                                startDate: moment().format('YYYY-MM-DD'),
+                                endDate: moment().add(1, 'year').format('YYYY-MM-DD')
+                            }
+                        }
+                    },
+                    { new: true }
+                );
+
                 if (!user) {
                     return res.status(404).json({ error: 'User not found' });
                 }
 
-                // Update user's subscription array with the new subscription details
-                const newSubscription = {
-                    plan: subscription.plan.id,
-                    startDate: moment.unix(subscription.startDate).format('YYYY-MM-DD'),
-                    endDate: moment.unix(subscription.endDate).format('YYYY-MM-DD')
-                };
-
-                user.subscription.push(newSubscription);
-                await user.save();
-
-                return res.json({ message: "Payment successful" });
+                // Redirect to frontend success page
+                res.redirect(process.env.FRONTEND_URL + '/paymentSuccess');
             } catch (error) {
                 console.error('Error retrieving subscription:', error);
                 return res.status(500).json({ error: "An error occurred while processing the subscription." });

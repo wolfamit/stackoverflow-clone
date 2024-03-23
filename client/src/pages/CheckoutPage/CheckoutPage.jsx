@@ -36,9 +36,9 @@ const CheckoutPage = ({ user }) => {
     ];
 
     const checkout = async (plan) => {
-        const apiKey = process.env.REACT_APP_SECRET_KEY || 'sk_test_51OmW23SCzJikMcVlUeCPpbZKzcJ7ayolpgkyKHRK1UTcqHBYAkY3bVRH4ZbZJ0l2X57bsIRqZkaIuSVcdUpze5js00kU5ifW8J';
+        const apiKey = process.env.REACT_APP_SECRET_KEY;
         
-        await fetch("http://localhost:5500/api/create-subscription-checkout-session", {
+        await fetch(`${process.env.REACT_APP_BASE_URL}/api/create-subscription-checkout-session`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -30,7 +30,7 @@ const ProfileBio = ({ currentProfile, Users }) => {
                   py="20px"
                   px="20px"
                   borderRadius="50%"
-                  imageSrc={`http://localhost:5500/assets/${friend?.picturePath}`}
+                  imageSrc={`${process.env.REACT_APP_BASE_URL}/assets/${friend?.picturePath}`}
                   alt="Avatar"
                 />
               )

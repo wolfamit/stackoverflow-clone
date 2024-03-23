@@ -26,7 +26,7 @@ const UserProfile = ({user}) => {
                     <Avatar
                         py='60px'
                         px='80px'
-                        imageSrc={`http://localhost:5500/assets/${currentProfile?.picturePath}`}
+                        imageSrc={`${process.env.REACT_APP_BASE_URL}/assets/${currentProfile?.picturePath}`}
                     /> 
                     <div className="user-name">
                         <h1 >{currentProfile?.name}</h1>

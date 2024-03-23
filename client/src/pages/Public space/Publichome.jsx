@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 
-import Post from './Post';
+import Post from './Posts';
 import Leftsidebar from '../../components/LeftsideBar/Leftsidebar';
 import CreatePost from '../../components/CreatePost/CreatePost';
 import Model from '../../components/CreatePost/Model';
 import Spinner from '../../components/Spinner/Spinner';
 import { postAction } from '../../actions/posts'
 import './public.css';
+import { toast } from 'react-toastify';
 
 const Publichome = ({ User }) => {
     const [visibleComments, setVisibleComments] = useState([]);
@@ -43,6 +44,7 @@ const Publichome = ({ User }) => {
             setFile('');
             setDescription('');
             handleCloseModal();
+            toast.success('posted successfully')
         } catch (error) {
             console.error('Error uploading post:', error);
             // Handle error

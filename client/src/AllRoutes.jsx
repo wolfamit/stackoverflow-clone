@@ -11,10 +11,10 @@ import Users from './pages/User/Users'
 import Tags from './pages/Tags/Tags';
 import UserProfile from './pages/UserProfile/UserProfile';
 import Publichome from './pages/Public space/Publichome';
-import Vippasses from './pages/Vippasses/Vippasses';
+import Vippasses from './pages/subscription cards/Vippasses';
 // import ChecloutEle from './pages/CheckoutPage/ChecloutEle';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
-import success from './pages/Success/Success';
+import PaymentSuccess from './pages/CheckoutPage/PaymentSuccess';
 
 const AllRoutes = () => {
   const user = useSelector((state) => state.CurrentUserReducer);
@@ -31,8 +31,7 @@ const AllRoutes = () => {
         <Route exact path='/Users/:id' element={<UserProfile user={user}/> }/>
         <Route exact path='/Vip-pass' element={<Vippasses user={user}/> }/>
         <Route exact path='/checkout-Element' element={<CheckoutPage user={user}/> }/>
-        <Route exact path='/api/payment-success' element={<success /> }/>
-
+        <Route exact path='/paymentSuccess' element={<PaymentSuccess /> }/>
     </Routes>
 
   )

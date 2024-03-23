@@ -3,9 +3,10 @@ import loading from '../../assets/89.gif';
 
 
 
-const Spinner = ({children , height }) => {
+const Spinner = ({children , size }) => {
     const styles={
       textAlign: 'center',
+      width : size,
     }
   return (
     <div style={styles}>

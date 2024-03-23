@@ -8,7 +8,7 @@ import { FiShare } from "react-icons/fi";
 import { BsThreeDots } from "react-icons/bs";
 import moment from 'moment';
 
-import Avatar from '../../components/Avatar/Avatar';
+import Avatar from '../../components/Avatar/Avatar.jsx';
 import { Likepost, disLikepost, postComments, deletePost, addFriend, removeFriend } from '../../actions/posts.js'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
