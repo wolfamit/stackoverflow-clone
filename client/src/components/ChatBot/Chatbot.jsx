@@ -64,7 +64,7 @@ const Chatbot = ({ isDaytime }) => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer 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}`
+            Authorization: `Bearer ${REACT_APP_OPENAI_SECRET_KEY}`
           },
           body: JSON.stringify({
             prompt: inputValue,
