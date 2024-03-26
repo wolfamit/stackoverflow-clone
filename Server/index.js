@@ -45,6 +45,10 @@ app.use(cors()); //respond to cross-origin requests from web pages hosted on dif
 
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
+// app.use('/' , async (req, res) => {
+//   res.send('server is live');
+// })
+
 /* POST ROUTES FOR PUBLIC INTERACTION*/
 app.post("/public/post/:id" , auth , singleUpload , createPost)
 
@@ -56,10 +60,10 @@ app.use('/question' , askQuestionRouter)
 app.use('/answer' , answerRoute)
 app.use("/public", postRoutes);
 
-/* ROUTES FOR Q&A */
+/* ROUTES FOR subscribing */
 app.use('/api' , createSubscription)
 
-/* ROUTES FOR Q&A */
+/* ROUTES FOR managing response after payment */
 app.use('/stripe' , webhook)
 
 const PORT = process.env.PORT

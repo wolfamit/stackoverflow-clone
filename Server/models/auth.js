@@ -19,6 +19,9 @@ const userSchema = mongoose.Schema({
                 default: 'defaultpicture.jpg'
 
         },
+        phoneNumber: {
+                type: Number
+        },
         friends: {
                 type: Array,
                 default: [],

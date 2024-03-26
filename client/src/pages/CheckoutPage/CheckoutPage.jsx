@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Leftsidebar from '../../components/LeftsideBar/Leftsidebar'
 import { Navigate } from 'react-router-dom';
 import './checkout.css'
@@ -7,7 +7,8 @@ import { getSubDetails } from '../../actions/subscription';
 
 const CheckoutPage = ({ user }) => {
   const dispatch = useDispatch()
-  const customerId = user?.data?.result?.stripeCustomerId
+  const customerId = user?.data?.result?.stripeCustomerId;
+  
   useEffect(() => {
     dispatch(getSubDetails(customerId) ) // facing error fix here
   } , [dispatch])

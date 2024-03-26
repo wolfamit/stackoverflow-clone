@@ -21,7 +21,14 @@ export const postAnswer = (id, noOfAnswers, answerBody, userAnswered, userId) =>
 export const deleteAnswer = (id, answerId, noOfAnswers) => API.patch(`/answer/delete/${id}`, { answerId, noOfAnswers });
 
 export const getAllUsers = () => API.get('/user/getAllUsers')
-export const updateProfile = (id, updateData) => API.patch(`/user/update/${id}`, updateData)
+
+export const updateProfile = (id, formData) => API.patch(`/user/update/${id}`, formData, {
+  headers: {
+    'Content-Type': 'multipart/form-data'
+  }
+})
+
+export const addPhoneNumber = (id, phoneNumber) => API.patch(`/user/updatePhoneNumber/${id}`, { phoneNumber });
 
 export const getAllPosts = () => API.get('/public');
 
@@ -29,14 +36,15 @@ export const likeDisLikePost = (id, userId, value) => API.patch(`/public/like/${
 
 export const commentPost = (id, userId, value) => API.patch(`/public/comment/${id}`, { userId, value })
 
-export const publicPost = (formData,userId) => API.post(`/public/post/${userId}`,  formData , { 
+export const publicPost = (formData, userId) => API.post(`/public/post/${userId}`, formData, {
   headers: {
-    'Content-Type': 'multipart/form-data' // Ensure correct content type for file uploads
-  }})
+    'Content-Type': 'multipart/form-data'
+  }
+})
 
 
 export const publicDelete = (postId) => API.delete(`/public/delete/${postId}`);
 export const addfrnd = (userId, friendId) => API.patch(`/public/add/friend/${userId}`, { friendId });
 export const removefrnd = (userId, friendId) => API.patch(`/public/remove/friend/${userId}`, { friendId });
 
-export const getSubsciptionDetails = ( customerId ) => API.get('/api/get-details' , { customerId });
+export const getSubsciptionDetails = (customerId) => API.get('/api/get-details', { customerId });

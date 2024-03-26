@@ -1,7 +1,8 @@
 import Post from "../models/Post.js";
 import User from "../models/auth.js";
-import cloudinary from 'cloudinary'
+import cloudinary from 'cloudinary';
 import getDataUri from "../utility/dataUri.js";
+import { extractPublicId } from "../utility/extractPublicId.js";
 
 /* CREATE */
 export const createPost = async (req, res) => {
@@ -122,10 +123,24 @@ export const postComments = async (req, res) => {
 export const deletePost = async (req, res) => {
     try {
         const { postId: _id } = req.params;
-        const deletedPost = await Post.findByIdAndDelete(_id);
-        if (!deletedPost) {
+
+        const todelete = await Post.findById(_id);
+        if (!todelete) {
             return res.status(404).json({ success: false, message: 'Post not found' });
         }
+
+        const url = todelete.picturePath;
+        if (url.length > 10) {
+            //this means it's a saved in cloud storage
+            const publicId = await extractPublicId(url);
+            await cloudinary.v2.uploader.destroy(publicId ,{
+                cloud_name: process.env.CLOUD_NAME, 
+                api_key: process.env.CLOUDINARY_API_KEY,
+                api_secret: process.env.CLOUDINARY_API_SECRET
+            });
+        }
+        await Post.findOneAndDelete({ _id: todelete._id });
+
         res.status(200).json({ success: true, message: 'Post deleted successfully' });
     } catch (error) {
         console.error('Error deleting post:', error);

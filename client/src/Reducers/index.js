@@ -10,7 +10,10 @@ import usersReducer from "./users.js";
 import toggleReducer from "./hamToggleReducer.js";
 import PostReducer from "./Post.js";
 import subscriptionReducer from "./subscription.js";
+
+
 export default combineReducers({
+
         authReducers,
         CurrentUserReducer,
         QuestionReducer,

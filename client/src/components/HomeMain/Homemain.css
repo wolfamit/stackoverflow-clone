@@ -15,7 +15,7 @@
     padding: 70px 10px 0px 10px;
     color: var(--text-color-1);
     background-color: var(--bg-color-3);
-    min-width: 330px;
+    min-width: 430px;
   }
   
   .main-bar-header {
@@ -33,8 +33,9 @@
   }
 
   .d-flex h1 {
-    font-weight: 400;
-    margin: 10px;
+    font-weight: 600;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 10px 0;
   }
   
   .main-bar-header .ask-btn {
@@ -116,14 +117,13 @@
     background-color: var(--bg-color-2);
     color: #39739d;
   }
+
   .display-time {
     font-size: 13px;
     font-weight: 600;
-
   }
 
   @media screen and (max-width: 740px) {
-    
     .display-question-container .display-votes-ans {
       padding: 10px;
     }

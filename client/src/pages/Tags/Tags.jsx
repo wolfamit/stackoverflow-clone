@@ -8,9 +8,10 @@ import "./Tags.css";
 const Tags = () => {
   const toggle = useSelector(state=>state.toggleReducer)
   return (
+    <>
     <div id={`${toggle.toggle? 'tags100': 'tags-below'}`}>
-    
-      <Leftsidebar />
+    <Leftsidebar />
+
       <div className="tags-container">
         <h1 className="tags-h1">Tags</h1>
         <p className="tags-p">
@@ -28,6 +29,7 @@ const Tags = () => {
         </div>
       </div>
     </div>
+    </>
 
   );
 };

@@ -8,6 +8,7 @@ import Aboutauth from './Aboutauth'
 import './Auth.css'
 import { signin, signup } from "../../actions/auth";
 import Spinner from '../../components/Spinner/Spinner';
+import Leftsidebar from '../../components/LeftsideBar/Leftsidebar';
 const Auth = () => {
 
   const [signedIn, setsignedIn] = useState(false);
@@ -64,7 +65,10 @@ const Auth = () => {
   }
 
   return (
+    <>
+    < Leftsidebar />
     <section className='auth-sec'>
+
       <ToastContainer />
       {!signedIn && <Aboutauth />}
       <div className='auth-container'>
@@ -143,7 +147,7 @@ const Auth = () => {
         }
       </div>
     </section>
-
+    </>
   )
 }
 

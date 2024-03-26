@@ -6,7 +6,7 @@
 .App {
   --bg-color-1: #ffffff;
   --bg-color-2: #ededd8e1;
-  --bg-color-3: grey;
+  --bg-color-3: rgb(201, 185, 185);
   --bg-color-4: white;
 
   --text-color-1: #0F0F0F;

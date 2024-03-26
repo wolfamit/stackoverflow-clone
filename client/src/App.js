@@ -1,6 +1,6 @@
 import { BrowserRouter as Router } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState   } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,39 +9,36 @@ import AllRoutes from './AllRoutes';
 import { fetchAllQuestions } from './actions/question.js';
 import { fetchAllUsers } from './actions/user.js';
 import { getAllPost } from './actions/posts.js';
-import './App.css';
 import Chatbot from './components/ChatBot/Chatbot.jsx';
-
+import './App.css';
 
 function App() {
+  const [isDaytime, setIsDaytime] = useState(localStorage.getItem('theme') === '1');
   const dispatch = useDispatch()
-  const [isDaytime, setIsDaytime] = useState(1);
 
-  navigator.geolocation.getCurrentPosition(position => {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    fetchWeather(latitude, longitude);
-  })
-  const fetchWeather = (latitude, longitude) => {
-    const apikey = process.env.REACT_APP_WEATHER_API_KEY;
-    const baseUrl = `http://api.weatherapi.com/v1/current.json?key=${apikey}&lat=${latitude}&long=${longitude}&q=India`
-    fetch(baseUrl)
-      .then(response => response.json())
-      .then(data => setIsDaytime(data.current.is_day))
-  }
-
+  const user = useSelector(state=>state.CurrentUserReducer)
+  
   useEffect(() => {
     dispatch(fetchAllQuestions())
     dispatch(fetchAllUsers())
     dispatch(getAllPost())
-  }, [dispatch]);
+  }, [dispatch ]);
+  
+  useEffect(() => {
+    localStorage.setItem('theme', isDaytime ? '1' : '0'); // Update theme in localStorage
+  }, [isDaytime]);
+  
+  const themeChange = () => {
+    setIsDaytime(prevIsDaytime => !prevIsDaytime);
+    localStorage.setItem('theme', isDaytime ? '0' : '1');
+  };
 
   return (
     <div className="App" data-theme={
       isDaytime ? "" : "dark"}
     >
       <Router>
-        <Navbar isDaytime={isDaytime} />
+        <Navbar isDaytime={isDaytime} themeChange={themeChange} />
         <ToastContainer
           position="top-right"
           autoClose={1000}
@@ -50,13 +47,14 @@ function App() {
           rtl={false}
           pauseOnFocusLoss
           theme="light"
-/>
+                                                                            />
         <AllRoutes />
       </Router>
-      <Chatbot isDaytime={isDaytime}/>
+     { user && <Chatbot user={user} isDaytime={isDaytime}/>}
     </div>
 
   );
 }
+
 
 export default App;

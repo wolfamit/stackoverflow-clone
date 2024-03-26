@@ -15,6 +15,7 @@ import Vippasses from './pages/subscription cards/Vippasses';
 // import ChecloutEle from './pages/CheckoutPage/ChecloutEle';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import PaymentSuccess from './pages/CheckoutPage/PaymentSuccess';
+import Homemain from './components/HomeMain/Homemain';
 
 const AllRoutes = () => {
   const user = useSelector((state) => state.CurrentUserReducer);
@@ -23,7 +24,7 @@ const AllRoutes = () => {
         <Route exact path='/' element={<Home/>}/>
         <Route exact path='/Auth' element={<Auth/>}/>
         <Route exact path='/public' element={<Publichome User={user}/>}/>
-        <Route exact path='/questions' element={<Displayquestions/>}/>
+        <Route exact path='/questions' element={<Homemain/>}/>
         <Route exact path='/Ask-questions' element={<Askquestion/>}/>
         <Route exact path='/Questions/:id' element={<Displayquestions />}/>
         <Route exact path='/tags' element={<Tags/>}/>

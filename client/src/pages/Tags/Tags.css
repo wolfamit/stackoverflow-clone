@@ -1,69 +1,71 @@
-#tags-below{
-min-height: 100vh;
-width: 100%;
-background-color: var(--bg-color-1);
-padding-top: 110px;
+#tags-below {
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--bg-color-1);
+  padding-top: 110px;
 }
 
-#tags100{
+#tags100 {
   margin-left: 0;
   padding-bottom: 0;
   padding-top: 110px;
   width: 100%;
-  background-color: var(--bg-color-1);
+  background-color: var(--bg-color-2);
 }
 
-.tags-container{
+.tags-container {
   max-width: 800px;
   margin: 0 auto;
 }
 
-.tags-container h1 , .tags-container h2 , .tags-container p , .tags-container h5{
+.tags-container h1,
+.tags-container h2,
+.tags-container p,
+.tags-container h5 {
   color: var(--text-color-1);
 }
 
-@media screen and (max-width: 768px){
-  .tags-container{
+@media screen and (max-width: 768px) {
+  .tags-container {
     padding: 30px;
   }
 }
 
 .tags-h1 {
-    margin-top: 50px;
-    font-weight: 400;
-  }
-  
-  .tags-p {
-    margin: 0px;
-    font-size: 15px;
-  }
-  
-  .tags-list-container {
-    padding: 30px 0px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
-  }
-  
-  .tag {
-    padding: 10px;
-    border: solid 1px #d2d2d2;
-    border-radius: 2px;
-  }
-  
-  .tag h5 {
-    display: inline-block;
-    margin: 10px 0px;
-    padding: 5px 5px;
-    /* background-color: var(--text-color-1); */
-    
-  }
+  font-weight: 400;
+}
 
-  .tag p {
-    font-size: 14px;
-    line-height: 17px;
-  }
-  
-  .tag p, .tag h5 {
-    color: var(--text-color-1);
-  }
+.tags-p {
+  margin: 0px;
+  font-size: 15px;
+}
+
+.tags-list-container {
+  padding: 30px 0px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.tag {
+  padding: 10px;
+  border: solid 1px #d2d2d2;
+  border-radius: 2px;
+}
+
+.tag h5 {
+  display: inline-block;
+  margin: 10px 0px;
+  padding: 5px 5px;
+  /* background-color: var(--text-color-1); */
+}
+
+.tag p {
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.tag p,
+.tag h5 {
+  color: var(--text-color-1);
+}

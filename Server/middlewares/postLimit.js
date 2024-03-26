@@ -20,7 +20,7 @@ const postLimit = async (req, res, next) => {
         });
 
         if (user.postCount >= postingLimit) {
-            return res.status(403).json({ error: 'You have reached your daily posting limit.' });
+            throw new Error('You have reached your daily posting limit.');
         }
 
         // Reset post count for non-gold subscribers if it's a new day

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import  {filterProfanity} from '../utility/profanityFilter.js';
 import { curseWords } from "../utility/profanityFilter.js";
+
 const postSchema = mongoose.Schema(
   {
     userId: {

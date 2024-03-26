@@ -1,25 +1,48 @@
 .container {
   margin-top: 50px;
   padding:50px 0;
-  background: linear-gradient(45deg, rgb(165, 216, 226) 0%, rgba(11,3,45,1) 100%);
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  background: linear-gradient(90deg, var(--bg-color-2) 0, rgb(92, 70, 187) 74%);
+  width: 100%;
+  
 }
 
 .wrapper {
   margin: 10px;
-  max-width: val(40% - 9rem);
+  max-width: 400px;
   border-radius: 25px;
   display: block;
   box-shadow: 0 4px 8px 0 rgba(163, 82, 82, 0.7), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 50px 20px;
   position: relative;
   overflow: hidden;
+ 
 }
+@media screen and (min-width: 786px) {
+  .wrapper {
+    animation: slideIn 1s ease-in-out forwards ;
+  }
+  @keyframes slideIn {
+    0% {
+      transform: translateX(10%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+}
+
 
 .wrapper h1,
 .wrapper p
  {
   padding: 10px 10px;
+}
+.wrapper h1{
+  color: rgba(0, 0, 0, 0.631);
+}
+.wrapper p{
+  color: rgb(237, 198, 198);
 }
 
 .wrapper p{

@@ -11,19 +11,18 @@ const Askquestion = () => {
   const [questionTitle, setTitle] = useState('');
   const [questionBody, setQuestionBody] = useState('');
   const [questionTags, setTags] = useState([]);
+  // const [errorMessage, setErrorMessage] = useState(false);
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const User = useSelector((state) => (state.CurrentUserReducer))
-  // const toggle = useSelector(state=> state.toggleReducer)
-  const toastHandle = (message ,error) => {
-    error? toast.error(message): toast.success(message);
-  }
+ 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userPosted = User ? User.data.result.name : null;
-    const userId = User ? User.data.result._id : null;
+    const userId = User ? User?.data?.result?._id : null;
     const questionData = {
       questionTitle,
       questionBody,
@@ -32,17 +31,15 @@ const Askquestion = () => {
       userId
   };
   try {
- 
     await dispatch(askQuestion(questionData, navigate));
-
-    toastHandle('Successfully submitted');
+    toast.success('Successfully submitted');
     // setTitle('');
     // setQuestionBody('');
     // setTags([]);
   } catch (error) {
-    console.log(error);
     // Show an error toast if there's an error during submission
-    toastHandle(error.response.data.error || 'An error occurred' , error);
+    
+    toast.error('You have reached your daily posting limit.');
   }
 };
   

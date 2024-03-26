@@ -1,16 +1,18 @@
-import React, { useState, useEffect,useRef  } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { auth } from '../../firebase.config';
+import { useDispatch } from 'react-redux';
+import PhoneInput from 'react-phone-number-input/input'
 import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential } from "firebase/auth";
 import { toast } from 'react-toastify';
-import { SiChatbot } from 'react-icons/si';
+import { SiChatbot, SiEightsleep } from 'react-icons/si';
 import { SiOpenai } from "react-icons/si";
-import Avatar from '../Avatar/Avatar'
 import { AiFillCloseSquare } from "react-icons/ai";
-import { OtpVerification } from '../Otp Verification/OtpVerification';
-import Spinner from '../Spinner/Spinner'
+
+import Avatar from '../Avatar/Avatar'
+import { updatePhoneNumber } from '../../actions/user'
 import './chatbot.css';
 
-const Chatbot = ({ isDaytime }) => {
+const Chatbot = ({ isDaytime, user }) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([{ text: "Hii there ✋🏼! ask me anything related to programming 🖥️.", sender: 'bot' }]); // State to store chat messages
@@ -18,15 +20,16 @@ const Chatbot = ({ isDaytime }) => {
 
   const [showOtpModal, setShowOtpModal] = useState(false);
 
-  const [phoneNumber, setPhoneNumber] = useState(true);
+  const [phoneNumber, setPhoneNumber] = useState(localStorage.getItem('phone'));
   const [loading, setLoading] = useState(false);
   const [sendingOtp, setSendingOtp] = useState(false); // State to track OTP sending process
   const [resendTimer, setResendTimer] = useState(0); // State to track resend timer
   const [verificationCode, setVerificationCode] = useState('');
   const [verificationId, setVerificationId] = useState(null);
-
+  // const [recaptchaVerifier, setRecaptchaVerifier] = useState(null);
 
   const messagesEndRef = useRef(null);
+  const dispatch = useDispatch()
 
   // Effect to start resend timer
   useEffect(() => {
@@ -35,10 +38,12 @@ const Chatbot = ({ isDaytime }) => {
       intervalId = setInterval(() => {
         setResendTimer(prevTimer => prevTimer - 1);
       }, 1000);
+    } else {
+      setSendingOtp(false);
     }
     scrollToBottom();
     return () => clearInterval(intervalId);
-  }, [resendTimer , messages]);
+  }, [resendTimer, messages]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -64,7 +69,7 @@ const Chatbot = ({ isDaytime }) => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${REACT_APP_OPENAI_SECRET_KEY}`
+            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_SECRET_KEY}`
           },
           body: JSON.stringify({
             prompt: inputValue,
@@ -90,23 +95,29 @@ const Chatbot = ({ isDaytime }) => {
     }
   };
 
-  function onCaptchVerify() {
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(auth,
-        "recaptcha-container");}
-    }
+
+  const onCaptchVerify = () => {
+      
+        window.recaptchaVerifier = new RecaptchaVerifier(auth,
+          "recaptcha-container" ,{
+            size: 'invisible'
+          })
+    
+  };
+
 
   const handleSendOtp = async () => {
     setSendingOtp(true);
     await onCaptchVerify();
+
     // Start timer for resend OTP (e.g., 60 seconds)
     setResendTimer(60);
     try {
       const verifier = window.recaptchaVerifier;
+      //  const verifier = recaptchaVerifier;
+
       const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, verifier);
       window.confirmationResult = confirmationResult;
-      console.log(window.confirmationResult)
-      console.log(confirmationResult)
 
       setVerificationId(confirmationResult.verificationId);
     } catch (error) {
@@ -118,8 +129,9 @@ const Chatbot = ({ isDaytime }) => {
     setLoading(true);
     try {
       const credential = PhoneAuthProvider.credential(verificationId, verificationCode);
-      await signInWithCredential(auth, credential);
-      // OTP verification succeeded
+      await signInWithCredential(auth, credential);// OTP verification succeeded
+      // storing the phoneNumber in db
+      await dispatch(updatePhoneNumber(user?.data?.result._id, phoneNumber))
       setLoading(false);
       toast.success('OTP Verified');
       setShowOtpModal(false); // Close the OTP verification modal
@@ -182,46 +194,49 @@ const Chatbot = ({ isDaytime }) => {
 
       {/* OTP Verification Modal */}
       {showOtpModal && (
-        <div className='otp-modal'>
-          <div id="recaptcha-container"></div>
-          <div className='otp-modal-content'>
-            <span className="close" onClick={() => setShowOtpModal(false)}>&times;</span>
-            <div className='otp-form-container'>
-              <h2>Phone Number Verification</h2>
+       
+          <div className='otp-modal'>
+            <div id="recaptcha-container"></div>
 
+            <div className='otp-modal-content'>
+              <span className="close-button" onClick={() => setShowOtpModal(false)}>&times;</span>
+              <div className='otp-form-container'>
+                <h2>Phone Number Verification</h2>
 
-              <input
-                className='otp-input'
-                type="tel"
-                required
-                placeholder="+9182********"
-                value={phoneNumber}
-                disabled={sendingOtp}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-              />
-              <button className='otp-button'
-                onClick={handleSendOtp}
-                disabled={sendingOtp} // Disable input field during OTP sendind
-              >{sendingOtp ? 'Sending OTP...' : 'Sent OTP'}</button>
-              <p style={{ margin: '3px 0' }}>
-                Resend OTP in {resendTimer} seconds
-              </p>
-              <input
-                className='otp-input'
-                type="text"
-                placeholder="Enter OTP"
-                value={verificationCode}
-                onChange={(e) => setVerificationCode(e.target.value)}
-              />
-              <button
-                onClick={handleVerifyOtp}
-                disabled={loading}
-              >
-                {loading ? <Spinner size={5} /> : 'Verify OTP'}
-              </button>
+                <PhoneInput
+                  className='otp-input'
+                  placeholder="Enter phone number"
+                  country="IN"
+                  value={phoneNumber}
+                  disabled={sendingOtp}
+                  onChange={(value) => setPhoneNumber(value)}
+                />
+                <button
+                  className='otp-button'
+                  onClick={handleSendOtp}
+                  disabled={sendingOtp} // Disable input field during OTP sendind
+                >{sendingOtp ? 'Sending OTP...' : 'Sent OTP'}</button>
+                <p style={{ margin: '3px 0' }}>
+                  Resend OTP in {resendTimer} seconds
+                </p>
+                <input
+                  className='otp-input'
+                  type="text"
+                  placeholder="Enter OTP"
+                  value={verificationCode}
+                  onChange={(e) => setVerificationCode(e.target.value)}
+                />
+                <button
+                  className='otp-button'
+                  onClick={handleVerifyOtp}
+                  disabled={loading}
+                >
+                  {loading ? 'verifying Otp' : 'Verify OTP'}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        
       )}
     </div>
   );

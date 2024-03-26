@@ -12,6 +12,7 @@ import Avatar from '../../components/Avatar/Avatar.jsx';
 import { Likepost, disLikepost, postComments, deletePost, addFriend, removeFriend } from '../../actions/posts.js'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import VideoPlayer from '../../components/CreatePost/VedioPlayer.jsx';
 import './public.css'
 
 const Post = ({ postdetails, toggleComments, visibleComments }) => {
@@ -97,16 +98,17 @@ const Post = ({ postdetails, toggleComments, visibleComments }) => {
         dispatch(removeFriend(friendId, userId))
         toast.success('Added in your friend list')
     }
-
     return (
-
         <section className='public-middle-section'>
             <div className="post">
                 {/**Post HEADER WITH IMAGE LOCATION ETC */}
                 <div className="post-header">
                     <div>
                         <Link to={`/Users/${postdetails.userId}`}>
-                            <Avatar py='30px' px='30px' borderRadius='50%' imageSrc={`http://localhost:5500/assets/${postdetails?.userPicturePath}`} />
+
+
+                            <Avatar py='30px' px='30px' borderRadius='50%' imageSrc={`${process.env.REACT_APP_BASE_URL}/assets/${postdetails?.userPicturePath}`} />
+
                         </Link>
                     </div>
                     <div className="post-header-details">
@@ -130,13 +132,20 @@ const Post = ({ postdetails, toggleComments, visibleComments }) => {
                 {/*CONTENT WITH IMAGE AND DESCRIPTION */}
                 <div className="post-content">
                     <p>{postdetails?.description}</p>
-                    {postdetails && postdetails.picturePath && postdetails.picturePath.length > 10 && (
+                    {/* Condition 1: If picturePath length is greater than 10 and not a video link */}
+                    {postdetails.picturePath && postdetails.picturePath.length > 10 && !postdetails.picturePath.endsWith('.mp4') && (
                         <img src={postdetails.picturePath} alt="post-img" />
                     )}
-                    {postdetails && postdetails.picturePath && postdetails.picturePath.length <= 10 && (
-                        <img src={`http://localhost:5500/assets/${postdetails.picturePath}`} alt="post-img" />
+
+                    {/* Condition 2: If picturePath length is less than 10 */}
+                    {postdetails.picturePath && postdetails.picturePath.length <= 10 && (
+                        <img src={`${process.env.REACT_APP_BASE_URL}/assets/${postdetails.picturePath}`} alt="post-img" />
                     )}
 
+                    {/* Condition 3: If picturePath is a video link */}
+                    {postdetails.picturePath && postdetails.picturePath.endsWith('.mp4') && (
+                        <VideoPlayer src={postdetails.picturePath} width={440} height={300} />
+                    )}
 
                 </div>
 

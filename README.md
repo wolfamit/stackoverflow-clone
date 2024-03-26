@@ -32,12 +32,15 @@ Welcome to our StackOverflow Clone project! This project aims to recreate the co
    git clone https://github.com/yourusername/stackoverflow-clone.git
 
 2. Navigate to the project directory:
+   ```bash
    cd stackoverflow-clone
 
 3. Navigate to the client directory:
+   ```bash
     npm install
 
 4. Navigate to the server directory:
+   ```bash
     npm install
 
 5. Create a .env file in the client directory and add your Firebase configuration and stripe configuration:
@@ -58,7 +61,6 @@ We welcome contributions from the community! If you'd like to contribute to the 
 
 # License
 
-
 # Contact
 
 If you have any questions, feedback, or suggestions, please feel free to contact us at amitabhambastha52@gmail.com
@@ -74,9 +76,10 @@ tasks done:-
 6. users/:id page 13/2
 7. users page 13/2
 8. public interface 14/2
+9. I want to save the theme in the local storage for user to see the theme same again later and make a button in navbar for changing the theme
 
-task pending:-
-1. I want to save the theme in the local storage for user to see the theme same again later and make a button in navbar for changing the theme
+task pending:
+1. none
 
 # Create a public space: Add one more page and allow users to share images, videos, text, and other things. Add a filter that detects abusive or hateful words and remove the content.
 
@@ -92,13 +95,11 @@ tasks done:-
 8. maybe a {location,impression,viewed profile} the frontend of current users details 16/2
 5. filter abusive work 17/2
 6. follow Users and add them to your friends List
+7. make UI for video posting
 
-pending:-
-1. manage deleting a comment
-2. make UI for who commented 
-3. Edit a comment 
-4. make UI for video posting
+pending:
 
+1. none
 
 # Integrate a chatbot feature where users can ask their questions directly to the chatbot. It should answer all programing related questions
 
@@ -109,11 +110,11 @@ tasks done:-
 1. Work on implementing a chatbot feature.
 2. Utilize the OpenAI API to fetch responses to user questions.
 3. Design an impressive UI for the chatbot feature.
-1. Configure Firebase for OTP SMS services.
+4. Configure Firebase for OTP SMS services.
+5. Store the number in database.
 
 task pending:-
-1. Store the number in database.
-2. OpenAI does not work , so implement chatbot using Gemini
+1. none
 
 # Create subscriptions using a payment gateway (like stripe, razorpay) to post questions in stackoverflow.
 

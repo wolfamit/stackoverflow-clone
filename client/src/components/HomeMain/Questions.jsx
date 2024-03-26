@@ -1,7 +1,8 @@
 import React from 'react'
+import Avatar from '../Avatar/Avatar'
 import { Link } from 'react-router-dom'
-import './Homemain.css'
 import moment from 'moment'
+import './Homemain.css'
 
 
 const Questions = ({ question }) => {
@@ -10,9 +11,9 @@ const Questions = ({ question }) => {
       <div className='display-votes-ans'>
         <div>
           {question.upVotes.length > 0 ? (
-            <p>{question.upVotes.length}<p> votes</p></p> 
+            <p>{question.upVotes.length}<p> votes</p></p>
           ) : question.downVotes.length > 0 ? (
-            <p>{question.downVotes.length} <p> votes</p></p> 
+            <p>{question.downVotes.length} <p> votes</p></p>
           ) : (
             <p>No votes</p>
           )}
@@ -32,8 +33,18 @@ const Questions = ({ question }) => {
           </div>
         </div>
       </div>
-      <div className='display-time'>asked on {moment(question.askedOn).fromNow()} by {question.userPosted}</div>
+      <div className='display-time'>
+        asked on {moment(question.askedOn).format('YY/MM/DD , h:mm a')} <br />
+        <span style={{ display: 'flex', alignItems: 'center' }}>
+          <Avatar py='9px' px='9px' />
+          <Link style={{ textDecoration: 'none', color: 'var(--text-color-2)', cursor: 'pointer' }} to={`/Users/${question.UserId}`}>
+            {question.userPosted}
+          </Link>
+        </span>
+      </div>
     </div>
+
+
   )
 }
 

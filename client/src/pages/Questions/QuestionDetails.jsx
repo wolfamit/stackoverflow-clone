@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import moment from 'moment'
-import copy from "copy-to-clipboard";
 
 import upvote from '../../assets/sort-up.svg'
 import downvote from '../../assets/sort-down.svg'
@@ -10,10 +9,11 @@ import Avatar from '../../components/Avatar/Avatar'
 import Displayanswer from './Displayanswer'
 import { deleteQuestion, postAnswer, downvoteQuestion, upvoteQuestion } from '../../actions/question'
 import './QuestionDetails.css'
+import { toast } from "react-toastify";
 
 const QuestionDetails = () => {
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  // const [error, setError] = useState('')
 
   const { id } = useParams();
 
@@ -24,10 +24,6 @@ const QuestionDetails = () => {
   const dispatch = useDispatch();
 
   const [Answer, setAnswer] = useState("");
-
-
-  const location = useLocation();
-  const url = "http://localhost:3000"
 
 
   const handlePostAns = (e, answerLength) => {
@@ -77,10 +73,6 @@ const QuestionDetails = () => {
     dispatch(downvoteQuestion(id, 'downvote', User.data.result._id));
   }
 
-  const handleShare = () => {
-    copy(url + location.pathname)
-    alert("Copied to clipboard successfully");
-  }
 
   return (
     <div id="below-ques-details-page">
@@ -124,9 +116,6 @@ const QuestionDetails = () => {
                           </div>
                           <div className="question-actions-user">
                             <div>
-                              <button type="button" onClick={handleShare}>
-                                Share
-                              </button>
                               {
                                 User?.data?.result?._id === question?.UserId && (
                                     loading ? (
@@ -166,7 +155,7 @@ const QuestionDetails = () => {
                         <Displayanswer
                           key={question._id}
                           question={question}
-                          handleShare={handleShare}
+                  
                         />
                       </section>
                     )}
@@ -178,8 +167,8 @@ const QuestionDetails = () => {
                         }}
                       >
                         <textarea
-                          name=""
-                          id=""
+                          name="answer"
+                          placeholder="Write your answer here..."
                           cols="30"
                           rows="10"
                           value={Answer}

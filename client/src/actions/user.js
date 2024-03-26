@@ -9,11 +9,20 @@ export const fetchAllUsers = () => async (dispatch) => {
     }
   };
 
-  export const updateProfile = (id, updateData) => async (dispatch) => {
+export const updateProfile = (id, formData) => async (dispatch) => {
     try {
-      const { data } = await api.updateProfile(id, updateData);
+      const { data } = await api.updateProfile(id, formData);
       dispatch({ type: "UPDATE_CURRENT_USER", payload: data });
     } catch (error) {
       console.log("error on Update Profile" , error.message);
+    }
+  };
+
+export const updatePhoneNumber = (id, phoneNumber) => async (dispatch) => {
+    try {
+      const { data } = await api.addPhoneNumber(id, phoneNumber); 
+      dispatch({ type: "FETCH_PHONE_NO", payload: data });
+    } catch (error) {
+      console.log("error on phone number adding" , error.message);
     }
   };

@@ -40,13 +40,14 @@ const Publichome = ({ User }) => {
         formData.append('file', file);
         formData.append('description', description);
         try {
-            await dispatch(postAction(formData , User?.data?.result?._id));
+            await dispatch(postAction(formData, User?.data?.result?._id));
             setFile('');
             setDescription('');
             handleCloseModal();
             toast.success('posted successfully')
         } catch (error) {
             console.error('Error uploading post:', error);
+            toast.error('error in posting')
             // Handle error
         } finally {
             setIsUploading(false); // Set upload status to false
@@ -70,21 +71,17 @@ const Publichome = ({ User }) => {
     return (
         <>
             <Leftsidebar />
-
             {
-                isModalOpen && !isUploading && (
-                    <Model User={User} setDescription={setDescription} setFile={setFile} onCloseModal={handleCloseModal} onSubmit={submitPost} user={User} />
-
-                )
+                isModalOpen && !isUploading &&
+                (<Model User={User} setDescription={setDescription} setFile={setFile} onCloseModal={handleCloseModal} onSubmit={submitPost} user={User} />)
             }
             <div className='below-topnav-public'>
                 <CreatePost User={User} onOpenModal={handleOpenModal} />
-                {isUploading && <Spinner /> }
+                {isUploading && <Spinner />}
                 {
                     posts?.data?.length === 0 || posts?.data === null ? (<h1 style={{ textAlign: 'center' }}>Loading...</h1>) :
-                    posts?.data.map(posts =>
-                            <Post key={posts._id} postdetails={posts} toggleComments={toggleComments} visibleComments={visibleComments || []} />
-                        )
+                        posts?.data.map(posts =>
+                            <Post key={posts._id} postdetails={posts} toggleComments={toggleComments} visibleComments={visibleComments || []} />)
                 }
             </div>
         </>

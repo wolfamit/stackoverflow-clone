@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import QuestionsList from './QuestionsList'
-
-import './Homemain.css'
 import Cards from '../Subscription/Cards'
+import Leftsidebar from '../LeftsideBar/Leftsidebar'
+import './Homemain.css'
 
 
 const Homemain = () => {
@@ -72,8 +72,10 @@ const Homemain = () => {
   }
 
   return (
+    <>
+    < Leftsidebar />
     <div id={`${toggle.toggle? 'w100': 'below-topnav'}`}>
-      <Cards />
+      {/* <Cards /> */}
       <div className='main-bar'>
         <div className='main-bar-header '>
           <div className='d-flex'> {
@@ -86,7 +88,7 @@ const Homemain = () => {
               questionsList.data === null ?
                 <h1>Loading...</h1> :
                 <>
-                  <div style={{paddingLeft: "15px"}}>
+                  <div style={{padding: "15px" , borderRadius: '20px' , fontSize: '20px', fontWeight: '500' ,backgroundColor : 'var(--bg-color-2)'}}>
                     {questionsList.data.length} questions posted
                   </div>
                   <QuestionsList questionsList={questionsList.data} />
@@ -95,7 +97,9 @@ const Homemain = () => {
           </div>
         </div>
       </div>
+      
     </div>
+    </>
   )
 }
 

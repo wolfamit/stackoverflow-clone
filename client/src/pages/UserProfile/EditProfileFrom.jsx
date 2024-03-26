@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateProfile } from "../../actions/user";
 
 
@@ -11,6 +11,7 @@ const EditProfileForm = ({ currentUser, setSwitch }) => {
   const [occupation, setOccupation] = useState('');
   const [profilePicture, setProfilePicture] = useState(null);
   const [country, setCountry] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -25,44 +26,47 @@ const EditProfileForm = ({ currentUser, setSwitch }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Construct the profile update data object
-    // Construct the profile update data object
-    const profileUpdateData = {};
-
-    // Add the fields to the object if they have changed
+    setLoading(true);
+    const formData = new FormData();
+    // Add the fields to the form data if they have changed
     if (name !== currentUser?.name) {
-      profileUpdateData.name = name;
+      formData.append('name', name);
     }
     if (about !== currentUser?.about) {
-      profileUpdateData.about = about;
+      formData.append('about', about);
     }
     if (!arraysEqual(tags, currentUser?.tags)) {
-      profileUpdateData.tags = tags;
+      formData.append('tags', tags);
     }
     if (occupation !== currentUser?.occupation) {
-      profileUpdateData.occupation = occupation;
+      formData.append('occupation', occupation);
     }
     if (country !== currentUser?.location) {
-      profileUpdateData.country = country;
+      formData.append('country', country);
     }
     if (profilePicture) {
-      profileUpdateData.picturePath = profilePicture.name;
+      formData.append('file', profilePicture);
     }
 
-    // Dispatch the action with the profile update data
-    dispatch(updateProfile(currentUser?._id, profileUpdateData));
+    // Dispatch the action with the form data
+    dispatch(updateProfile(currentUser?._id, formData));
 
     // Reset the profile picture state
     setProfilePicture(null);
-
+    setLoading(false);
     // Close the form
     setSwitch(false);
   };
 
 
   return (
+
     <div>
+      {
+        loading ? (<h1 style={{
+          textAlign: 'center'
+        }}>Uploading</h1>) : null
+      }
       <h1 className="edit-profile-title">Edit Your Profile</h1>
       <h2 className="edit-profile-title-2">Public information</h2>
       <form className="edit-profile-form" onSubmit={handleSubmit}>
@@ -91,7 +95,14 @@ const EditProfileForm = ({ currentUser, setSwitch }) => {
             type="text"
             id="tags"
             // value={currentUser.tags}
-            onChange={(e) => setTags(e.target.value.split(" "))}
+            onChange={(e) => {
+              const tagsArray = e.target.value
+                  .split(",")
+                  .map(tag => tag.trim()) // Trim whitespace from each tag
+                  .filter(tag => tag !== ""); // Filter out empty tags
+      
+              setTags(tagsArray)
+            }}
           />
         </label>
         <br />
@@ -141,6 +152,7 @@ const EditProfileForm = ({ currentUser, setSwitch }) => {
         <button
           type="button"
           className="user-cancel-btn"
+          disabled={loading}
           onClick={() => setSwitch(false)}
         >
           Cancel
