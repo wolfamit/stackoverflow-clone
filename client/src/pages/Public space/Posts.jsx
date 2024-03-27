@@ -109,7 +109,7 @@ const Post = ({ postdetails, toggleComments, visibleComments }) => {
                                 py='30px'
                                 px='30px'
                                 borderRadius='50%'
-                                imageSrc={postdetails.userPicturePath && postdetails.picturePath?.length && postdetails.picturePath.length <= 10 ? `${process.env.REACT_APP_BASE_URL}/assets/defaultPicture.jpg` : postdetails?.userPicturePath}
+                                imageSrc={postdetails?.userPicturePath}
                             />
                         </Link>
                     </div>
