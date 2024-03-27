@@ -22,7 +22,7 @@ const Questions = ({ question }) => {
         <div><p>{question.noOfAnswers}</p><p>answers</p></div>
       </div>
       <div className='display-question-details'>
-        <Link to={`./Questions/${question._id}`} className='question-title-link'>{question.questionTitle}</Link>
+        <Link to={`/Questions/${question._id}`} className='question-title-link'>{question.questionTitle}</Link>
         <div className='dispaly-tags-time'>
           <div className='display-tags'>
             {
