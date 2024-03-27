@@ -105,7 +105,12 @@ const Post = ({ postdetails, toggleComments, visibleComments }) => {
                 <div className="post-header">
                     <div>
                         <Link to={`/Users/${postdetails.userId}`}>
-                            <Avatar py='30px' px='30px' borderRadius='50%' imageSrc={postdetails.userPicturePath && postdetails.picturePath.length <= 10 ? `${process.env.REACT_APP_BASE_URL}/assets/${postdetails?.userPicturePath}` : postdetails?.userPicturePath} />
+                            <Avatar
+                                py='30px'
+                                px='30px'
+                                borderRadius='50%'
+                                imageSrc={postdetails.userPicturePath && postdetails.picturePath?.length && postdetails.picturePath.length <= 10 ? `${process.env.REACT_APP_BASE_URL}/assets/defaultPicture.jpg}` : postdetails?.userPicturePath}
+                            />
                         </Link>
                     </div>
                     <div className="post-header-details">
