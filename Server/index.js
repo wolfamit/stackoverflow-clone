@@ -50,24 +50,24 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 // })
 
 /* POST ROUTES FOR PUBLIC INTERACTION*/
-app.post("/public/post/:id" , auth , singleUpload , createPost)
+app.post("/public/post/:id" , auth , singleUpload , createPost);
 
  // AUTHENTICATION
-app.use('/user' , userRouter)
+app.use('/user' , userRouter);
 
 /* ROUTES FOR Q&A */
-app.use('/question' , askQuestionRouter)
-app.use('/answer' , answerRoute)
+app.use('/question' , askQuestionRouter);
+app.use('/answer' , answerRoute);
 app.use("/public", postRoutes);
 
 /* ROUTES FOR subscribing */
-app.use('/api' , createSubscription)
+app.use('/api' , createSubscription);
 
 /* ROUTES FOR managing response after payment */
-app.use('/stripe' , webhook)
+app.use('/stripe' , webhook);
 
-const PORT = process.env.PORT
-const MONOGO_DB_URL = process.env.MONOGO_DB_URL
+const PORT = process.env.PORT || 80;
+const MONOGO_DB_URL = process.env.MONOGO_DB_URL;
 
 /* DATABASE CONNECTION */
 mongoose.connect(MONOGO_DB_URL)
