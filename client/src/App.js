@@ -41,7 +41,7 @@ function App() {
 
 const fetchWeather = (latitude, longitude) => {
     const apikey = process.env.REACT_APP_WEATHER_API_KEY;
-    const baseUrl = `http://api.weatherapi.com/v1/current.json?key=${apikey}&lat=${latitude}&long=${longitude}&q=India`
+    const baseUrl = `https://api.weatherapi.com/v1/current.json?key=${apikey}&lat=${latitude}&long=${longitude}&q=India`
     fetch(baseUrl)
         .then(response => response.json())
         .then(data => setIsDaytime(data?.current.is_day));
