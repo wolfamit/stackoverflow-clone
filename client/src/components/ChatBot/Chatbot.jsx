@@ -33,7 +33,8 @@ const Chatbot = ({ isDaytime, user }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   
-  const emailVerified = useSelector(state=>state.emailVerifiedReducer)
+  const emailVerified = useSelector(state => state.emailVerifiedReducer)
+  
   // Function to handle sending a message
   const sendMessage = async () => {
     if (!emailVerified) {
@@ -87,7 +88,7 @@ const Chatbot = ({ isDaytime, user }) => {
     }
     setVerifyingEmail(true);
     try {
-      dispatch(sendEmailOtp(user.data.result._id, email));
+      await dispatch(sendEmailOtp(user.data.result._id, email));
     } catch (error) {
       console.error('Error sending OTP:', error);
     } finally {
@@ -179,11 +180,13 @@ const Chatbot = ({ isDaytime, user }) => {
                 placeholder='john@gmail.com'
                 autoComplete='email'
                 value={email}
+                disabled={verifyingEmail}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <button
                 className='otp-button'
                 onClick={handleSendOtp}
+                disabled={verifyingEmail}
               >{verifyingEmail ? 'Sending OTP...' : 'Sent OTP'}</button>
              <br />
               <input
@@ -191,12 +194,14 @@ const Chatbot = ({ isDaytime, user }) => {
                 type="number"
                 placeholder="Enter OTP"
                 value={otp}
+                disabled={loading}
                 onChange={(e) => setOtp(e.target.value)}
               />
               <br />
               <button
                 className='otp-button'
                 onClick={handleVerifyOtp}
+                disabled={loading}
               >
                 {loading ? 'verifying Otp' : 'Verify OTP'}
               </button>

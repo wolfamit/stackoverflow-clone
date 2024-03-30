@@ -11,12 +11,13 @@ import { fetchAllUsers } from './actions/user.js';
 import { getAllPost } from './actions/posts.js';
 import Chatbot from './components/ChatBot/Chatbot.jsx';
 import './App.css';
+import Leftsidebar from './components/LeftsideBar/Leftsidebar.jsx';
 
 function App() {
   const [isDaytime, setIsDaytime] = useState(0);
   const dispatch = useDispatch()
-
-  const user = useSelector(state=>state.CurrentUserReducer)
+ 
+  const user = useSelector(state =>state.CurrentUserReducer)
   
   useEffect(() => {
     dispatch(fetchAllQuestions())
@@ -24,14 +25,6 @@ function App() {
     dispatch(getAllPost())
   }, [dispatch ]);
   
-  // useEffect(() => {
-  //   localStorage.setItem('theme', isDaytime ? '1' : '0'); // Update theme in localStorage
-  // }, [isDaytime]);
-  
-  // const themeChange = () => {
-  //   setIsDaytime(prevIsDaytime => !prevIsDaytime);
-  //   localStorage.setItem('theme', isDaytime ? '0' : '1');
-  // };
 
   navigator.geolocation.getCurrentPosition(position => {
     const latitude = position.coords.latitude;
@@ -53,6 +46,7 @@ const fetchWeather = (latitude, longitude) => {
     >
       <Router>
         <Navbar isDaytime={isDaytime} />
+        < Leftsidebar />
         <ToastContainer
           position="top-right"
           autoClose={1000}

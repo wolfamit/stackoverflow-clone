@@ -122,7 +122,7 @@ export const sendOTPByEmail = async (req, res) => {
         };
         await transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                return res.status(404).json({success: false,  message: "Cannot send email" });
+                return res.status(404).json({success: false,  message: "Cannot send email"  , error: error.message});
             }
             return res.status(200).json({ success: true });
         });

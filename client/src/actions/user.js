@@ -22,7 +22,7 @@ export const updateProfile = (id, formData) => async (dispatch) => {
 export const sendEmailOtp = (id, email) => async (dispatch) => {
     try {
       const {data} = await api.addEmailOtp(id, email); 
-      const { success  } = data;
+      const { success } = data;
       if(success) {
         toast.success("OTP sent to email successfully");
       }

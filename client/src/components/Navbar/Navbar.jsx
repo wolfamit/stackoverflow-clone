@@ -40,7 +40,7 @@ const Navbar = ({ isDaytime }) => {
         toast.success('Logged out successfully');
     };
 
-    useEffect(() => {
+    useEffect(async() => {
         const token = user?.data?.token;  // Retrieve the token from the user data, if available
         if (token) {
             const decodedToken = jwtDecode(token);
@@ -49,8 +49,8 @@ const Navbar = ({ isDaytime }) => {
             console.log('Current time:', new Date(currentTime));
             if (decodedToken.exp * 1000 <= currentTime) {
                 console.log('Token expired. Logging out.');
-                dispatch({ type: "LOGOUT" });
-                dispatch(setCurrentUser(null));
+                await dispatch({ type: "LOGOUT" });
+                await dispatch(setCurrentUser(null));
                 navigate('/Auth');
                 toast.error('Login again');
             }

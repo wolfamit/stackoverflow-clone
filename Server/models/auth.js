@@ -16,8 +16,7 @@ const userSchema = mongoose.Schema({
         },
         picturePath: {
                 type: String,
-                default: 'defaultpicture.jpg'
-
+                default: 'defaultPicture.jpg'
         },
         phoneNumber: {
                 type: Number

@@ -46,13 +46,45 @@ export const stripeSubscription = async (req, res) => {
     }
 };
 
+const endpointSecret = "whsec_738ecf34783f49076712609f2d9144991a54b6af177c4cb79f7537476e691324";
+
 export const paymentSuccess = async (req, res) => {
-    const { sessionId } = req.query;
+    let event = req.body;
+    
+    const sig = req.headers['stripe-signature'];
+    try {
+        event = stripePackage.webhooks.constructEvent(
+            req.body, 
+            sig, 
+            endpointSecret
+        );
+      } catch (err) {
+        res.status(400).send(`Webhook Error: ${err.message}`);
+        return;
+      }
+
+      switch (event.type) {
+        case 'checkout.session.completed':
+          const checkoutSessionCompleted = event.data.object;
+          // Then define and call a function to handle the event checkout.session.completed
+          break;
+        case 'customer.subscription.created':
+          const customerSubscriptionCreated = event.data.object;
+          // Then define and call a function to handle the event customer.subscription.created
+          const id = customerSubscriptionCreated.id;
+          console.log(id);
+          console.log(customerSubscriptionCreated);
+          break;
+        case 'invoice.payment_succeeded':
+          const invoicePaymentSucceeded = event.data.object;
+          // Then define and call a function to handle the event invoice.payment_succeeded
+          break;
+        // ... handle other event types
+        default:
+          console.log(`Unhandled event type ${event.type}`);
+      }
 
     try {
-        // Retrieve session details from Stripe
-        const session = await stripe.checkout.sessions.retrieve(sessionId);
-
         // Check if payment was successful
         if (session.payment_status === 'paid') {
             const subscriptionId = session.subscription;
