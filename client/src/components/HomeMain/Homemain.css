@@ -1,17 +1,5 @@
-#below-topnav{
-  padding: 0;
-  margin-left: 220px;
-  transition: .5s linear
-}
-
-#w100{
-  margin-left: 0;
-  padding-bottom: 0;
-  transition: .5s linear;
-}
 
 .main-bar {
-    min-height: 100vh;
     padding: 70px 10px 0px 10px;
     color: var(--text-color-1);
     background-color: var(--bg-color-3);
@@ -126,6 +114,9 @@
   @media screen and (max-width: 740px) {
     .display-question-container .display-votes-ans {
       padding: 10px;
+    }
+    .main-bar {
+      min-width: 420px;
     }
   }
   

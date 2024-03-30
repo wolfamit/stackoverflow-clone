@@ -11,8 +11,6 @@ import './Homemain.css'
 const Homemain = () => {
 
   const questionsList = useSelector(state => state.QuestionReducer)
-  const toggle = useSelector(state=>state.toggleReducer) // LEFTSIDEBAR TOGGLE
-
 
   //  const questionsList = [
   //   {
@@ -74,7 +72,10 @@ const Homemain = () => {
   return (
     <>
     < Leftsidebar />
-    <div id={`${toggle.toggle? 'w100': 'below-topnav'}`}>
+    <div 
+    // id={`${toggle.toggle? 'w100': 'below-topnav'}`}
+    id='w100'
+    >
       {/* <Cards /> */}
       <div className='main-bar'>
         <div className='main-bar-header '>

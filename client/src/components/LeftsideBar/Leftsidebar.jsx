@@ -7,10 +7,9 @@ import './Leftsidebar.css'
 
 const Leftsidebar = () => {
     const toggle = useSelector(state => state.toggleReducer)
-    // console.log(toggle.toggle) => false || true
-    
+
     return (
-        <nav className={`left-sidebar ${toggle.toggle? "close" : ""}`}>
+        <nav className={`left-sidebar ${toggle? "close" : ""}`}>
             <section className='side-nav'>
                 <NavLink to='/' className='sidenav-links'><p>Home</p></NavLink>
                 <NavLink to='/public' className='sidenav-links'><p>PUBLIC</p></NavLink>

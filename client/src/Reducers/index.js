@@ -10,7 +10,7 @@ import usersReducer from "./users.js";
 import toggleReducer from "./hamToggleReducer.js";
 import PostReducer from "./Post.js";
 import subscriptionReducer from "./subscription.js";
-
+import emailVerifiedReducer from "./email.js";
 
 export default combineReducers({
 
@@ -20,6 +20,7 @@ export default combineReducers({
         usersReducer,
         toggleReducer,
         PostReducer,
-        subscriptionReducer
+        subscriptionReducer,
+        emailVerifiedReducer
     
 })

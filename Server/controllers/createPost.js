@@ -9,36 +9,41 @@ export const createPost = async (req, res) => {
     try {
         const { id: _id } = req.params;
         const { description } = req.body;
+        let picturePath = null;
         
         const user = await User.findById(_id);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        const file = req.file;
+
+        // Check if file is included in the request
+        if (req.file) {
+            const file = req.file;
+            const fileUri = getDataUri(file);
+            const myCloud = await cloudinary.v2.uploader.upload(fileUri.content, {
+                cloud_name: process.env.CLOUD_NAME,
+                api_key: process.env.CLOUDINARY_API_KEY,
+                api_secret: process.env.CLOUDINARY_API_SECRET,
+                resource_type: "auto",
+                secure: true
+            });
+            picturePath = myCloud.secure_url; // Set picturePath to the uploaded image URL
+        }
         
-        const fileUri = getDataUri(file);
-        const myCloud = await cloudinary.v2.uploader.upload(fileUri.content ,{
-            cloud_name: process.env.CLOUD_NAME, 
-            api_key: process.env.CLOUDINARY_API_KEY,
-            api_secret: process.env.CLOUDINARY_API_SECRET,
-            resource_type: "auto",
-            secure: true
-        })
 
         const newPost = new Post({
             userId: _id,
             name: user.name,
             description : description,
-            picturePath: myCloud.secure_url,
+            picturePath: picturePath,
             userPicturePath: user.picturePath,
             likes: {},
             comments: []
         });
 
         await newPost.save();
-
-        // Retrieve all posts
-        res.status(201).json({ message: "Post created successfully", url:  myCloud.secure_url , post: newPost });
+        res.status(201).json({success: true, message: "Post created successfully"});
+    
     } catch (err) {
         res.status(409).json({ message: err.message });
     }
@@ -128,9 +133,8 @@ export const deletePost = async (req, res) => {
         if (!todelete) {
             return res.status(404).json({ success: false, message: 'Post not found' });
         }
-
         const url = todelete.picturePath;
-        if (url.length > 10) {
+        if(url && url.length  && url.length > 10) {
             //this means it's a saved in cloud storage
             const publicId = await extractPublicId(url);
             await cloudinary.v2.uploader.destroy(publicId ,{
@@ -161,12 +165,11 @@ export const addFriend = async (req, res) => {
     try {
         // Find the user by _id and update the friends array
         const user1 = await User.findById(_id);
-        user1.friends.push(friendId);
-        await user1.save();
         const user2 = await User.findById(friendId);
+        user1.friends.push(friendId);
         user2.friends.push(_id);
-        user2.save();
-
+        await user1.save();
+        await user2.save();
         res.status(200).json({ success: true });
     } catch (error) {
         console.error('Error adding friend:', error);

@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import * as api from '../api/index.js'
 
 /* READ ALL POST*/
@@ -45,9 +46,14 @@ export const postComments = (postId , userId , value) => async (dispatch) => {
 export const postAction = (formData, userId) => async (dispatch) => {
     try {
         const { data } = await api.publicPost(formData ,userId);
-        dispatch(getAllPost())
+        await dispatch(getAllPost())
+        const { success } = data;
+        if(success){
+            toast.success("Posted successfully")
+        }
     } catch (error) {
         console.error("POST ACTION:" , error.message)
+        toast.error("Error in Posting")
     }
 };
 
@@ -55,6 +61,10 @@ export const postAction = (formData, userId) => async (dispatch) => {
 export const deletePost = (postId) => async (dispatch) => {
     try{
         const { data } = await api.publicDelete(postId);
+        const { success , message} = data;
+        if(success){
+            toast.success(message);
+        }
         dispatch(getAllPost())
     }catch (error){
         console.error("DELETE ACTION:" , error.message)

@@ -31,24 +31,19 @@ const Post = ({ postdetails, toggleComments, visibleComments }) => {
         }
     }, [user, postdetails]);
 
-    const handleToast = (message) => {
-        return toast(message);
-    }
-
     const handleLike = async () => {
         if (!user) return;
         await dispatch(Likepost(postdetails._id, user.data.result._id, 'LIKE'))
-        handleToast('liked successfully')
+       
     }
 
     const handleDislike = async () => {
         await dispatch(disLikepost(postdetails._id, user.data.result._id, 'DISLIKE'))
-        handleToast("Thank you for your feedback")
+        
     }
 
     const handleUserToast = () => {
         navigate('/Auth')
-        toast.error("You need to be logged in to comment");
     }
 
     const handleComment = async (e) => {
@@ -59,16 +54,14 @@ const Post = ({ postdetails, toggleComments, visibleComments }) => {
         }
         try {
             await dispatch(postComments(postdetails._id, user.data.result._id, comment))
-            handleToast('Comment accepted')
             setComment('');
         } catch (error) {
-            handleToast(error.message);
+            toast.error(error.message);
         }
     }
 
     const menuOpen = () => {
         setIsMenuOpen(!isMenuOpen)
-        console.log(user.data.result._id, postdetails.userId)
         if (user.data.result._id === postdetails.userId) {
             setIsMyPost(!isMyPost)
         }
@@ -88,7 +81,6 @@ const Post = ({ postdetails, toggleComments, visibleComments }) => {
         const friendId = postdetails.userId;
         const userId = user.data.result._id;
         dispatch(addFriend(friendId, userId))
-        toast.success('Added in your friend list')
     }
 
     const unfollow = (e) => {
@@ -96,8 +88,8 @@ const Post = ({ postdetails, toggleComments, visibleComments }) => {
         const friendId = postdetails.userId;
         const userId = user.data.result._id;
         dispatch(removeFriend(friendId, userId))
-        toast.success('Added in your friend list')
     }
+
     return (
         <section className='public-middle-section'>
             <div className="post">
@@ -109,7 +101,7 @@ const Post = ({ postdetails, toggleComments, visibleComments }) => {
                                 py='30px'
                                 px='30px'
                                 borderRadius='50%'
-                                imageSrc={postdetails?.userPicturePath && postdetails.userPicturePath.length <= 30 ? `${process.env.REACT_APP_BASE_URL}/assets/${postdetails.userPicturePath}` : postdetails?.userPicturePath}
+                                imageSrc={postdetails?.userPicturePath && postdetails.userPicturePath.length <= 30 ? `${process.env.REACT_APP_BASE_URL}assets/${postdetails.userPicturePath}` : postdetails?.userPicturePath}
                             />
                         </Link>
                     </div>
@@ -141,12 +133,12 @@ const Post = ({ postdetails, toggleComments, visibleComments }) => {
 
                     {/* Condition 2: If picturePath length is less than 10 */}
                     {postdetails.picturePath && postdetails.picturePath.length <= 10 && (
-                        <img src={`${process.env.REACT_APP_BASE_URL}/assets/${postdetails.picturePath}`} alt="post-img" />
+                        <img src={`${process.env.REACT_APP_BASE_URL}assets/${postdetails.picturePath}`} alt="post-img" />
                     )}
 
                     {/* Condition 3: If picturePath is a video link */}
                     {postdetails.picturePath && postdetails.picturePath.endsWith('.mp4') && (
-                        <VideoPlayer src={postdetails.picturePath} width={440} height={300} />
+                        <VideoPlayer src={postdetails.picturePath}  />
                     )}
 
                 </div>

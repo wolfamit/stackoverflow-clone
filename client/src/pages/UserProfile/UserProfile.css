@@ -1,5 +1,5 @@
 .below-topnav-user{
-  width: 100%;
+  min-width: 420px;
   min-height: 100vh;
   background-color: var(--bg-color-2);
   padding-bottom: 30px;

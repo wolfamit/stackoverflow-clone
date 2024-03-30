@@ -11,7 +11,7 @@ const Askquestion = () => {
   const [questionTitle, setTitle] = useState('');
   const [questionBody, setQuestionBody] = useState('');
   const [questionTags, setTags] = useState([]);
-  // const [errorMessage, setErrorMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -32,14 +32,8 @@ const Askquestion = () => {
   };
   try {
     await dispatch(askQuestion(questionData, navigate));
-    toast.success('Successfully submitted');
-    // setTitle('');
-    // setQuestionBody('');
-    // setTags([]);
   } catch (error) {
-    // Show an error toast if there's an error during submission
-    
-    toast.error('You have reached your daily posting limit.');
+    console.error(error);
   }
 };
   
@@ -58,8 +52,8 @@ const Askquestion = () => {
         <div className='ask-ques-container'>
           <h1>Ask a Public Question</h1>
           <form
-            action="subtmit"
-            onSubmit={handleSubmit}
+            action="submit"
+            
           >
             <div className='ask-form-container'>
 
@@ -97,10 +91,11 @@ const Askquestion = () => {
                   type="text"
                   placeholder='e.g (xml typescript wordpress) ' />
               </label>
-              <input
+              <button
                 className='review-btn'
                 type="submit"
-                value="Review your question" />
+                onClick={handleSubmit}
+                >Submit your question</button>
             </div>
           </form>
         </div>

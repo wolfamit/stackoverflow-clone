@@ -63,8 +63,8 @@ const userSchema = mongoose.Schema({
                 type: Date, default: () => new Date(0)
         },// Initialize with epoch (0)
         postCount: {
-                type: Number, default: 0
-        }, // Track the number of posts made by the user
+                type: Number, default: 0 // Track the number of posts made by the user
+        }, 
         stripeCustomerId: {
                 type: String,
                 required: true

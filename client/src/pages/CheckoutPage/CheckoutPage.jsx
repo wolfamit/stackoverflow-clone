@@ -39,7 +39,7 @@ const CheckoutPage = ({ user }) => {
     const checkout = async (plan) => {
         const apiKey = process.env.REACT_APP_SECRET_KEY;
         
-        await fetch(`${process.env.REACT_APP_BASE_URL}/api/create-subscription-checkout-session`, {
+        await fetch(`${process.env.REACT_APP_BASE_URL}api/create-subscription-checkout-session`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

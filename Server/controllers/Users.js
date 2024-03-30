@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 import User from '../models/auth.js';
 import cloudinary from 'cloudinary';
 import getDataUri from "../utility/dataUri.js";
+import { getOtp } from "../utility/getOtp.js";
+import nodemailer from 'nodemailer';
+import OTP from "../models/otp.js";
+// import mg from 'nodemailer-mailgun-transport'
 /*GET*/
 export const getAllUsers = async (req, res) => {
     try {
@@ -80,30 +84,72 @@ export const updateProfile = async (req, res) => {
     }
 };
 
-/*PATCH*/
-export const patchPhNumber = async (req, res) => {
-    const { id: _id } = req.params;
-    const { phoneNumber } = req.body;
+/*post*/
 
+// const transporter = nodemailer.createTransport({
+//     service: 'Gmail', // Or any other email service
+//     auth: {
+//         user: 'stackoverflowclone284@gmail.com',
+//         pass: '4[PShD)c'
+//     }
+// });
+
+export const sendOTPByEmail = async (req, res) => {
+    const { id: _id } = req.params;
+    const { email } = req.body;
     // Validate ObjectId
     if (!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(404).json({ success: false, message: "User not found" });
     }
 
-    // Validate phoneNumber (add your specific validation logic here)
-
+    const otp = await getOtp(email);
+    
     try {
-        // Find and update the user's phoneNumber
-        const updatedProfile = await User.findByIdAndUpdate(_id, { phoneNumber: phoneNumber }, { new: true });
 
-        if (!updatedProfile) {
-            return res.status(404).json({ success: false, message: "User not found" });
-        }
-
-        // Respond with the updated user profile
-        res.status(200).json({ success: true, profile: updatedProfile });
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.GMAIL, // Your Gmail username
+                pass: process.env.GMAIL_PASS // Your Gmail password
+            }
+        });
+        // Send mail with defined transport object
+        const mailOptions = {
+            from: '"stackoverflow" <stackoverflowclone284@gmail.com>',
+            to: email,
+            subject: 'OTP for Chatbot Verification',
+            text: `Your OTP for verification is: ${otp}`
+        };
+        await transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return res.status(404).json({success: false,  message: "Cannot send email" });
+            }
+            return res.status(200).json({ success: true });
+        });
     } catch (error) {
-        console.error("Error patching phone number:", error);
-        res.status(500).json({ success: false, message: "Internal Server Error" });
+        console.error('Error sending email:', error);
+        return res.status(400).json({ success: false , message: "Cannot send email" });
     }
 };
+
+export const verifyOtp = async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+        const chatter = await OTP.findOne({ email: email });
+
+        if (!chatter) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Convert user-provided OTP to string for comparison
+        const userOTP = otp.toString();
+        if (chatter.otp === userOTP) {
+            return res.status(202).json({ success: true });
+        }else{
+            return res.status(401).json({ success: false });
+        }
+} catch (error) {
+        console.error('Error Verifying email:', error);
+        return res.status(500).json({ success: false , message: "Failed to verify OTP via email." });
+    }
+}

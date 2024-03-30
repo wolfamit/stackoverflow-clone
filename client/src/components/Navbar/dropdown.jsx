@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './Navbar.css'; // Import CSS for styling
+import React, {  useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import './Navbar.css'; 
 
-const Dropdown = ({ isDropdownOpen, toggleDropdown, dropdownRef }) => {
+const Dropdown = ({ isDropdownOpen, toggleDropdown, dropdownRef , user }) => {
   
-  const user = useSelector(state=>state.CurrentUserReducer)
   useEffect(() => {
     const handleClickOutside = (event) => {
       // Close the dropdown if click occurs outside of it
@@ -20,7 +18,6 @@ const Dropdown = ({ isDropdownOpen, toggleDropdown, dropdownRef }) => {
         // Remove event listener when the dropdown is closed
         document.removeEventListener('click', handleClickOutside);
       }
-  
     // Clean up event listener on component unmount
     return () => {
       document.removeEventListener('click', handleClickOutside);
@@ -30,6 +27,7 @@ const Dropdown = ({ isDropdownOpen, toggleDropdown, dropdownRef }) => {
   return (
     <div ref={dropdownRef} className={`dropdown ${isDropdownOpen ? 'open' : ''}`} aria-orientation="vertical">
       <ul>
+        <li className='plan'>PLAN: {user?.data?.result?.subscription.length === 0 ? " Basic" : 'unknown'} </li>
         <li ><Link className='nav-item' to={`/Users/${user?.data?.result._id}`}>Setting</Link></li>
         <li> <Link className='nav-item' to={'/Vip-pass'}>Buy Premium</Link></li>
       </ul>

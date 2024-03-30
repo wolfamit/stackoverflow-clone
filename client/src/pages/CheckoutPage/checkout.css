@@ -2,6 +2,8 @@
     margin-top: 50px;
     padding: 50px 0;
     background: linear-gradient(45deg, rgb(165, 216, 226) 0%, rgba(11, 3, 45, 1) 100%);
+    min-width: 430px;
+    
 }
 
 .row {
@@ -44,7 +46,6 @@
     display: inline-block;
     cursor: pointer;
     padding: 5px 10px;
-    
     font-size: 16px;
     border: 2px solid #ccc;
     border-radius: 5px;

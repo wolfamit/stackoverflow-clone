@@ -2,7 +2,7 @@
   margin-top: 50px;
   padding:50px 0;
   background: linear-gradient(90deg, var(--bg-color-2) 0, rgb(92, 70, 187) 74%);
-  width: 100%;
+  min-width: 430px;
   
 }
 

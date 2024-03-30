@@ -83,3 +83,16 @@
 .model .model-content button:hover {
   background-color: #0056b3;
 }
+
+.video-container {
+  max-width: 100%; 
+  height: auto; 
+  position: relative;
+  overflow: hidden;
+}
+
+.video-container video {
+  width: 100%;
+  height: auto; 
+  display: block;
+}

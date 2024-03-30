@@ -14,7 +14,7 @@ export const postAnswer = async (req, res) => {
     const updatedQuestion = await Questions.findByIdAndUpdate(_id, {
       $addToSet: { answer: [{ answerBody, userAnswered, userId }] },
     });
-    res.status(200).json(updatedQuestion);
+    res.status(200).json({success: true, message: "Answer posted successfully"});
   } catch (error) {
     res.status(400).json("error in updating");
   }
@@ -52,7 +52,7 @@ export const deleteAnswer = async (req, res) => {
       _id,
       { $set: { noOfAnswers: noOfAnswers } }
     );
-    res.status(200).send("Answer deleted successfully.");
+    res.status(200).send({ success: true ,message: "Answer deleted successfully."});
   } catch (error) {
     console.log("Error in deleteAns", error.message);
     res.status(500).send("Internal Server Error");

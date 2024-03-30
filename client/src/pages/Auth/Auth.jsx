@@ -5,11 +5,13 @@ import logo from '../../assets/icon.png'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import Aboutauth from './Aboutauth'
-import './Auth.css'
 import { signin, signup } from "../../actions/auth";
 import Spinner from '../../components/Spinner/Spinner';
 import Leftsidebar from '../../components/LeftsideBar/Leftsidebar';
-const Auth = () => {
+import Navbar from '../../components/Navbar/Navbar';
+import './Auth.css'
+
+const Auth = ({isDaytime}) => {
 
   const [signedIn, setsignedIn] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -32,9 +34,6 @@ const Auth = () => {
 
   }
 
-  const toastHandler = (message) => {
-    toast(message);
-  }
   // signin or signup form handleSubmit
   const handleSubmit = async (e) => {
     e.preventDefault(); // for stopping the page to reload when submitted
@@ -46,12 +45,10 @@ const Auth = () => {
     }
     //include Email regix check 
     try {
-      let response
       if (signedIn) {
-        response = await dispatch(signin({ email, password }, navigate));
-
+        await dispatch(signin({ email, password }, navigate));
       } else {
-        response = await dispatch(signup({ name, email, password }, navigate));
+        await dispatch(signup({ name, email, password }, navigate));
       }
       let profile = localStorage.getItem('Profile');
       if (!profile) {
@@ -66,6 +63,7 @@ const Auth = () => {
 
   return (
     <>
+    < Navbar isDaytime={isDaytime}/>
     < Leftsidebar />
     <section className='auth-sec'>
 

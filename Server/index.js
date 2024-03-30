@@ -45,9 +45,11 @@ app.use(cors()); //respond to cross-origin requests from web pages hosted on dif
 
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
-// app.use('/' , async (req, res) => {
-//   res.send('server is live');
-// })
+// Global Catches
+app.use((err, req, res, next) => {
+  // console.error(err.stack); // Log the error for debugging
+  res.status(500).json({ success: false, message: err });
+});
 
 /* POST ROUTES FOR PUBLIC INTERACTION*/
 app.post("/public/post/:id" , auth , singleUpload , createPost);

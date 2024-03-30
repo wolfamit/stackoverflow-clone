@@ -57,7 +57,7 @@
 textarea[type="text"]{
   font-size: larger;
   background-color: var(--bg-color-4);
-  color: darkgrey
+  color: var(--text-color-1);
 }
 
 .review-btn {
@@ -72,7 +72,8 @@ textarea[type="text"]{
 }
 
 .review-btn:hover {
-  background-color: #0086d8;}
+  background-color: #7396ab;
+}
 
 @media screen and (max-width: 768px) {
   .ask-ques-container{

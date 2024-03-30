@@ -21,11 +21,9 @@ export const askQuestion = async (req, res) => {
             return res.status(404).json({ error: "User Not found" });
         }
         user.tags = [...user.tags, ...questionTags]; // Merge existing tags with new tags
-        user.lastPostDate = new Date();
-        user.postCount++; // Increment postCount
         await user.save();
         await postquestion.save();
-        return res.status(201).json({ message: "Question posted successfully" });
+        return res.status(201).json({ success: true , message: "Question posted successfully" });
     } catch (error) {
         console.log("error in AskQuestion:", error.message);
         return res.status(500).json({ error: "Internal server error" });
@@ -49,7 +47,7 @@ export const deleteQuestion = async (req, res) => {
     }
     try {
         await Questions.findByIdAndDelete(_id);
-        res.status(200).json("Question deleted successfully")
+        res.status(200).json({success: true ,message : "Question deleted successfully"});
     } catch (error) {
         console.log("error in delete question:", error.message);
         res.status(404).json({ message: error.message });

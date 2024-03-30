@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify';
 
 import Post from './Posts';
 import Leftsidebar from '../../components/LeftsideBar/Leftsidebar';
@@ -8,7 +9,6 @@ import Model from '../../components/CreatePost/Model';
 import Spinner from '../../components/Spinner/Spinner';
 import { postAction } from '../../actions/posts'
 import './public.css';
-import { toast } from 'react-toastify';
 
 const Publichome = ({ User }) => {
     const [visibleComments, setVisibleComments] = useState([]);
@@ -19,8 +19,18 @@ const Publichome = ({ User }) => {
 
     /* Reducers*/
     const posts = useSelector(state => state.PostReducer)
-
+    
+    const newpostref = useRef(null);
     const dispatch = useDispatch();
+
+
+    useEffect(()=>{
+        scrollToBottom()
+    },[isUploading])
+    
+  const scrollToBottom = () => {
+    newpostref.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
     /* To open post model*/
     const handleOpenModal = () => {
@@ -44,13 +54,12 @@ const Publichome = ({ User }) => {
             setFile('');
             setDescription('');
             handleCloseModal();
-            toast.success('posted successfully')
         } catch (error) {
             console.error('Error uploading post:', error);
             toast.error('error in posting')
             // Handle error
         } finally {
-            setIsUploading(false); // Set upload status to false
+           setIsUploading(false);
         }
     }
 
@@ -83,6 +92,7 @@ const Publichome = ({ User }) => {
                         posts?.data.map(posts =>
                             <Post key={posts._id} postdetails={posts} toggleComments={toggleComments} visibleComments={visibleComments || []} />)
                 }
+                 <div ref={newpostref}></div> {/* Empty div for scrolling */}
             </div>
         </>
     )

@@ -24,13 +24,13 @@ const postLimit = async (req, res, next) => {
         }
 
         // Reset post count for non-gold subscribers if it's a new day
-        if (!user.subscription.some(sub => sub.plan === 'gold') && currentDate.getDate() !== user.lastPostDate.getDate()) {
+        const lastPostDate = new Date(user.lastPostDate);
+        if (!user.subscription.some(sub => sub.plan === 'gold') && currentDate - lastPostDate >= 24 * 60 * 60 * 1000) {
             user.postCount = 0;
         }
 
         user.postCount++;
         user.lastPostDate = currentDate;
-
         await user.save();
         next(); // Call next middleware or route handler
     } catch (error) {

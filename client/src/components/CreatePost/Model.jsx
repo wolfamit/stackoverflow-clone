@@ -32,7 +32,7 @@ const Model = ({User, setFile, onCloseModal, onSubmit, setDescription}) => {
                 <div>
                 <span className="close" onClick={onCloseModal}>&times;</span>
                     <NavLink to={`/Users/${User?.data?.result?._id}`}>
-                        <Avatar py='30px' px='30px' borderRadius='50%' imageSrc={`http://localhost:5500/assets/${User?.data?.result.picturePath}`}/>
+                        <Avatar py='30px' px='30px' borderRadius='50%' imageSrc={User?.data?.result?.picturePath && User?.data?.result?.picturePath <= 30 ? `${process.env.REACT_APP_BASE_URL}assets/${User?.data?.result?.picturePath}` : User?.data?.result?.picturePath}/>
                     </NavLink>
                 </div>
 
@@ -50,10 +50,11 @@ const Model = ({User, setFile, onCloseModal, onSubmit, setDescription}) => {
                     )}
                     {!imagePreview && ( // Render the file input only if there is no image preview
                         <input
-                            type="file"
-                            name='file'
-                            onChange={handleFileChange}
-                        />
+                        type="file"
+                        name="file"
+                        accept="image/*, video/*"
+                        onChange={handleFileChange}
+                    />
                     )}
                     
                     <button type="submit">Share</button>

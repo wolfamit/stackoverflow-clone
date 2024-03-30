@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdNightlight } from "react-icons/md";
+import { IoSunny } from "react-icons/io5";
 import { toast } from 'react-toastify';
 import { jwtDecode } from "jwt-decode";
 
@@ -11,10 +12,11 @@ import search from '../../assets/search-solid.svg'
 import Avatar from '../../components/Avatar/Avatar';
 import { setCurrentUser } from '../../actions/currentUser.js';
 import Dropdown from './dropdown.jsx';
+import Leftsideabar from '../LeftsideBar/Leftsidebar.jsx'
 import { sethamToggle } from '../../actions/hamburgerToggle.js';
 import "./Navbar.css";
 
-const Navbar = ({ isDaytime, themeChange }) => {
+const Navbar = ({ isDaytime }) => {
     const [toggle, setToggle] = useState(false); //state to manage toggle leftnavbar
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility
@@ -31,23 +33,9 @@ const Navbar = ({ isDaytime, themeChange }) => {
     const currentProfile = Users.find(userItem => userItem._id === user?.data?.result?._id);
     // so current profile picturePath contained in currentProfile
 
-    navigator.geolocation.getCurrentPosition(position => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        fetchWeather(latitude, longitude);
-    })
-
-    const fetchWeather = (latitude, longitude) => {
-        const apikey = process.env.REACT_APP_WEATHER_API_KEY;
-        const baseUrl = `http://api.weatherapi.com/v1/current.json?key=${apikey}&lat=${latitude}&long=${longitude}&q=India`
-        fetch(baseUrl)
-            .then(response => response.json())
-            .then(data => localStorage.setItem('theme', data?.current.is_day));
-    }
-
-    const handleLogOut = () => {
-        dispatch({ type: "LOGOUT" });
-        dispatch(setCurrentUser(null));
+    const handleLogOut = async () => {
+        await dispatch({ type: "LOGOUT" });
+        await dispatch(setCurrentUser(null));
         navigate('/Auth');
         toast.success('Logged out successfully');
     };
@@ -56,13 +44,20 @@ const Navbar = ({ isDaytime, themeChange }) => {
         const token = user?.data?.token;  // Retrieve the token from the user data, if available
         if (token) {
             const decodedToken = jwtDecode(token);
-            if (decodedToken.exp * 1000 < new Date().getTime()) {// If the token has expired, log the user out              
-                handleLogOut();
+            const currentTime = new Date().getTime();
+            console.log('Token expiration:', new Date(decodedToken.exp * 1000));
+            console.log('Current time:', new Date(currentTime));
+            if (decodedToken.exp * 1000 <= currentTime) {
+                console.log('Token expired. Logging out.');
+                dispatch({ type: "LOGOUT" });
+                dispatch(setCurrentUser(null));
+                navigate('/Auth');
+                toast.error('Login again');
             }
         }
-        dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch]);
+        dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))));
+    }, [dispatch, window.performance.navigation.type]);
 
     // Event handler to toggle dropdown of avatar visibility
     const toggleDropdown = () => {
@@ -74,8 +69,10 @@ const Navbar = ({ isDaytime, themeChange }) => {
         dispatch(sethamToggle(toggle))
     };
 
+
     return (
         <>
+        <Leftsideabar/>
             <nav className="top-nav" >
                 <div className='navbar' >
                     <div className="hamburger" onClick={handleToggle}>
@@ -89,7 +86,7 @@ const Navbar = ({ isDaytime, themeChange }) => {
                         </Link>
                     </div>
                     <Link to='/' className='nav-item hd'>Home</Link>
-                    <Link to='/about' className='nav-item hd'>Terms $ condition</Link>
+                    <Link to='/public' className='nav-item hd'>PUBLIC COMMUNITY</Link>
                     <Link to='/contact' className='nav-item hd'>Contact</Link>
                     <form className='search'>
                         <input type="text" name="search" placeholder="search.." id="search" />
@@ -101,14 +98,14 @@ const Navbar = ({ isDaytime, themeChange }) => {
                                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
                             >
                                 <Avatar imageSrc={currentProfile && currentProfile?.picturePath.length <= 10 ? `${process.env.REACT_APP_BASE_URL}/assets/${currentProfile?.picturePath}` : currentProfile?.picturePath} margin="10px" backgroundColor="blue" py="21px" px='21px' cursor="cursor" borderRadius="50%" ><Link to='/User/'></Link></Avatar>
-                                <Dropdown isDropdownOpen={isDropdownOpen} toggleDropdown={toggleDropdown} dropdownRef={dropdownRef} />
+                                <Dropdown isDropdownOpen={isDropdownOpen} toggleDropdown={toggleDropdown} dropdownRef={dropdownRef} user={user} />
                             </div>
                     }
                     <div style={{
                         width: '30px',
                         margin: '3px',
                         cursor: 'pointer'
-                    }} onClick={themeChange}><MdNightlight color={!isDaytime ? 'white' : ''} size={20} /></div>
+                    }}>{ !isDaytime ? <MdNightlight color={'white'} size={20} /> : <IoSunny color={'black'} size={24} />}</div>
                     {user ?
                         <div style={{ maxWidth: "120px" }} className='d-flex'>
                             <button onClick={handleLogOut}>Log out</button>

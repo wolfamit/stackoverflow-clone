@@ -80,7 +80,7 @@ export const signin = async (req, res) => {
     const token = jwt.sign(
       { email: existingUser.email, id: existingUser._id },
       process.env.SECRET_KEY,
-      { expiresIn: '24h' }
+      { expiresIn: '1h' }
     );
 
     // Send a successful response with user data and token

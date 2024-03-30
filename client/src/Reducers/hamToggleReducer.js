@@ -1,10 +1,9 @@
-const toggleReducer = (state = {toggle:false}, action) => {
+const initialState = false;
+
+const toggleReducer = (state = initialState, action) => {
     switch (action.type) {
       case "SET_TOGGLE":
-        return {
-          ...state,
-          toggle: action.payload,
-        };
+        return action.payload
       default:
         return state;
     }

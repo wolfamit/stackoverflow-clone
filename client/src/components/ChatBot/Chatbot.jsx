@@ -1,58 +1,43 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { auth } from '../../firebase.config';
-import { useDispatch } from 'react-redux';
-import PhoneInput from 'react-phone-number-input/input'
-import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential } from "firebase/auth";
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { SiChatbot, SiEightsleep } from 'react-icons/si';
 import { SiOpenai } from "react-icons/si";
 import { AiFillCloseSquare } from "react-icons/ai";
 
-import Avatar from '../Avatar/Avatar'
-import { updatePhoneNumber } from '../../actions/user'
+import { sendEmailOtp , verifyingEmailOtp } from '../../actions/user'
 import './chatbot.css';
 
 const Chatbot = ({ isDaytime, user }) => {
-
+  
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([{ text: "Hii there ✋🏼! ask me anything related to programming 🖥️.", sender: 'bot' }]); // State to store chat messages
   const [inputValue, setInputValue] = useState(''); // State to store user input
-
+  
   const [showOtpModal, setShowOtpModal] = useState(false);
-
-  const [phoneNumber, setPhoneNumber] = useState(localStorage.getItem('phone'));
+  
   const [loading, setLoading] = useState(false);
-  const [sendingOtp, setSendingOtp] = useState(false); // State to track OTP sending process
-  const [resendTimer, setResendTimer] = useState(0); // State to track resend timer
-  const [verificationCode, setVerificationCode] = useState('');
-  const [verificationId, setVerificationId] = useState(null);
-  // const [recaptchaVerifier, setRecaptchaVerifier] = useState(null);
-
+  const [verifyingEmail, setVerifyingEmail] = useState(false);
+  const [otp, setOtp] = useState('');
+  const [email, setEmail] = useState('');
+  
   const messagesEndRef = useRef(null);
   const dispatch = useDispatch()
-
-  // Effect to start resend timer
+  
+  // Effect to scroll to bottom
   useEffect(() => {
-    let intervalId;
-    if (resendTimer > 0) {
-      intervalId = setInterval(() => {
-        setResendTimer(prevTimer => prevTimer - 1);
-      }, 1000);
-    } else {
-      setSendingOtp(false);
-    }
     scrollToBottom();
-    return () => clearInterval(intervalId);
-  }, [resendTimer, messages]);
-
+  }, [messages]);
+  
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
+  
+  const emailVerified = useSelector(state=>state.emailVerifiedReducer)
   // Function to handle sending a message
   const sendMessage = async () => {
-    if (!phoneNumber) {
-      toast.error(`First you need to enter your phone number`)
+    if (!emailVerified) {
+      toast.error(`First you need to verify your email`);
       setIsOpen(!isOpen)
       setShowOtpModal(true);
       return
@@ -63,7 +48,6 @@ const Chatbot = ({ isDaytime, user }) => {
         text: 'My key is exhausted! please try again after some time', sender: 'bot'
       }]);
       setInputValue('');
-
       try {
         const response = await fetch('https://api.openai.com/v1/completions', {
           method: 'POST',
@@ -90,58 +74,47 @@ const Chatbot = ({ isDaytime, user }) => {
         }
       } catch (error) {
         console.error('Error sending message:', error);
-
+        
       }
     }
   };
-
-
-  const onCaptchVerify = () => {
-      
-        window.recaptchaVerifier = new RecaptchaVerifier(auth,
-          "recaptcha-container" ,{
-            size: 'invisible'
-          })
-    
-  };
-
-
+  
+  
   const handleSendOtp = async () => {
-    setSendingOtp(true);
-    await onCaptchVerify();
-
-    // Start timer for resend OTP (e.g., 60 seconds)
-    setResendTimer(60);
+    if(!email){
+      alert('Please enter you Email address');
+      return;
+    }
+    setVerifyingEmail(true);
     try {
-      const verifier = window.recaptchaVerifier;
-      //  const verifier = recaptchaVerifier;
-
-      const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, verifier);
-      window.confirmationResult = confirmationResult;
-
-      setVerificationId(confirmationResult.verificationId);
+      dispatch(sendEmailOtp(user.data.result._id, email));
     } catch (error) {
       console.error('Error sending OTP:', error);
+    } finally {
+      setVerifyingEmail(false);
     }
   };
 
   const handleVerifyOtp = async () => {
-    setLoading(true);
-    try {
-      const credential = PhoneAuthProvider.credential(verificationId, verificationCode);
-      await signInWithCredential(auth, credential);// OTP verification succeeded
-      // storing the phoneNumber in db
-      await dispatch(updatePhoneNumber(user?.data?.result._id, phoneNumber))
-      setLoading(false);
-      toast.success('OTP Verified');
-      setShowOtpModal(false); // Close the OTP verification modal
-      setIsOpen(true); // Optionally, open the chatbot interface or perform any other actions
-      setIsOpen(true);
-    } catch (error) {
-      console.error('Error verifying OTP:', error);
+    if(!otp){
+      alert('Please enter OTP'); 
+    }
+      setLoading(true)
+      try {
+        await dispatch(verifyingEmailOtp(email , otp));
+        if(emailVerified){
+          setShowOtpModal(false); // Close the OTP verification modal
+          setIsOpen(true); // Show the chatbot modal
+          setLoading(false); // set loading state to false
+        }
+      } catch (error) {
+        toast.error('Error sending OTP:');
+      } finally{
+        setLoading(false)
     }
   }
-
+  
+ 
   return (
     <div className="chatbot-container">
       {!isOpen ? (
@@ -194,49 +167,44 @@ const Chatbot = ({ isDaytime, user }) => {
 
       {/* OTP Verification Modal */}
       {showOtpModal && (
-       
-          <div className='otp-modal'>
-            <div id="recaptcha-container"></div>
-
-            <div className='otp-modal-content'>
-              <span className="close-button" onClick={() => setShowOtpModal(false)}>&times;</span>
-              <div className='otp-form-container'>
-                <h2>Phone Number Verification</h2>
-
-                <PhoneInput
-                  className='otp-input'
-                  placeholder="Enter phone number"
-                  country="IN"
-                  value={phoneNumber}
-                  disabled={sendingOtp}
-                  onChange={(value) => setPhoneNumber(value)}
-                />
-                <button
-                  className='otp-button'
-                  onClick={handleSendOtp}
-                  disabled={sendingOtp} // Disable input field during OTP sendind
-                >{sendingOtp ? 'Sending OTP...' : 'Sent OTP'}</button>
-                <p style={{ margin: '3px 0' }}>
-                  Resend OTP in {resendTimer} seconds
-                </p>
-                <input
-                  className='otp-input'
-                  type="text"
-                  placeholder="Enter OTP"
-                  value={verificationCode}
-                  onChange={(e) => setVerificationCode(e.target.value)}
-                />
-                <button
-                  className='otp-button'
-                  onClick={handleVerifyOtp}
-                  disabled={loading}
-                >
-                  {loading ? 'verifying Otp' : 'Verify OTP'}
-                </button>
-              </div>
+        <div className='otp-modal'>
+          <div id="recaptcha-container"></div>
+          <div className='otp-modal-content'>
+            <span className="close" onClick={() => setShowOtpModal(false)}>&times;</span>
+            <div className='otp-form-container'>
+              <h2>Email Verification</h2>
+              <input
+                className='otp-input'
+                type="email"
+                placeholder='john@gmail.com'
+                autoComplete='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button
+                className='otp-button'
+                onClick={handleSendOtp}
+              >{verifyingEmail ? 'Sending OTP...' : 'Sent OTP'}</button>
+             <br />
+              <input
+                className='otp-input'
+                type="number"
+                placeholder="Enter OTP"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+              />
+              <br />
+              <button
+                className='otp-button'
+                onClick={handleVerifyOtp}
+              >
+                {loading ? 'verifying Otp' : 'Verify OTP'}
+              </button>
+              <br />
             </div>
           </div>
-        
+        </div>
+
       )}
     </div>
   );

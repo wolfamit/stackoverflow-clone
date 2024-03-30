@@ -28,7 +28,8 @@ export const updateProfile = (id, formData) => API.patch(`/user/update/${id}`, f
   }
 })
 
-export const addPhoneNumber = (id, phoneNumber) => API.patch(`/user/updatePhoneNumber/${id}`, { phoneNumber });
+export const addEmailOtp = (id, email) => API.post(`/user/otp-email/${id}`, { email });
+export const EmailOtpverify = (email , otp) => API.post(`/user/verify-email`, { email , otp});
 
 export const getAllPosts = () => API.get('/public');
 

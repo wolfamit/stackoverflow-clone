@@ -21,8 +21,8 @@ const stripeSession = async (plan , customerId) => {
                     quantity: 1
                 },
             ],
-            success_url: "http://localhost:3000/api/payment-success",
-            cancel_url: "http://localhost:3000",
+            success_url: `${process.env.FRONTEND_URL}api/payment-success`,
+            cancel_url: `${process.env.FRONTEND_URL}`,
             customer: customerId,
         },
         {
