@@ -48,14 +48,13 @@ const fetchWeather = (latitude, longitude) => {
         <Navbar isDaytime={isDaytime} />
         < Leftsidebar />
         <ToastContainer
-          position="top-right"
+          position="bottom-left"
           autoClose={1000}
           hideProgressBar={false}
           closeOnClick
           rtl={false}
           pauseOnFocusLoss
-          theme="light"
-                                                                            />
+          theme="light"                                                                     />
         <AllRoutes isDaytime={isDaytime}/>
       </Router>
      { user && <Chatbot user={user} isDaytime={isDaytime}/>}

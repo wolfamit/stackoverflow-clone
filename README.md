@@ -48,7 +48,8 @@ Welcome to our StackOverflow Clone project! This project aims to recreate the co
 6. Create a .env file in the server directory and add your Port , stripe secret and cloudinary configuration:
 
 7. Start the development server for on both client and server directories:
-   ```npm start
+   ```bash
+   npm start
 
 # Contributing
 We welcome contributions from the community! If you'd like to contribute to the project, please follow these steps:
@@ -128,11 +129,10 @@ tasks done:-
 4. Design a section in home page for cards show
 5. API integration for the subscription related actions, such as subscribing to a plan or fetching subscription details
 6. form validation: Implement form validation to enforce the daily question limit based on the user's subscription plan.
+7. NOTIFICATION: Display notifations or messages to user when they reach their daily question limit.
 
 task pending:-
-1. API endpoint to handle subscription management, such as subscribing to the plan , Upgrading/downgrading plans and fetching the subscripion details 
-2. NOTIFICATION: Display notifations or messages to user when they reach their daily question limit or when they need to upgrade their plan.
-3. test the webhook endpoint for subscription status management
+1. test the webhook endpoint for subscription status management
 
 
 

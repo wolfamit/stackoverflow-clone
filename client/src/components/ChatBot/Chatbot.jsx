@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast , ToastContainer } from 'react-toastify';
+import { toast  } from 'react-toastify';
 import { SiChatbot, SiEightsleep } from 'react-icons/si';
 import { SiOpenai } from "react-icons/si";
 import { AiFillCloseSquare } from "react-icons/ai";
@@ -117,13 +117,6 @@ const Chatbot = ({ isDaytime, user }) => {
 
   return (
     <div className="chatbot-container">
-      <ToastContainer  position="bottom-left"
-          autoClose={1000}
-          hideProgressBar={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          theme="light"/>
       {!isOpen ? (
         <div className="chatbot-icon" onClick={() => setIsOpen(!isOpen)}>
           <SiChatbot size={30} color={isDaytime ? '' : '#fff'} />

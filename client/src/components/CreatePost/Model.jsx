@@ -31,8 +31,8 @@ const Model = ({User, setFile, onCloseModal, onSubmit, setDescription}) => {
             <div className="model-content">
                 <div>
                 <span className="close" onClick={onCloseModal}>&times;</span>
-                    <NavLink to={`/Users/${User?.data?.result?._id}`}>
-                        <Avatar py='30px' px='30px' borderRadius='50%' imageSrc={User?.data?.result?.picturePath && User?.data?.result?.picturePath <= 30 ? `${process.env.REACT_APP_BASE_URL}assets/${User?.data?.result?.picturePath}` : User?.data?.result?.picturePath}/>
+                    <NavLink to={`/Users/${User?.data?.result._id}`}>
+                        <Avatar py='30px' px='30px' borderRadius='50%' imageSrc={User?.data.result.picturePath <= 30 ? User.data.result.picturePath : ''}/>
                     </NavLink>
                 </div>
 
