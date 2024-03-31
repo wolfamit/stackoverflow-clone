@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdNightlight } from "react-icons/md";
-import { IoSunny } from "react-icons/io5";
+import { IoGameController, IoSunny } from "react-icons/io5";
 import { toast } from 'react-toastify';
 import { jwtDecode } from "jwt-decode";
 
@@ -27,7 +27,7 @@ const Navbar = ({ isDaytime }) => {
 
     const user = useSelector((state) => (state.CurrentUserReducer))
     // i don't know why user contains default picture of avatar
-
+ 
     const Users = useSelector(state => state.usersReducer);
 
     const currentProfile = Users.find(userItem => userItem._id === user?.data?.result?._id);
@@ -40,33 +40,33 @@ const Navbar = ({ isDaytime }) => {
         toast.success('Logged out successfully');
     };
 
-    useEffect(async() => {
-        const token = user?.data?.token;  // Retrieve the token from the user data, if available
+    useEffect(() => {
+        const token = user?.data.token;
         if (token) {
-            const decodedToken = jwtDecode(token);
+            const decodedToken = jwtDecode(token).exp * 1000;
             const currentTime = new Date().getTime();
             console.log('Token expiration:', new Date(decodedToken.exp * 1000));
             console.log('Current time:', new Date(currentTime));
-            if (decodedToken.exp * 1000 <= currentTime) {
+            if (decodedToken <= currentTime) {
                 console.log('Token expired. Logging out.');
-                await dispatch({ type: "LOGOUT" });
-                await dispatch(setCurrentUser(null));
-                navigate('/Auth');
+                handleLogOut();
                 toast.error('Login again');
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))));
-    }, [dispatch, window.performance.navigation.type]);
+    }, [dispatch]);
 
     // Event handler to toggle dropdown of avatar visibility
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
-    const handleToggle = () => {
+    const handleToggle = async () => {
         setToggle(!toggle);
-        dispatch(sethamToggle(toggle))
+        if(toggle !== undefined || toggle !== null) {
+            await dispatch(sethamToggle(toggle))
+        }
     };
 
 
@@ -89,7 +89,7 @@ const Navbar = ({ isDaytime }) => {
                     <Link to='/public' className='nav-item hd'>PUBLIC COMMUNITY</Link>
                     <Link to='/contact' className='nav-item hd'>Contact</Link>
                     <form className='search'>
-                        <input type="text" name="search" placeholder="search.." id="search" />
+                        <input type="text" name="search" placeholder="search.." id="search1" />
                         <img src={search} alt="search" width={18} />
                     </form>
                     {
@@ -97,7 +97,7 @@ const Navbar = ({ isDaytime }) => {
                             <div onClick={toggleDropdown} ref={dropdownRef}
                                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
                             >
-                                <Avatar imageSrc={currentProfile && currentProfile?.picturePath.length <= 10 ? `${process.env.REACT_APP_BASE_URL}/assets/${currentProfile?.picturePath}` : currentProfile?.picturePath} margin="10px" backgroundColor="blue" py="21px" px='21px' cursor="cursor" borderRadius="50%" ><Link to='/User/'></Link></Avatar>
+                                <Avatar imageSrc={currentProfile && currentProfile?.picturePath.length <= 30 ? `${process.env.REACT_APP_BASE_URL}assets/${currentProfile?.picturePath}` : currentProfile?.picturePath} margin="10px" backgroundColor="blue" py="21px" px='21px' cursor="cursor" borderRadius="50%" ><Link to='/User/'></Link></Avatar>
                                 <Dropdown isDropdownOpen={isDropdownOpen} toggleDropdown={toggleDropdown} dropdownRef={dropdownRef} user={user} />
                             </div>
                     }

@@ -63,7 +63,7 @@ const Auth = ({isDaytime}) => {
 
   return (
     <>
-    < Navbar isDaytime={isDaytime}/>
+    <Navbar isDaytime={isDaytime}/>
     < Leftsidebar />
     <section className='auth-sec'>
 
@@ -93,12 +93,14 @@ const Auth = ({isDaytime}) => {
             <input
               type="email"
               placeholder='john@gmail.com'
+              autoComplete='email'
               value={email}
               onChange={(e) => setemail(e.target.value)}
             /></label>
           <br />
           <label htmlFor="password"><h4>password</h4>
             <input type="password"
+            autoComplete='current-password'
               placeholder='Qwertyui'
               value={password}
               onChange={(e) => setpassword(e.target.value)} />

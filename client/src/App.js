@@ -23,7 +23,7 @@ function App() {
     dispatch(fetchAllQuestions())
     dispatch(fetchAllUsers())
     dispatch(getAllPost())
-  }, [dispatch ]);
+  }, [dispatch]);
   
 
   navigator.geolocation.getCurrentPosition(position => {

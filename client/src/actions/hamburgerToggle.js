@@ -1,6 +1,6 @@
-export const sethamToggle = (toggle) => ({
+export const sethamToggle = (data) => ({
     type: "SET_TOGGLE",
-    payload: toggle,
+    payload: data,
   });
 
 
