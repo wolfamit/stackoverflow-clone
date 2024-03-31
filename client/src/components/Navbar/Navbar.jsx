@@ -63,8 +63,8 @@ const Navbar = ({ isDaytime }) => {
     };
 
     const handleToggle = async () => {
-        setToggle(!toggle);
         if(toggle !== undefined || toggle !== null) {
+            setToggle(!toggle);
             await dispatch(sethamToggle(toggle))
         }
     };

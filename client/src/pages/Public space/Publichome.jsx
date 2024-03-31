@@ -16,6 +16,7 @@ const Publichome = ({ User }) => {
     const [description, setDescription] = useState('');
     const [file, setFile] = useState(null);
     const [isUploading, setIsUploading] = useState(false);
+    const [loading , setLoading] = useState(false);
 
     /* Reducers*/
     const posts = useSelector(state => state.PostReducer)
@@ -26,7 +27,7 @@ const Publichome = ({ User }) => {
 
     useEffect(()=>{
         scrollToBottom()
-    },[isUploading])
+    },[loading])
     
   const scrollToBottom = () => {
     newpostref.current?.scrollIntoView({ behavior: "smooth" });
@@ -60,6 +61,7 @@ const Publichome = ({ User }) => {
             // Handle error
         } finally {
            setIsUploading(false);
+           setLoading(!loading);
         }
     }
 
