@@ -37,6 +37,7 @@ export const postComments = (postId , userId , value) => async (dispatch) => {
     try {
         const {data} = await api.commentPost(postId, userId , value);
         dispatch(getAllPost())
+        return data;
     } catch (error) {
         console.error("COMMENT:" , error.message)
     }
@@ -47,10 +48,7 @@ export const postAction = (formData, userId) => async (dispatch) => {
     try {
         const { data } = await api.publicPost(formData ,userId);
         await dispatch(getAllPost())
-        const { success } = data;
-        if(success){
-            toast.success("Posted successfully")
-        }
+        return data;
     } catch (error) {
         console.error("POST ACTION:" , error.message)
         toast.error("Error in Posting")

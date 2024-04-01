@@ -51,7 +51,10 @@ const Publichome = ({ User }) => {
         formData.append('file', file);
         formData.append('description', description);
         try {
-            await dispatch(postAction(formData, User?.data?.result?._id));
+            const data = await dispatch(postAction(formData, User?.data?.result?._id));
+            if(data.success){
+                toast.success("Posted successfully")
+            }
             setFile('');
             setDescription('');
             handleCloseModal();

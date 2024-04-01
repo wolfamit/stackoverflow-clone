@@ -46,6 +46,5 @@ export const verifyingEmailOtp = (email , otp) => async (dispatch) => {
         toast.error("Failed to verify OTP. Please try again later.");
       }
       return error;
-
     }
-  };
+};
