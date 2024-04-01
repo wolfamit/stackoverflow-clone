@@ -202,12 +202,10 @@
 
 @media only screen and (max-width: 600px) {
   .chatbot-open {
-    width: 80%;
-    height: 80%;
+    bottom: 20px;
+    right: 20px;
+    min-width: 360px;
     border-radius: 0;
     margin: 20px;
-  }
-  .chatbot-header {
-    margin-top: 80px;
   }
 }
