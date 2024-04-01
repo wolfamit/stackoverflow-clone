@@ -7,9 +7,9 @@ const ErrorNotfound = () => {
         marginTop: '100px'
     }}>
     <Leftsidebar />
+    <h1>404</h1>
     <h1>ErrorNotfound</h1>
-    <h2>ErrorNotfound</h2>
-    <h3>ErrorNotfound</h3>
+   
     </div>
   )
 }

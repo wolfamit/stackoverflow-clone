@@ -18,15 +18,15 @@ const postLimit = async (req, res, next) => {
                 postingLimit = Infinity;
             }
         });
-
-        if (user.postCount >= postingLimit) {
-            throw new Error('You have reached your daily posting limit.');
-        }
-
+        
         // Reset post count for non-gold subscribers if it's a new day
         const lastPostDate = new Date(user.lastPostDate);
         if (!user.subscription.some(sub => sub.plan === 'gold') && currentDate - lastPostDate >= 24 * 60 * 60 * 1000) {
             user.postCount = 0;
+        }
+
+        if (user.postCount >= postingLimit) {
+            throw new Error('You have reached your daily posting limit.');
         }
 
         user.postCount++;

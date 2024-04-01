@@ -83,14 +83,17 @@ const Chatbot = ({ isDaytime, user }) => {
   
   const handleSendOtp = async () => {
     if(!email){
-      alert('Please enter you Email address');
+      toast.error('Please enter you Email address');
       return;
     }
     setVerifyingEmail(true);
     try {
-      await dispatch(sendEmailOtp(user.data.result._id, email));
+        const data = await dispatch(sendEmailOtp(user.data.result._id, email));
+        if(data.success){
+          toast.success("OTP sent successfully")
+        }
     } catch (error) {
-      console.error('Error sending OTP:', error);
+      toast.error('Error sending OTP');
     } finally {
       setVerifyingEmail(false);
     }
@@ -102,11 +105,13 @@ const Chatbot = ({ isDaytime, user }) => {
     }
       setLoading(true)
       try {
-        await dispatch(verifyingEmailOtp(email , otp));
+        const data = await dispatch(verifyingEmailOtp(email , otp));
+        if(data.success){
+          toast.success("OTP verified")
           setShowOtpModal(false); // Close the OTP verification modal
           setIsOpen(true); // Show the chatbot modal
           setLoading(false); // set loading state to false
-        
+        }
       } catch (error) {
         toast.error('Error sending OTP:');
       } finally{
