@@ -9,7 +9,7 @@ const Leftsidebar = () => {
     const toggle = useSelector(state => state.toggleReducer)
 
     return (
-        <nav className={`left-sidebar ${toggle? "close" : ""}`}>
+        <nav className={`left-sidebar ${toggle? "" : "close"}`}>
             <section className='side-nav'>
                 <NavLink to='/' className='sidenav-links'><p>Home</p></NavLink>
                 <NavLink to='/public' className='sidenav-links'><p>PUBLIC</p></NavLink>

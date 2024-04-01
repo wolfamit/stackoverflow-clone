@@ -4,9 +4,7 @@ import TypingComponent from '../React Typed/ReactTyped'
 import './card.css'
 
 const Cards = () => {
-
     return (
-
         <>
             <div  className="container">
                 <div className="wrapper">

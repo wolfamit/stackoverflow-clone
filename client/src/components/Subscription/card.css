@@ -1,6 +1,6 @@
 .container {
   margin-top: 50px;
-  padding:50px 0;
+  padding: 50px 10px;
   background: linear-gradient(90deg, var(--bg-color-2) 0, rgb(92, 70, 187) 74%);
   min-width: 430px;
   

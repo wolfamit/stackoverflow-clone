@@ -1,13 +1,13 @@
 import React from 'react'
-import Cards from '../../components/Subscription/Cards'
 import Leftsidebar from '../../components/LeftsideBar/Leftsidebar'
+import CheckoutPage from '../../pages/CheckoutPage/CheckoutPage'
 import './vippasses.css'
 
 const Vippasses = () => {
   return (
     <div className='vip-container'>
         <Leftsidebar />
-        <Cards />
+       <CheckoutPage />
         {/* <Homemain /> */}
         
     </div>
