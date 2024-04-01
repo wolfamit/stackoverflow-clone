@@ -6,12 +6,11 @@ import Cards from '../../components/Subscription/Cards'
 
 const Home = () => {
   return (
-    <>
-    <Leftsidebar/>
-    <Cards />
-    <Homemain/>
-
-    </>
+    <div>
+      <Leftsidebar />
+      <Cards />
+      <Homemain />
+    </div>
   )
 }
 

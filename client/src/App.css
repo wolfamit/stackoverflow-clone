@@ -33,7 +33,7 @@
 
 
 .home-container-1 {
-  min-height: 100vh;
+  min-height: 100vh; 
   min-width: 100vw;
   display: flex;
   justify-content: space-between;
