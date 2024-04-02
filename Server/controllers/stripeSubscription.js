@@ -68,25 +68,29 @@ export const paymentSuccess = async (req, res) => {
           const checkoutSessionCompleted = event.data.object;
           // Then define and call a function to handle the event checkout.session.completed
           break;
-        case 'customer.subscription.created':
-          const customerSubscriptionCreated = event.data.object;
-          const plan = customerSubscriptionCreated.items.plan.nickname;
-          const id = customerSubscriptionCreated.customer;
-           // Update user's subscription in your database
-           const user = await User.findOneAndUpdate(
-            { stripeCustomerId: id },
-            {
-                $push: {
-                    subscription: {
-                        plan: plan.toLowerCase(),
-                        // Adjust subscription start and end dates according to your requirements
-                        startDate: moment().format('YYYY-MM-DD'),
-                        endDate: moment().add(1, 'month').format('YYYY-MM-DD')
+          case 'customer.subscription.created':
+              try {
+              const customerSubscriptionCreated = event.data.object;
+              const plan = customerSubscriptionCreated.payment_settings.payment_method_options.card.description;
+              const id = customerSubscriptionCreated.customer;
+               // Update user's subscription in your database
+               const user = await User.findOneAndUpdate(
+                { stripeCustomerId: id },
+                {
+                    $push: {
+                        subscription: {
+                            plan: plan.toLowerCase(),
+                            // Adjust subscription start and end dates according to your requirements
+                            startDate: moment().format('YYYY-MM-DD'),
+                            endDate: moment().add(1, 'month').format('YYYY-MM-DD')
+                        }
                     }
-                }
-            },
-            { new: true }
-        );
+                },
+                { new: true }
+            );
+          } catch (error) {
+            
+          }
           break;
         case 'invoice.payment_succeeded':
           const invoicePaymentSucceeded = event.data.object;
