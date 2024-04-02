@@ -54,7 +54,7 @@ export const paymentSuccess = async (req, res) => {
     const sig = req.headers['stripe-signature'];
     try {
         event = stripePackage.webhooks.constructEvent(
-            req.body, 
+            event,
             sig, 
             endpointSecret
         );
