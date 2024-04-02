@@ -7,12 +7,9 @@ import { useNavigate } from 'react-router-dom'
 import Aboutauth from './Aboutauth'
 import { signin, signup } from "../../actions/auth";
 import Spinner from '../../components/Spinner/Spinner';
-import Leftsidebar from '../../components/LeftsideBar/Leftsidebar';
-import Navbar from '../../components/Navbar/Navbar';
 import './Auth.css'
 
-const Auth = ({isDaytime}) => {
-
+const Auth = () => {
   const [signedIn, setsignedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [backendMessage, setBackendMessage] = useState(false);
@@ -63,10 +60,7 @@ const Auth = ({isDaytime}) => {
 
   return (
     <>
-    <Navbar isDaytime={isDaytime}/>
-    < Leftsidebar />
     <section className='auth-sec'>
-
       <ToastContainer />
       {!signedIn && <Aboutauth />}
       <div className='auth-container'>
