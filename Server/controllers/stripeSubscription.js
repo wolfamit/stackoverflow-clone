@@ -46,10 +46,10 @@ export const stripeSubscription = async (req, res) => {
     }
 };
 
-const endpointSecret = "whsec_bcg5qvB658BaXseXC2YaqkIOwBJXYKOA";
+const endpointSecret = "whsec_bcg5qvB658BaXseXC2YaqkIOwBJXYKOAz";
 
 export const paymentSuccess = async (req, res) => {
-    let event = req.body;
+    let event = JSON.stringify(req.body);
     
     const sig = req.headers['stripe-signature'];
     try {
