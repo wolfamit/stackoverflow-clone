@@ -27,7 +27,7 @@ const Dropdown = ({ isDropdownOpen, toggleDropdown, dropdownRef , user }) => {
   return (
     <div ref={dropdownRef} className={`dropdown ${isDropdownOpen ? 'open' : ''}`} aria-orientation="vertical">
       <ul>
-        <li className='plan'>PLAN: {user?.data?.result?.subscription.length === 0 ? " Basic" : 'unknown'} </li>
+        <li className='plan'>PLAN: {user?.data?.result?.subscription.length === 0 ? " Basic" : user?.data?.result?.subscription.plan} </li>
         <li ><Link className='nav-item' to={`/Users/${user?.data?.result._id}`}>Setting</Link></li>
         <li> <Link className='nav-item' to={'/Vip-pass'}>Buy Premium</Link></li>
       </ul>

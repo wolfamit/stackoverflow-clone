@@ -1,6 +1,6 @@
 #below-ques-details-page{
   min-height: 100vh;
-  min-width: 100%;
+  width: 100%;
   background-color: var(--bg-color-1);
 }
 

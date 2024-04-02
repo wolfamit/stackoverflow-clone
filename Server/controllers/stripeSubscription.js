@@ -70,10 +70,23 @@ export const paymentSuccess = async (req, res) => {
           break;
         case 'customer.subscription.created':
           const customerSubscriptionCreated = event.data.object;
-          // Then define and call a function to handle the event customer.subscription.created
-          const id = customerSubscriptionCreated.id;
-          console.log(id);
-          console.log(customerSubscriptionCreated);
+          const plan = customerSubscriptionCreated.items.plan.nickname;
+          const id = customerSubscriptionCreated.customer;
+           // Update user's subscription in your database
+           const user = await User.findOneAndUpdate(
+            { stripeCustomerId: id },
+            {
+                $push: {
+                    subscription: {
+                        plan: plan.toLowerCase(),
+                        // Adjust subscription start and end dates according to your requirements
+                        startDate: moment().format('YYYY-MM-DD'),
+                        endDate: moment().add(1, 'month').format('YYYY-MM-DD')
+                    }
+                }
+            },
+            { new: true }
+        );
           break;
         case 'invoice.payment_succeeded':
           const invoicePaymentSucceeded = event.data.object;
@@ -83,48 +96,6 @@ export const paymentSuccess = async (req, res) => {
         default:
           console.log(`Unhandled event type ${event.type}`);
       }
-
-    try {
-        // Check if payment was successful
-        if (session.payment_status === 'paid') {
-            const subscriptionId = session.subscription;
-            try {
-                // Retrieve subscription details from Stripe
-                const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-
-                // Update user's subscription in your database
-                const user = await User.findOneAndUpdate(
-                    { stripeCustomerId: subscription.customer },
-                    {
-                        $push: {
-                            subscription: {
-                                plan: subscription.plan.id,
-                                // Adjust subscription start and end dates according to your requirements
-                                startDate: moment().format('YYYY-MM-DD'),
-                                endDate: moment().add(1, 'year').format('YYYY-MM-DD')
-                            }
-                        }
-                    },
-                    { new: true }
-                );
-
-                if (!user) {
-                    return res.status(404).json({ error: 'User not found' });
-                }
-
-                // Redirect to frontend success page
-                res.redirect(process.env.FRONTEND_URL + '/paymentSuccess');
-            } catch (error) {
-                console.error('Error retrieving subscription:', error);
-                return res.status(500).json({ error: "An error occurred while processing the subscription." });
-            }
-        } else {
-            return res.json({ message: "Payment failed" });
-        }
-    } catch (error) {
-        console.error('Error retrieving session:', error);
-        return res.status(500).json({ error: "An error occurred while retrieving session details." });
-    }
 };
 
 export const getDetails = async (req, res) => {
