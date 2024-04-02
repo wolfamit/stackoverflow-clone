@@ -46,7 +46,7 @@ export const stripeSubscription = async (req, res) => {
     }
 };
 
-const endpointSecret = "whsec_738ecf34783f49076712609f2d9144991a54b6af177c4cb79f7537476e691324";
+const endpointSecret = "whsec_bcg5qvB658BaXseXC2YaqkIOwBJXYKOA";
 
 export const paymentSuccess = async (req, res) => {
     let event = req.body;
