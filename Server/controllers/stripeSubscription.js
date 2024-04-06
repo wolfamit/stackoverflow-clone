@@ -46,17 +46,16 @@ export const stripeSubscription = async (req, res) => {
     }
 };
 
-const endpointSecret = "whsec_bcg5qvB658BaXseXC2YaqkIOwBJXYKOAz";
 
 export const paymentSuccess = async (req, res) => {
-
-    const sig = req.headers['stripe-signature'];
-    let event
     
+    const sig = await req.headers['stripe-signature'];
+    const endpointSecret = "whsec_bcg5qvB658BaXseXC2YaqkIOwBJXYKOAz";
+    let event;
     
     try {
         event = stripePackage.webhooks.constructEvent(
-            req.body,
+            req.rawBody,
             sig, 
             endpointSecret
         );
@@ -106,7 +105,7 @@ export const paymentSuccess = async (req, res) => {
         default:
           console.log(`Unhandled event type ${event.type}`);
       }
-      
+
       response.status(200).json({received: true});
 };
 
