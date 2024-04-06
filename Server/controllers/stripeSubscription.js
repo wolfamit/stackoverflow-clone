@@ -49,13 +49,14 @@ export const stripeSubscription = async (req, res) => {
 const endpointSecret = "whsec_bcg5qvB658BaXseXC2YaqkIOwBJXYKOAz";
 
 export const paymentSuccess = async (req, res) => {
-    let event = JSON.stringify(req.body);
-    
+
     const sig = req.headers['stripe-signature'];
+    let event
+    
     
     try {
-        stripePackage.webhooks.constructEvent(
-            event,
+        event = stripePackage.webhooks.constructEvent(
+            req.body,
             sig, 
             endpointSecret
         );
@@ -69,7 +70,8 @@ export const paymentSuccess = async (req, res) => {
           const checkoutSessionCompleted = event.data.object;
           // Then define and call a function to handle the event checkout.session.completed
           break;
-          case 'customer.subscription.created':
+        
+        case 'customer.subscription.created':
               try {
               const customerSubscriptionCreated = event.data.object;
               const plan = customerSubscriptionCreated.payment_settings.payment_method_options.card.description;
@@ -89,18 +91,23 @@ export const paymentSuccess = async (req, res) => {
                 },
                 { new: true }
             );
+            res.json({success:true , customer : customerSubscriptionCreated , user})
           } catch (error) {
-            
+            res.status(400).send(`Webhook Error: ${err.message}`);
           }
           break;
+
         case 'invoice.payment_succeeded':
           const invoicePaymentSucceeded = event.data.object;
           // Then define and call a function to handle the event invoice.payment_succeeded
           break;
         // ... handle other event types
+
         default:
           console.log(`Unhandled event type ${event.type}`);
       }
+      
+      response.status(200).json({received: true});
 };
 
 export const getDetails = async (req, res) => {
