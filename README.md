@@ -3,28 +3,30 @@
 ## Introduction
 Welcome to our StackOverflow Clone project! This project aims to recreate the core features and functionality of the popular Q&A platform Stack Overflow. Whether you're a developer looking for answers or someone eager to share knowledge, our platform provides a space for you to ask questions, provide answers, and engage with a community of fellow developers.
 
+[Vedio Represetation](https://www.linkedin.com/feed/update/urn:li:activity:7184086218949713920/)
+
 ## Features
 - **User Authentication**: Securely register, log in, and manage your account.
 - **website Theme**: The theme of the website chnages according to the timeline of the user's location.
 - **Asking Questions**: Post questions on various topics and categories.
 - **Answering Questions**: Provide answers to questions posted by other users.
 - **Voting System**: Upvote or downvote questions and answers based on their quality and relevance.
-- **Comments**: Add comments to questions and answers to provide feedback or seek clarification.
+- **Comments**: Add comments to public post to provide feedback or seek clarification.
 - **Tagging**: Tag questions with relevant keywords to make them easier to find and categorize.
-- **social media Functionality**: post images and videos for community and commenting , liking in the community
-- **User Profile**: View and manage your profile, including your questions, answers, and activity history.
+- **social media Functionality**: post texts , images and videos for community and commenting , liking in the community
+- **User Profile**: View and manage your profile, including your tags , about and profile picture.
 - **subscribe**: Subscribe to plans for additional benefits of posting questions and answers
 - **absisive word Filter**: A filter to filter words which are appropriate for community.
 - **Chatbot**: User can ask programming related questions to the chatbot powered by openAI. 
-- **otp verification** : User have to authenticate through phone number before asking questions for the chatbot.
+- **otp verification** : User have to authenticate through eamil before asking questions for the chatbot.
 
 
 ## Technologies Used
 - **Frontend**: React.js, HTML, CSS, JavaScript
 - **Backend**: Node.js, Express.js 
 - **Database**: MongoDB
-- **Authentication**: jwt authentication , Firebase Authentication for phone number authentication
-- **Other Tools**: Git, GitHub, VS Code, Heroku (for deployment)
+- **Authentication**: jwt authentication
+- **Other Tools**: Git, GitHub, VS Code, vercel ( for deployment )
 
 ## Installation
 1. Clone the repository to your local machine:
@@ -64,9 +66,12 @@ We welcome contributions from the community! If you'd like to contribute to the 
 
 # Contact
 
-If you have any questions, feedback, or suggestions, please feel free to contact us at amitabhambastha52@gmail.com
+If you have any questions, feedback, or suggestions, please feel free to contact me at amitabhambastha52@gmail.com
 
-# Change the website color or theme according to time or weather: Use the system time or any API to fetch the weather of the user's current location and change the website's theme/color accordingly. For example, if it's daytime, you can keep the website color light, and if it's nighttime or bad weather, you can change the website color to dark colors.
+
+# Internship tasks done from 9/1/2024 - 9/3/2024 
+
+## Change the website color or theme according to time or weather: Use the system time or any API to fetch the weather of the user's current location and change the website's theme/color accordingly. For example, if it's daytime, you can keep the website color light, and if it's nighttime or bad weather, you can change the website color to dark colors.
 
 tasks done:-
 1. navbar done
@@ -82,7 +87,7 @@ tasks done:-
 task pending:
 1. none
 
-# Create a public space: Add one more page and allow users to share images, videos, text, and other things. Add a filter that detects abusive or hateful words and remove the content.
+## Create a public space: Add one more page and allow users to share images, videos, text, and other things. Add a filter that detects abusive or hateful words and remove the content.
 
 tasks done:-
 
@@ -102,7 +107,7 @@ pending:
 
 1. none
 
-# Integrate a chatbot feature where users can ask their questions directly to the chatbot. It should answer all programing related questions
+## Integrate a chatbot feature where users can ask their questions directly to the chatbot. It should answer all programing related questions
 
 Authenticate with OTP before asking questions
 
@@ -117,7 +122,7 @@ tasks done:-
 task pending:-
 1. none
 
-# Create subscriptions using a payment gateway (like stripe, razorpay) to post questions in stackoverflow.
+## Create subscriptions using a payment gateway (like stripe, razorpay) to post questions in stackoverflow.
 
 Testcase: Free Plan can post only 1 question a day, silver plan will be ₹100/month which can post 5 questions a day and gold plan can post unlimited questions and priced at ₹1000/month.
 
