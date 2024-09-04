@@ -10,12 +10,12 @@ import Spinner from '../../components/Spinner/Spinner';
 import './Auth.css'
 
 const Auth = () => {
-  const [signedIn, setsignedIn] = useState(false);
+  const [signedIn, setsignedIn] = useState(true);
   const [loading, setLoading] = useState(false);
   const [backendMessage, setBackendMessage] = useState(false);
   const [name, setname] = useState('');
-  const [email, setemail] = useState('');
-  const [password, setpassword] = useState('');
+  const [email, setemail] = useState('test@test.com');
+  const [password, setpassword] = useState('12345');
 
 
 
