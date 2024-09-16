@@ -14,10 +14,10 @@ import './App.css';
 import Leftsidebar from './components/LeftsideBar/Leftsidebar.jsx';
 
 function App() {
-  const [isDaytime, setIsDaytime] = useState(0);
-  const dispatch = useDispatch()
- 
-  const user = useSelector(state =>state.CurrentUserReducer)
+  const [isDaytime, setIsDaytime] = useState(localStorage.getItem('isDaytime'));
+  const dispatch = useDispatch();
+  
+  const user = useSelector(state =>state.CurrentUserReducer);
   
   useEffect(() => {
     dispatch(fetchAllQuestions())
@@ -37,16 +37,17 @@ const fetchWeather = (latitude, longitude) => {
     const baseUrl = `https://api.weatherapi.com/v1/current.json?key=${apikey}&lat=${latitude}&long=${longitude}&q=India`
     fetch(baseUrl)
         .then(response => response.json())
-        .then(data => setIsDaytime(data?.current.is_day));
+        .then(data =>
+          localStorage.setItem("isDarkMode" , data?.current.is_day));
+          
 }
-
   return (
     <div className="App" data-theme={
       isDaytime ? "" : "dark"}
     >
       <Router>
-        <Navbar isDaytime={isDaytime} />
-        < Leftsidebar />
+        <Navbar isDaytime={isDaytime} setIsDaytime={setIsDaytime}/>
+        <Leftsidebar />
         <ToastContainer
           position="bottom-left"
           autoClose={1000}

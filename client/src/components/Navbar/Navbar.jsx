@@ -16,7 +16,7 @@ import Leftsideabar from '../LeftsideBar/Leftsidebar.jsx'
 import { sethamToggle } from '../../actions/hamburgerToggle.js';
 import "./Navbar.css";
 
-const Navbar = ({ isDaytime }) => {
+const Navbar = ({ isDaytime, setIsDaytime }) => {
     const [toggle, setToggle] = useState(false); //state to manage toggle leftnavbar
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility
@@ -27,7 +27,7 @@ const Navbar = ({ isDaytime }) => {
 
     const user = useSelector((state) => (state.CurrentUserReducer))
     // i don't know why user contains default picture of avatar
- 
+
     const Users = useSelector(state => state.usersReducer);
 
     const currentProfile = Users.find(userItem => userItem._id === user?.data?.result?._id);
@@ -59,20 +59,24 @@ const Navbar = ({ isDaytime }) => {
 
     // Event handler to toggle dropdown of avatar visibility
     const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
+        setIsDropdownOpen(!isDaytime);
+        localStorage.setItem("isDarkMode", isDaytime);
     };
 
     const handleToggle = () => {
-        if(toggle !== undefined && toggle !== null) {
+        if (toggle !== undefined && toggle !== null) {
             setToggle(!toggle)
             dispatch(sethamToggle(toggle));
         }
     };
-
+    const handleThemeChange = () => {
+        setIsDaytime(!isDaytime);
+        localStorage.setItem('isDarkMode', isDaytime);
+    }
 
     return (
         <>
-        <Leftsideabar/>
+            <Leftsideabar />
             <nav className="top-nav" >
                 <div className='navbar' >
                     <div className="hamburger" onClick={handleToggle}>
@@ -101,11 +105,20 @@ const Navbar = ({ isDaytime }) => {
                                 <Dropdown isDropdownOpen={isDropdownOpen} toggleDropdown={toggleDropdown} dropdownRef={dropdownRef} user={user} />
                             </div>
                     }
-                    <div style={{
+                    <div onClick={handleThemeChange} style={{
                         width: '30px',
                         margin: '3px',
-                        cursor: 'pointer'
-                    }}>{ !isDaytime ? <MdNightlight color={'white'} size={20} /> : <IoSunny color={'black'} size={24} />}</div>
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.3s ease-in-out' // Transition for the container
+                    }}>
+                        <div style={{ transition: 'all 0.3s ease-in-out' }}>
+                            {!isDaytime ? <MdNightlight color={'white'} size={20} /> : <IoSunny color={'black'} size={24} />}
+                        </div>
+                    </div>
+
                     {user ?
                         <div style={{ maxWidth: "120px" }} className='d-flex'>
                             <button onClick={handleLogOut}>Log out</button>

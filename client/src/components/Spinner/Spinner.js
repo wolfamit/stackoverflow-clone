@@ -10,7 +10,9 @@ const Spinner = ({children , size }) => {
     }
   return (
     <div style={styles}>
-      <img src={loading} alt='loading'></img>
+      <img style={{
+        mixBlendMode: 'color-burn'
+      }} src={loading} alt='loading'></img>
       {children}
     </div>
   );

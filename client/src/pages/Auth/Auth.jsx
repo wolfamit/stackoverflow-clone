@@ -28,7 +28,6 @@ const Auth = () => {
     setname("");
     setemail("");
     setpassword("");
-
   }
 
   // signin or signup form handleSubmit
