@@ -1,9 +1,23 @@
+@keyframes gradientAnimation {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
 .container {
   padding: 100px 10px;
-  background: linear-gradient(90deg, var(--bg-color-2) 0, rgb(92, 70, 187) 74%);
+  background: linear-gradient(90deg, var(--bg-color-2), rgb(92, 70, 187));
+  background-size: 200% 200%;
+  animation: gradientAnimation 5s ease infinite;
   min-width: 430px;
-  
 }
+
 
 .wrapper {
   margin: 10px;

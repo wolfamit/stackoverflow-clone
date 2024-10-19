@@ -85,7 +85,7 @@
   background: #e1f0fe;
   box-shadow: 0 0 2px #0a138633;
   cursor: pointer;
-  padding: 10px 10px 10px 22px;
+  padding: 10px 10px 10px 32px;
   width: 100%;
 }
 
@@ -96,9 +96,15 @@
 
 .search img {
   position: absolute;
-  left: 2px;
-  top: 30%;
+  left: 10px;
+  top: 28%;
 }
+
+/* .search img:hover{
+  background-color: grey;
+  padding: 10px;
+  border-radius: 50%;
+} */
 
 .dropdown {
   display: none;
