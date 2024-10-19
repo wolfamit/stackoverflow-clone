@@ -11,9 +11,9 @@
 }
 
 .container {
-  padding: 100px 10px;
+  padding: 100px 0px;
   background: linear-gradient(90deg, var(--bg-color-2), rgb(92, 70, 187));
-  background-size: 200% 200%;
+  /* background-size: 200% 200%; */
   animation: gradientAnimation 5s ease infinite;
   min-width: 430px;
 }

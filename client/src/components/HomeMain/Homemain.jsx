@@ -89,7 +89,7 @@ const Homemain = () => {
               questionsList.data === null ?
                 <h1>Loading...</h1> :
                 <>
-                  <div style={{padding: "15px" , borderRadius: '20px' , fontSize: '20px', fontWeight: '500' ,backgroundColor : 'var(--bg-color-2)'}}>
+                  <div style={{marginBottom : "40px", padding: "15px" , borderRadius: '20px' , fontSize: '20px', fontWeight: '500' ,backgroundColor : 'var(--bg-color-2)'}}>
                     {questionsList.data.length} questions posted
                   </div>
                   <QuestionsList questionsList={questionsList.data} />
