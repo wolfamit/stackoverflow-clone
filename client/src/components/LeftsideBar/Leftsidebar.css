@@ -5,7 +5,7 @@
     height: 100%;
     z-index: 1;
     min-width: 220px;
-    transition: .5s linear;
+    transition: .3s linear;
 }
 .side-nav{
     background-color: var(--bg-color-2);
@@ -40,7 +40,7 @@
 }
 
 .close{
-    transform: translateX(-271px) ;
+    transform: translateX(-291px) ;
     
 }
 

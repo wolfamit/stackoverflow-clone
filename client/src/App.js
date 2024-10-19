@@ -12,6 +12,7 @@ import { getAllPost } from './actions/posts.js';
 import Chatbot from './components/ChatBot/Chatbot.jsx';
 import './App.css';
 import Leftsidebar from './components/LeftsideBar/Leftsidebar.jsx';
+import Footer from './components/Footer/Footer.jsx';
 
 function App() {
   const [isDaytime, setIsDaytime] = useState(localStorage.getItem('isDaytime'));
@@ -57,6 +58,7 @@ const fetchWeather = (latitude, longitude) => {
           pauseOnFocusLoss
           theme="light"                                                                     />
         <AllRoutes isDaytime={isDaytime}/>
+     <Footer isDaytime={isDaytime}/>
       </Router>
      { user && <Chatbot user={user} isDaytime={isDaytime}/>}
     </div>

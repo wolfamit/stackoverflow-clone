@@ -19,8 +19,8 @@
 .user-details-container {
     width: 90%;
     background-color: var(--bg-color-1);
-    margin: 50px auto;
-    padding: 20px ;
+   
+    padding: 70px 20px;
   }
   
   .user-details {
