@@ -7,6 +7,7 @@
   width: 100%;
   min-height: 70px;
   border-top: solid 4px var(--border-color-1);
+  border-bottom: solid 3px var(--border-color-4);
   margin: 0 auto;
   box-shadow: inset;
   border-radius: 300px 0px 300px 0px;
