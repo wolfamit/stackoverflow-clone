@@ -89,12 +89,12 @@ const Navbar = ({ isDaytime, setIsDaytime }) => {
                             }
                         </Link>
                     </div>
-                    <Link to='/' className='nav-item hd'>Home</Link>
+                    <Link to='/' className='nav-item hd'>HOME</Link>
                     <Link to='/public' className='nav-item hd'>PUBLIC COMMUNITY</Link>
-                    <Link to='/contact' className='nav-item hd'>Contact</Link>
+                    <Link to='/contact' className='nav-item hd'>CONTACT US</Link>
                     <form className='search'>
                         <input type="text" name="search" placeholder="search.." id="search1" />
-                        <img src={search} alt="search" width={18} />
+                        <img src={search} alt="search" width={18} style={isDaytime ? {} : { filter: 'invert(.5) brightness(1)' }}/>
                     </form>
                     {
                         !user ? <Link to='/Auth' className='nav-item'>Log in</Link> :

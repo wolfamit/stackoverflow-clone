@@ -12,8 +12,8 @@ const Cards = () => {
                     <p>Discout for limited time period only<br /></p>
                     <Link to='/checkout-Element' className="btn">BUY NOW</Link>
                 </div>
-            </div>
             <TypingComponent/>
+            </div>
         </>
     )
 }

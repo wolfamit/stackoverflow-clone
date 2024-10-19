@@ -5,21 +5,20 @@
 
 .top-nav {
   width: 100%;
-  min-height: 80px;
+  min-height: 70px;
   border-top: solid 4px var(--border-color-1);
-  border-bottom: solid 1px var(--border-color-2);
   margin: 0 auto;
   box-shadow: inset;
+  border-radius: 300px 0px 300px 0px;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 5;
   background-color: var(--bg-color-1);
- 
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-} 
+}
 /* .top-nav Link {
   text-decoration:none;
   outline: none;
@@ -48,15 +47,14 @@
   background-color: var(--border-color-2);
 }
 
-.plan{
+.plan {
   background-color: var(--bg-color-2);
   color: var(--text-color-1);
   text-align: center;
   border-radius: 30px;
-  
 }
 
-.dark-logo{
+.dark-logo {
   width: 140px;
   border-radius: 20px;
 }
@@ -70,8 +68,8 @@
   color: var(--text-color-1);
 }
 
-.navbar button:hover{
-  background-color: lightblue
+.navbar button:hover {
+  background-color: lightblue;
 }
 
 .search {
@@ -82,27 +80,27 @@
 }
 
 .search input {
+  border: 1px solid #eee;
+  border-radius: 50px;
+  background: #e1f0fe;
+  box-shadow: 0 0 2px #0a138633;
   cursor: pointer;
-  outline: none;
-  padding: 2px 2px 4px 19px;
-  box-shadow: 0 0 2px rgba(10, 19, 134, 0.2);
-  border-radius: 4px;
-  border: solid 1px #eee;
-  flex-grow: 1;
+  padding: 10px 10px 10px 22px;
   width: 100%;
 }
+
 .search input::placeholder {
   font-size: 1rem;
-  letter-spacing: 0.3rem;
-}
-.search img {
-  padding: 2px;
-  position: absolute;
-  left: 0;
-  top: 0;
+  letter-spacing: 0.2rem;
 }
 
-.dropdown {  
+.search img {
+  position: absolute;
+  left: 2px;
+  top: 30%;
+}
+
+.dropdown {
   display: none;
   position: absolute;
   top: calc(100% + 10px);
@@ -118,19 +116,18 @@
   display: block;
 }
 
-
-.dropdown li{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-weight: 300;
-    color: var(--text-color-1);
-    list-style: none;
-    padding: 10px 5px;
-    width: 100%;
+.dropdown li {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 300;
+  color: var(--text-color-1);
+  list-style: none;
+  padding: 10px 5px;
+  width: 100%;
 }
 
-@media screen and (min-width:768px){
-  .hamburger{
-    padding: 0 20px
+@media screen and (min-width: 768px) {
+  .hamburger {
+    padding: 0 20px;
   }
 }
 @media screen and (max-width: 740px) {
@@ -140,7 +137,6 @@
 }
 
 @media screen and (max-width: 600px) {
-
   .hd {
     display: none;
   }
@@ -148,7 +144,7 @@
   .logo {
     padding: 7px;
   }
-  .dark-logo{
+  .dark-logo {
     width: 100px;
   }
 }
