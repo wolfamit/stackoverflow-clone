@@ -7,19 +7,26 @@
   width: 100%;
   min-height: 70px;
   border-top: solid 4px var(--border-color-1);
-  border-bottom: solid 3px var(--border-color-4);
   margin: 0 auto;
-  box-shadow: inset;
   border-radius: 300px 0px 300px 0px;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 5;
   background-color: var(--bg-color-1);
+  /* background-color: rgba(var(--bg-color-1), 0.3); Transparent background */
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  transition: .3s ease-in-out;
 }
+
+.blur {
+   top: -100px;
+   backdrop-filter: blur(10px); /* Apply the blur effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+  }
+
 /* .top-nav Link {
   text-decoration:none;
   outline: none;
@@ -32,7 +39,6 @@
   justify-content: space-between;
   align-items: center;
 }
-
 .nav-item {
   margin: 0 3px;
   font-size: small;

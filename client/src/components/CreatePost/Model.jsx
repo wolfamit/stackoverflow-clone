@@ -30,10 +30,10 @@ const Model = ({User, setFile, onCloseModal, onSubmit, setDescription}) => {
         <div className="model">
             <div className="model-content">
                 <div>
-                <span className="close" onClick={onCloseModal}>&times;</span>
                     <NavLink to={`/Users/${User?.data?.result._id}`}>
                         <Avatar py='30px' px='30px' borderRadius='50%' imageSrc={User?.data.result.picturePath <= 30 ? User.data.result.picturePath : ''}/>
                     </NavLink>
+                    <span className="close" onClick={onCloseModal}>&times;</span>
                 </div>
 
                 <h2>Share Your Thoughts</h2>

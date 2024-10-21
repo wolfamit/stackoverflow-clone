@@ -7,7 +7,7 @@ const authReducer = (state={data: null}, action) => {
         data: action?.data };
     case "LOGOUT":
       localStorage.clear();
-      return { ...state, data: null };
+  
     default:
       return state;
   }

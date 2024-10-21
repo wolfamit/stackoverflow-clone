@@ -6,10 +6,13 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import Aboutauth from './Aboutauth'
 import { signin, signup } from "../../actions/auth";
+import { RxAvatar } from "react-icons/rx";
+import { CiUnlock } from "react-icons/ci";
+
 import Spinner from '../../components/Spinner/Spinner';
 import './Auth.css'
 
-const Auth = () => {
+const Auth = ({isDaytime}) => {
   const [signedIn, setsignedIn] = useState(true);
   const [loading, setLoading] = useState(false);
   const [backendMessage, setBackendMessage] = useState(false);
@@ -28,6 +31,7 @@ const Auth = () => {
     setname("");
     setemail("");
     setpassword("");
+    setBackendMessage(false);
   }
 
   // signin or signup form handleSubmit
@@ -59,20 +63,28 @@ const Auth = () => {
 
   return (
     <>
-    <section className='auth-sec'>
+    <section className='auth-sec'
+    style={isDaytime 
+      ? { background: 'linear-gradient(30deg, rgb(160, 61, 61), rgb(107, 107, 210))' } 
+      : { background: 'linear-gradient(30deg, rgb(160, 61, 61), white' }
+    }
+    >
       <ToastContainer />
       {!signedIn && <Aboutauth />}
-      <div className='auth-container'>
+      <div className={signedIn ? 'auth-container' : ' auth-container auth-container-mr'}>
         {!signedIn && <img src={logo} alt="stackover-logo" style={{ padding: '12px' }} />}
         {signedIn && <img src={logo} alt="" style={{ padding: '12px' }} />}
-        <form onSubmit={handleSubmit} className='login-form'>
+        <form onSubmit={handleSubmit} className='login-form' >
+          <p className='auth-header'>USER LOGIN</p>
           {
             !signedIn && (
               <label htmlFor='name'>
-                <h4>User Name</h4>
+                <h4></h4>
+                <span className='auth-icon'><RxAvatar /></span>
                 <input
                   type="name"
                   id='name'
+                  placeholder='Username'
                   value={name}
                   onChange={(e) => setname(e.target.value)} />
               </label>
@@ -82,7 +94,8 @@ const Auth = () => {
             backendMessage && (<div style={{ padding: '10px 12px', border: "1px solid red", background: '#e9b4b2' }}><p style={{ color: '#6e211e' }}>Invalid login</p></div>)
           }
           <br />
-          <label htmlFor="email"><h4>Email</h4>
+          <label htmlFor="email"><h4></h4>
+          <span className='auth-icon'><RxAvatar /></span>
             <input
               type="email"
               placeholder='john@gmail.com'
@@ -91,14 +104,18 @@ const Auth = () => {
               onChange={(e) => setemail(e.target.value)}
             /></label>
           <br />
-          <label htmlFor="password"><h4>password</h4>
+          <label htmlFor="password"><h4></h4>
+          <span className='auth-icon'><CiUnlock /></span>
+            
             <input type="password"
-            autoComplete='current-password'
+              autoComplete='current-password'
               placeholder='Qwertyui'
               value={password}
               onChange={(e) => setpassword(e.target.value)} />
+              <br />
             {signedIn && <span style={{ color: 'blue', cursor: 'pointer' }}>forget password?</span>}
-            {!signedIn && <p style={{ margin: '2px 0', color: '#3B4045', fontSize: '15px' }}>Passwords must contain at least eight characters, <br /> including at least 1 letter and 1 number.</p>}
+            {!signedIn && <p className="auth-subheading" style={{ margin: '2px 0', color: '#3B4045', fontSize: '15px' }}>Passwords must contain at least eight characters, <br /> including at least 1 letter and 1 number.</p>}
+         <br />
           </label>
 
 
@@ -106,14 +123,14 @@ const Auth = () => {
           {
             !signedIn && (
               <label htmlFor='checkbox' style={{ display: 'flex', justifyContent: 'start', margin: '4px 2px' }}>
-                <input type="checkbox" name="check" id="check" style={{ width: '17px', margin: '4px 12px' }} /> <p style={{ fontSize: '14px', color: '#3B4045' }}>
+                <input type="checkbox" name="check" id="check" style={{ width: '17px', margin: '4px 12px' }} /> <p className='auth-subheading' style={{ fontSize: '14px', color: '#3B4045' }}>
                   Opt-in to receive occasional product <br />updates, user research invitations,<br /> company announcements, and digests.
                 </p>
               </label>
 
             )
           }
-
+          <br />
           {signedIn ? (
             <div className='btn-wrapper'>
               {loading ? <Spinner /> : <button className='auth-btn'>Sign In</button>}
@@ -125,18 +142,18 @@ const Auth = () => {
           )}
 
 
-          {!signedIn && <p> By clicking “Sign up”, you agree to our <span style={{ color: 'blue', cursor: 'pointer' }}>terms of <br /> service </span>and acknowledge you have read our <br /> <span style={{ color: 'blue', cursor: 'pointer' }}>privacy policy.</span> </p>}
+          {!signedIn && <p className='auth-subheading'> By clicking “Sign up”, you agree to our <span style={{ color: 'blue', cursor: 'pointer' }}>terms of <br /> service </span>and acknowledge you have read our <br /> <span style={{ color: 'blue', cursor: 'pointer' }}>privacy policy.</span> </p>}
 
         </form>
 
         {
           signedIn &&
-          <p>
+          <p className='auth-subheading'>
             Don't have an accout? <button className='auth-btn-switch' onClick={handleSwitch}>Sign up</button>
           </p>
         }
         {
-          !signedIn && <p>Already have an account ? <button className='auth-btn-switch' onClick={handleSwitch}>Log In</button></p>
+          !signedIn && <p className='auth-subheading'>Already have an account ? <button className='auth-btn-switch' onClick={handleSwitch}>Log In</button></p>
         }
       </div>
     </section>

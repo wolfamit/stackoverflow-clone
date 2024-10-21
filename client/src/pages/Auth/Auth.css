@@ -1,48 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+ .auth-header{
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 1000;
+    font-size: 40px;
+    text-align: center;
+    font-style: normal;
+}
 .auth-sec{
     min-height: 100vh;
     margin: 0 auto;
-    background-color: #f1f2f3;
+    
     display: flex;
     justify-content: center;
     align-items: center;
+    min-width: 430px;
 }
 
 .aboutauth-container{
-    width: 40%;
+    width: 100%;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 50px 0 0 60px;
+    text-align: start;
 } 
 
 .auth-container{
-    padding: 22px;
-    margin-top: 70px;
-    border-radius: 10px;
+    padding: 60px 22px 0px 22px;
+    min-width: 430px;
     display: flex;
     flex-direction: column;
+    
     align-items: center;
 
 }
 .auth-container form {
     width: 100%;
-    background-color: #fff;
-    padding: 22px 10px;
+    background-color: #eee6f1;
+    padding: 22px 10px 30px 10px;
+    border-radius: 30px;
     box-shadow:
      0 10px 25px rgba(0 0 0 / 5%),
      0 20px 40px rgba(0 0 0 / 5%),
      0 1px 4px rgba(0 0 0 / 10%);
 
 }
+
+.auth-icon{
+    font-size: 23px;
+    padding: 10px;
+    position: relative;
+    top: 6px;
+    display: inline-flex; /* or inline-block if you don't need vertical centering */
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+}
+
 .auth-container form label input{
-    border-radius: 10px;
-    padding: 12px;
-    font-size: 13px;
-    border: 1px solid black;
-    width: calc(100% - 20px);
+    border-radius: 25px;
+    margin: 2px;
+    padding: 12px 5pc 10px 23px;
+    font-size: 16px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border: none;
+    overflow: hidden;
+    width: 80%;
     
+}
+.auth-container form label input:focus{
+    background-color: rgb(211, 194, 194);
+    outline: none;
 }
 .auth-container form h4{
     padding: 0 2px;
     margin: 2px 0;
 }
-.auth-container p {
+.auth-container .auth-subheading {
     margin: 2px 0;
     padding: 14px 0;
 }
@@ -51,6 +88,9 @@
     width: 100%;
     padding: 10px 20px;
     border-radius: 10px;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
     border: none;
     background-color: #1B75D0;
     color: #fff;
@@ -83,8 +123,14 @@
     }
     .aboutauth-container{
         width: 100%;
-        padding: 10px;
-        margin-top: 80px;
+        padding: 100px 10px 0 10px;
+        
     }
     
+}
+
+@media screen and (min-width: 768px) {
+    .auth-container-mr{
+        margin-right: 160px;
+    }
 }

@@ -1,7 +1,6 @@
 .below-topnav-public{
-    position: relative;
-    padding-top: 160px;
-    padding-inline: 20px;
+    position: relative;    
+    /* padding-top: 60px; */
     min-width: 430px;
     background-color: var(--bg-color-1);
 
