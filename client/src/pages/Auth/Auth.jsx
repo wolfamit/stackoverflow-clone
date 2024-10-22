@@ -1,16 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
-
 import logo from '../../assets/icon.png'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import Aboutauth from './Aboutauth'
 import { signin, signup } from "../../actions/auth";
 import { RxAvatar } from "react-icons/rx";
 import { CiUnlock } from "react-icons/ci";
-
 import Spinner from '../../components/Spinner/Spinner';
 import './Auth.css'
+import Leftsidebar from '../../components/LeftsideBar/Leftsidebar';
 
 const Auth = ({isDaytime}) => {
   const [signedIn, setsignedIn] = useState(true);
@@ -19,13 +18,15 @@ const Auth = ({isDaytime}) => {
   const [name, setname] = useState('');
   const [email, setemail] = useState('test@test.com');
   const [password, setpassword] = useState('12345');
-
-
-
+  const user = useSelector(state=>state.CurrentUserReducer);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-
+  
+  
+  useEffect(()=>{if(user){
+    navigate("/");
+  }},[])
+  
   const handleSwitch = () => {
     setsignedIn(!signedIn);
     setname("");
@@ -63,6 +64,7 @@ const Auth = ({isDaytime}) => {
 
   return (
     <>
+    <Leftsidebar />
     <section className='auth-sec'
     style={isDaytime 
       ? { background: 'linear-gradient(30deg, rgb(160, 61, 61), rgb(107, 107, 210))' } 

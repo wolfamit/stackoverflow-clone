@@ -1,7 +1,7 @@
 import React from "react";
-import "./Users.css";
 import Leftsidebar from "../../components/LeftsideBar/Leftsidebar";
 import UsersList from "./UsersList";
+import "./Users.css";
 
 const Users = () => {
   return (

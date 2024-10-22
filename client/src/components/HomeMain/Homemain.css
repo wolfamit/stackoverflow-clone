@@ -18,7 +18,7 @@
     min-width: 430px;
     background: linear-gradient(60deg, var(--bg-color-2), rgb(135, 122, 195));
     /* background-size: 200% 200%; */
-    animation: gradientAnimation 5s ease infinite;
+    animation: gradientAnimation 5s ease infinite linear;
     font-family: cursive;
   }
   
@@ -135,6 +135,7 @@
     }
     .main-bar {
       min-width: 430px;
+      padding-top: 0px;
     }
   }
   

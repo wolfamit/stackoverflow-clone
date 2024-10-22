@@ -3,6 +3,7 @@
   width: 100%;
   background-color: var(--bg-color-1);
   padding-top: 110px;
+  min-width: 430px;
 }
 
 #tags100 {
@@ -28,6 +29,9 @@
 @media screen and (max-width: 768px) {
   .tags-container {
     padding: 30px;
+  }
+  #tags-below{
+    padding-top: 40px;
   }
 }
 

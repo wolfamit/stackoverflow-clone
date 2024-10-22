@@ -51,31 +51,33 @@ const Navbar = ({ isDaytime, setIsDaytime }) => {
     const Users = useSelector(state => state.usersReducer);
     const currentProfile = Users.find(userItem => userItem._id === user?.data?.result?._id);
     // so current profile picturePath contained in currentProfile
-    
-    const handleLogOut = async () => {
-        await dispatch({ type: "LOGOUT" });
-        await dispatch(setCurrentUser(null));
-        navigate('/Auth');
+    const throwToast = () => {
         toast.success('Logged out successfully');
+    }
+    const handleLogOut = async () => {
+        dispatch({ type: "LOGOUT" });
+        dispatch(setCurrentUser(null));
+        dispatch(sethamToggle(false));
+        navigate('/Auth');
+        throwToast();
     };
 
     useEffect(() => {
-        const token = user?.data.token;
+        setToggle(false);
+        //dispatch(sethamToggle(toggle));
+        const token = user?.data?.token;
         if (token) {
             const decodedToken = jwtDecode(token).exp * 1000;
             const currentTime = new Date().getTime();
-            console.log('Token expiration:', new Date(decodedToken.exp * 1000));
-            console.log('Current time:', new Date(currentTime));
+            // console.log('Token expiration:', new Date(decodedToken));
+            // console.log('Current time:', new Date(currentTime));
             if (decodedToken <= currentTime) {
-                console.log('Token expired. Logging out.');
                 handleLogOut();
-                toast.error('Login again');
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // Dispatch setCurrentUser action
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))));
     }, [dispatch]);
-
     // Event handler to toggle dropdown of avatar visibility
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDaytime);
@@ -83,10 +85,9 @@ const Navbar = ({ isDaytime, setIsDaytime }) => {
     };
 
     const handleToggle = () => {
-        if (toggle != undefined && toggle != null) {
-            setToggle(!toggle);
-            dispatch(sethamToggle(toggle));
-        }
+        setToggle(!toggle);
+        console.log(toggle)
+        dispatch(sethamToggle(toggle));
     };
 
     const handleThemeChange = () => {
@@ -98,8 +99,8 @@ const Navbar = ({ isDaytime, setIsDaytime }) => {
         <>
             <Leftsideabar />
             <nav className={!isHidden ? "top-nav" : ' top-nav blur'} >
-                <div className= 'navbar' >
-                    <div className="hamburger" onClick={handleToggle}>
+                <div className='navbar' >
+                    <div className="hamburger" onClick={() => handleToggle()}>
                         <GiHamburgerMenu size={30} color={isDaytime ? '' : 'white'} />
                     </div>
                     <div className='logo'>

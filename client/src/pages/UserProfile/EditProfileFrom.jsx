@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateProfile } from "../../actions/user";
 
-
 const EditProfileForm = ({ currentUser, setSwitch }) => {
 
   const [name, setName] = useState(currentUser?.name);
@@ -68,7 +67,7 @@ const EditProfileForm = ({ currentUser, setSwitch }) => {
         }}>Uploading</h1>) : null
       }
       <h1 className="edit-profile-title">Edit Your Profile</h1>
-      <h2 className="edit-profile-title-2">Public information</h2>
+      <p className="edit-profile-title-2">Public information</p>
       <form className="edit-profile-form" onSubmit={handleSubmit}>
         <label htmlFor="name">
           <h3>Display name</h3>
@@ -136,16 +135,18 @@ const EditProfileForm = ({ currentUser, setSwitch }) => {
 
           </select>
         </label>
+
         <label htmlFor="profilePicture">
           <h3>Profile Picture</h3>
           <input
+            className="add-photo-btn"
             type="file" // Input type file for selecting files
             id="profilePicture"
             accept="image/*" // Accept all image types
             onChange={(e) => setProfilePicture(e.target.files[0])} // Update profile picture state
           />
         </label>
-        <br />
+        
         <br />
         <br />
         <input type="submit" value="Save profile" className="user-submit-btn" />

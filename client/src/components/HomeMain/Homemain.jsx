@@ -6,6 +6,7 @@ import QuestionsList from './QuestionsList'
 import Cards from '../Subscription/Cards'
 import Leftsidebar from '../LeftsideBar/Leftsidebar'
 import './Homemain.css'
+import UsersCorousel from '../UsersCorousel/UsersCorousel'
 
 
 const Homemain = () => {
@@ -71,35 +72,35 @@ const Homemain = () => {
 
   return (
     <>
-    < Leftsidebar />
-    <div 
-    // id={`${toggle.toggle? 'w100': 'below-topnav'}`}
-    id='w100'
-    >
-      {/* <Cards /> */}
-      <div className='main-bar'>
-        <div className='main-bar-header '>
-          <div className='d-flex'> {
-            location.pathname === '/' ? <h1>Top Questions</h1> : <h1>All Questions</h1>
-          }
-            <button onClick={checkAuth} className='ask-btn'>Ask Question</button></div>
-
-          <div className='main-bar-header'>
-            {
-              questionsList.data === null ?
-                <h1>Loading...</h1> :
-                <>
-                  <div style={{marginBottom : "40px", padding: "15px" , borderRadius: '20px' , fontSize: '20px', fontWeight: '500' ,backgroundColor : 'var(--bg-color-2)'}}>
-                    {questionsList.data.length} questions posted
-                  </div>
-                  <QuestionsList questionsList={questionsList.data} />
-                </>
+      < Leftsidebar />
+      <div
+        id='w100'
+      >
+        {/* <Cards /> */} 
+        <UsersCorousel />
+        <div className='main-bar'>
+          <div className='main-bar-header '>
+            <div className='d-flex'> {
+              location.pathname === '/' ? <h1>Top Questions</h1> : <h1>All Questions</h1>
             }
+              <button onClick={checkAuth} className='ask-btn'>Ask Question</button></div>
+
+            <div className='main-bar-header'>
+              {
+                questionsList.data === null ?
+                  <h1>Loading...</h1> :
+                  <>
+                    <div style={{ marginBottom: "40px", padding: "15px", borderRadius: '20px', fontSize: '20px', fontWeight: '500', backgroundColor: 'var(--bg-color-2)' }}>
+                      {questionsList.data.length} questions posted
+                    </div>
+                    <QuestionsList questionsList={questionsList.data} />
+                  </>
+              }
+            </div>
           </div>
         </div>
+
       </div>
-      
-    </div>
     </>
   )
 }

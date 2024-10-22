@@ -10,21 +10,21 @@ import { fetchAllQuestions } from './actions/question.js';
 import { fetchAllUsers } from './actions/user.js';
 import { getAllPost } from './actions/posts.js';
 import Chatbot from './components/ChatBot/Chatbot.jsx';
-import './App.css';
 import Leftsidebar from './components/LeftsideBar/Leftsidebar.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import './App.css';
 
 function App() {
   const [isDaytime, setIsDaytime] = useState(localStorage.getItem('isDaytime'));
   const dispatch = useDispatch();
-  
   const user = useSelector(state =>state.CurrentUserReducer);
-  
+
   useEffect(() => {
     dispatch(fetchAllQuestions())
     dispatch(fetchAllUsers())
     dispatch(getAllPost())
   }, [dispatch]);
+
   
 
   navigator.geolocation.getCurrentPosition(position => {

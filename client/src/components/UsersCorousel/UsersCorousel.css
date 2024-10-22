@@ -1,0 +1,28 @@
+.corousel-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.corousel-wrapper {
+  display: flex;
+  width: calc(200% * 100vw); /* Adjust based on the number of items */
+  animation: scroll 15s linear infinite;
+}
+
+.corousel-names {
+  flex: none;
+  padding: 20px;
+  white-space: nowrap;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  box-shadow: inset beige 1px 1px;
+}
+
+@keyframes scroll {
+  0% {
+      transform: translateX(0);
+  }
+  100% {
+      transform: translateX(-50%);
+  }
+}

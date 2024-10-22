@@ -65,7 +65,7 @@ const Askquestion = () => {
                   value={questionTitle}
                   onChange={e => setTitle(e.target.value)}
                   id='ask-ques-title'
-                  placeholder='e.g Is there a R function for finding the index of an element in vector?' />
+                  placeholder='Some Title' />
               </label>
 
               <label htmlFor="ask-ques-body">
@@ -74,6 +74,7 @@ const Askquestion = () => {
                 <textarea id='ask-ques-body'
                   rows='12' col='12'
                   value={questionBody}
+                  placeholder='What would you like to ask?'
                   onChange={e => setQuestionBody(e.target.value)}
                   onKeyDown={handleEnter}
                   className='ques-body'
@@ -82,7 +83,7 @@ const Askquestion = () => {
 
               <label htmlFor="ask-ques-tags">
                 <h4>Tags</h4>
-                <p>Add Up to 5 tags to describe what you'r question is about </p>
+                <p>Add space seperated tags to describe Q's </p>
                 <input
                   id='ask-ques-tags'
                   value={questionTags}
