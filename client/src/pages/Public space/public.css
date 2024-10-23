@@ -27,7 +27,7 @@
     min-width: 420px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    padding: 20px;
+    padding: 30px;
     background-color: var(--bg-color-2);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 
 const QuestionDetails = () => {
   const [loading, setLoading] = useState(false)
+  const [Answer, setAnswer] = useState("");
   // const [error, setError] = useState('')
 
   const { id } = useParams();
@@ -23,13 +24,14 @@ const QuestionDetails = () => {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [Answer, setAnswer] = useState("");
-
-
   const handlePostAns = (e, answerLength) => {
     e.preventDefault();
+    if(Answer.length == 0){
+      alert("Please write a answer");
+      return;
+    }
     setLoading(true);
-    if (User === null || User === undefined) {
+    if (!User) {
       alert("Login or Signup to answer a question");
       Navigate("/Auth");
     } else {
@@ -69,6 +71,7 @@ const QuestionDetails = () => {
     dispatch(upvoteQuestion(id, 'upvote', User.data.result._id));
 
   }
+
   const handleDownVote = () => {
     dispatch(downvoteQuestion(id, 'downvote', User.data.result._id));
   }
@@ -160,7 +163,7 @@ const QuestionDetails = () => {
                       </section>
                     )}
                     <section className="post-ans-container">
-                      <h3>Your Answer</h3>
+                      <h3>Write Your Answer</h3>
                       <form
                         onSubmit={(e) => {
                           handlePostAns(e, question.answer.length);
