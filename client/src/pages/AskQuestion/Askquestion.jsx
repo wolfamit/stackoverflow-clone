@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'
-
 import { askQuestion } from '../../actions/question.js'
-import Leftsidebar from '../../components/LeftsideBar/Leftsidebar.jsx';
 import './Askquestion.css'
 
 const Askquestion = () => {
@@ -46,7 +43,6 @@ const Askquestion = () => {
 
   return (
     <>
-    <Leftsidebar/>
     <div id='ask-ques-below'>
       <div className='ask-ques'>
         <div className='ask-ques-container'>

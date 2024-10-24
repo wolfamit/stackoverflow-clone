@@ -1,6 +1,6 @@
 import { BrowserRouter as Router } from 'react-router-dom';
-import { useEffect, useState   } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -15,9 +15,9 @@ import Footer from './components/Footer/Footer.jsx';
 import './App.css';
 
 function App() {
-  const [isDaytime, setIsDaytime] = useState(localStorage.getItem('isDaytime'));
+  const [isDaytime, setIsDaytime] = useState(localStorage.getItem('isDarkMode'));
   const dispatch = useDispatch();
-  const user = useSelector(state =>state.CurrentUserReducer);
+  const user = useSelector(state => state.CurrentUserReducer);
 
   useEffect(() => {
     dispatch(fetchAllQuestions())
@@ -25,29 +25,29 @@ function App() {
     dispatch(getAllPost())
   }, [dispatch]);
 
-  
-
-  navigator.geolocation.getCurrentPosition(position => {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    fetchWeather(latitude, longitude);
-})
-
-const fetchWeather = (latitude, longitude) => {
-    const apikey = process.env.REACT_APP_WEATHER_API_KEY;
-    const baseUrl = `https://api.weatherapi.com/v1/current.json?key=${apikey}&lat=${latitude}&long=${longitude}&q=India`
-    fetch(baseUrl)
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(position => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      const apikey = process.env.REACT_APP_WEATHER_API_KEY;
+      const baseUrl = `https://api.weatherapi.com/v1/current.json?key=${apikey}&lat=${latitude}&long=${longitude}&q=India`;
+      fetch(baseUrl)
         .then(response => response.json())
-        .then(data =>
-          localStorage.setItem("isDarkMode" , data?.current.is_day));
-          
-}
+        .then(data => {
+          const isDay = data?.current.is_day;
+          localStorage.setItem("isDarkMode", isDay ? '1' : '0');
+          setIsDaytime(isDay);
+        })
+        .finally(() => console.log("Finished setting theme"));
+    })
+  }, []);
+  
   return (
     <div className="App" data-theme={
       isDaytime ? "" : "dark"}
     >
       <Router>
-        <Navbar isDaytime={isDaytime} setIsDaytime={setIsDaytime}/>
+        <Navbar isDaytime={isDaytime} setIsDaytime={setIsDaytime} />
         <Leftsidebar />
         <ToastContainer
           position="bottom-left"
@@ -56,13 +56,12 @@ const fetchWeather = (latitude, longitude) => {
           closeOnClick
           rtl={false}
           pauseOnFocusLoss
-          theme="light"                                                                     />
-        <AllRoutes isDaytime={isDaytime}/>
-     <Footer isDaytime={isDaytime}/>
+          theme="light" />
+        <AllRoutes isDaytime={isDaytime} />
+        <Footer isDaytime={isDaytime} />
       </Router>
-     { user && <Chatbot user={user} isDaytime={isDaytime}/>}
+      {user && <Chatbot user={user} isDaytime={isDaytime} />}
     </div>
-
   );
 }
 

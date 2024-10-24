@@ -9,7 +9,6 @@ import Avatar from '../../components/Avatar/Avatar'
 import Displayanswer from './Displayanswer'
 import { deleteQuestion, postAnswer, downvoteQuestion, upvoteQuestion } from '../../actions/question'
 import './QuestionDetails.css'
-import { toast } from "react-toastify";
 
 const QuestionDetails = () => {
   const [loading, setLoading] = useState(false)

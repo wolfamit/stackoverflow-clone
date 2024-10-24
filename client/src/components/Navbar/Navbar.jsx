@@ -12,7 +12,6 @@ import search from '../../assets/search-solid.svg'
 import Avatar from '../../components/Avatar/Avatar';
 import { setCurrentUser } from '../../actions/currentUser.js';
 import Dropdown from './dropdown.jsx';
-import Leftsideabar from '../LeftsideBar/Leftsidebar.jsx'
 import { sethamToggle } from '../../actions/hamburgerToggle.js';
 import "./Navbar.css";
 
@@ -21,6 +20,7 @@ const Navbar = ({ isDaytime, setIsDaytime }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility
     const [isHidden, setIsHidden] = useState(false);   // animation for top nav bar
 
+    // Navbar on scroll animation logic
     let previousScrollPosition = window.pageYOffset;
     useEffect(() => {
         const handleScroll = () => {
@@ -47,24 +47,21 @@ const Navbar = ({ isDaytime, setIsDaytime }) => {
     const navigate = useNavigate();
 
     const user = useSelector((state) => (state.CurrentUserReducer))
-    // i don't know why user contains default picture of avatar
     const Users = useSelector(state => state.usersReducer);
     const currentProfile = Users.find(userItem => userItem._id === user?.data?.result?._id);
-    // so current profile picturePath contained in currentProfile
+
     const throwToast = () => {
         toast.success('Logged out successfully');
     }
     const handleLogOut = async () => {
-        dispatch({ type: "LOGOUT" });
-        dispatch(setCurrentUser(null));
+        await dispatch({ type: "LOGOUT" });
+        await dispatch(setCurrentUser(null));
         dispatch(sethamToggle(false));
         navigate('/Auth');
         throwToast();
     };
 
     useEffect(() => {
-        setToggle(false);
-        //dispatch(sethamToggle(toggle));
         const token = user?.data?.token;
         if (token) {
             const decodedToken = jwtDecode(token).exp * 1000;
@@ -78,26 +75,28 @@ const Navbar = ({ isDaytime, setIsDaytime }) => {
         // Dispatch setCurrentUser action
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))));
     }, [dispatch]);
+
     // Event handler to toggle dropdown of avatar visibility
     const toggleDropdown = () => {
-        setIsDropdownOpen(!isDaytime);
-        localStorage.setItem("isDarkMode", isDaytime);
+        setIsDropdownOpen(!isDropdownOpen);
+        // localStorage.setItem("isDarkMode", isDaytime);
     };
 
-    const handleToggle = () => {
-        setToggle(!toggle);
-        console.log(toggle)
-        dispatch(sethamToggle(toggle));
+    const handleToggle = async () => {
+        await setToggle(prev => {
+            const newToggle = !prev;
+            dispatch(sethamToggle(newToggle));
+            return newToggle;
+        });
     };
 
     const handleThemeChange = () => {
-        setIsDaytime(!isDaytime);
+        setIsDaytime(isDaytime => !isDaytime);
         localStorage.setItem('isDarkMode', isDaytime);
     }
 
     return (
         <>
-            <Leftsideabar />
             <nav className={!isHidden ? "top-nav" : ' top-nav blur'} >
                 <div className='navbar' >
                     <div className="hamburger" onClick={() => handleToggle()}>
@@ -117,15 +116,24 @@ const Navbar = ({ isDaytime, setIsDaytime }) => {
                         <input type="text" name="search" placeholder="search.." id="search1" />
                         <img src={search} alt="search" width={18} style={isDaytime ? {} : { filter: 'invert(.5) brightness(1)' }} />
                     </form>
-                    {
-                        !user ? <Link to='/Auth' className='nav-item'>Log in</Link> :
-                            <div onClick={toggleDropdown} ref={dropdownRef}
-                                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
-                            >
-                                <Avatar imageSrc={currentProfile && currentProfile?.picturePath.length <= 30 ? `${process.env.REACT_APP_BASE_URL}assets/${currentProfile?.picturePath}` : currentProfile?.picturePath} margin="10px" backgroundColor="blue" py="21px" px='21px' cursor="cursor" borderRadius="50%" ><Link to='/User/'></Link></Avatar>
-                                <Dropdown isDropdownOpen={isDropdownOpen} toggleDropdown={toggleDropdown} dropdownRef={dropdownRef} user={user} />
-                            </div>
-                    }
+                    {user && currentProfile && (
+                        <div onClick={toggleDropdown} ref={dropdownRef}
+                            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                            <Avatar
+                                imageSrc={currentProfile.picturePath.length <= 30 ?
+                                    `${process.env.REACT_APP_BASE_URL}assets/${currentProfile.picturePath}` :
+                                    currentProfile.picturePath}
+                                margin="10px"
+                                backgroundColor="blue"
+                                py="21px"
+                                px="21px"
+                                cursor="cursor"
+                                borderRadius="50%"
+                            />
+                            <Dropdown isDropdownOpen={isDropdownOpen} toggleDropdown={toggleDropdown} dropdownRef={dropdownRef} user={user} />
+                        </div>
+                    )}
+
                     <div onClick={handleThemeChange} style={{
                         width: '30px',
                         margin: '3px',

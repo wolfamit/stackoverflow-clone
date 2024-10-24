@@ -3,7 +3,6 @@ import moment from 'moment'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import Leftsidebar from '../../components/LeftsideBar/Leftsidebar'
 import Avatar from '../../components/Avatar/Avatar'
 import EditProfileForm from './EditProfileFrom'
 import ProfileBio from './ProfileBio'
@@ -18,7 +17,6 @@ const UserProfile = ({ user }) => {
 
     return (
         <>
-            <Leftsidebar />
             <div className='below-topnav-user'>
                 <div className="user-details-container">
                     <div className="user-details">

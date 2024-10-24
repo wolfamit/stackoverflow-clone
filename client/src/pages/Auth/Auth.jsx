@@ -8,8 +8,8 @@ import { signin, signup } from "../../actions/auth";
 import { RxAvatar } from "react-icons/rx";
 import { CiUnlock } from "react-icons/ci";
 import Spinner from '../../components/Spinner/Spinner';
-import './Auth.css'
-import Leftsidebar from '../../components/LeftsideBar/Leftsidebar';
+import './Auth.css';
+
 
 const Auth = ({isDaytime}) => {
   const [signedIn, setsignedIn] = useState(true);
@@ -23,7 +23,8 @@ const Auth = ({isDaytime}) => {
   const dispatch = useDispatch();
   
   
-  useEffect(()=>{if(user){
+  useEffect(()=>{
+    if(user){
     navigate("/");
   }},[])
   
@@ -64,7 +65,6 @@ const Auth = ({isDaytime}) => {
 
   return (
     <>
-    <Leftsidebar />
     <section className='auth-sec'
     style={isDaytime 
       ? { background: 'linear-gradient(30deg, rgb(160, 61, 61), rgb(107, 107, 210))' } 

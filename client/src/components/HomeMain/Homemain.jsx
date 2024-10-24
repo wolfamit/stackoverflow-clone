@@ -3,8 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import QuestionsList from './QuestionsList'
-import Cards from '../Subscription/Cards'
-import Leftsidebar from '../LeftsideBar/Leftsidebar'
 import './Homemain.css'
 import UsersCorousel from '../UsersCorousel/UsersCorousel'
 
@@ -72,7 +70,7 @@ const Homemain = () => {
 
   return (
     <>
-      < Leftsidebar />
+      {/* < Leftsidebar /> */}
       <div
         id='w100'
       >

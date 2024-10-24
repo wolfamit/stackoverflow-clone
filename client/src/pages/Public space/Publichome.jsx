@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 
 import Post from './Posts';
-import Leftsidebar from '../../components/LeftsideBar/Leftsidebar';
 import CreatePost from '../../components/CreatePost/CreatePost';
 import Model from '../../components/CreatePost/Model';
 import Spinner from '../../components/Spinner/Spinner';
@@ -84,7 +83,6 @@ const Publichome = ({ User }) => {
 
     return (
         <>
-            <Leftsidebar />
             {
                 isModalOpen && !isUploading &&
                 (<Model User={User} setDescription={setDescription} setFile={setFile} onCloseModal={handleCloseModal} onSubmit={submitPost} user={User} />)

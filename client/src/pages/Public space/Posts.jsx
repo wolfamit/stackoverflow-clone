@@ -14,6 +14,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import VideoPlayer from '../../components/CreatePost/VedioPlayer.jsx';
 import './public.css'
+import Rightside from '../../components/Rightsidebar/Rightside.jsx';
 
 const Post = ({ postdetails, toggleComments, visibleComments }) => {
     const [comment, setComment] = useState('')
@@ -92,6 +93,7 @@ const Post = ({ postdetails, toggleComments, visibleComments }) => {
 
     return (
         <section className='public-middle-section'>
+            <Rightside />
             <div className="post">
                 {/**Post HEADER WITH IMAGE LOCATION ETC */}
                 <div className="post-header">

@@ -8,4 +8,5 @@ const router = express.Router();
 router.patch('/post/:id' , auth, postAnswer) //patch is used to manipulate particular data in the database
 
 router.patch('/delete/:id' ,auth, deleteAnswer) //delete Answer
+
 export default router

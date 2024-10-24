@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Leftsidebar from '../../components/LeftsideBar/Leftsidebar'
 import { Navigate } from 'react-router-dom';
 import './checkout.css'
 import { useDispatch, useSelector } from 'react-redux';
@@ -63,7 +62,6 @@ const CheckoutPage = ({ user }) => {
 
     return (
         <>
-            <Leftsidebar />
             {user === null || undefined ? (
                 <Navigate to='/Auth' />
             ) : 

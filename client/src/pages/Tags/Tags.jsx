@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import Leftsidebar from '../../components/LeftsideBar/Leftsidebar'
 import TagList from './TagList';
 import { List } from './List'
 import "./Tags.css";
@@ -10,7 +9,7 @@ const Tags = () => {
   return (
     <>
     <div id={`${toggle.toggle? 'tags100': 'tags-below'}`}>
-    <Leftsidebar />
+    
 
       <div className="tags-container">
         <h1 className="tags-h1">Tags</h1>

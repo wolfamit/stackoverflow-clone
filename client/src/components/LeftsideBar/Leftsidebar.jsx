@@ -1,12 +1,11 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-
 import globe from "../../assets/Globe.svg"
 import './Leftsidebar.css'
 
 const Leftsidebar = () => {
-    const toggle = useSelector(state => state.toggleReducer)
+    const toggle = useSelector(state => state.toggleReducer) || false;
 
     return (
         <nav className={`left-sidebar ${toggle? "" : "close"}`}>
@@ -23,4 +22,4 @@ const Leftsidebar = () => {
 }
 
 
-export default Leftsidebar
+export default Leftsidebar;

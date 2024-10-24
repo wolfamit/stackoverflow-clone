@@ -9,11 +9,12 @@
   
   .widget {
     margin-top: 10px;
+    color: var(--text-color-2);
     box-shadow: 3px 3px 10px rgb(0 0 0 / 5%), -3px -3px 10px rgb(0 0 0 / 5%);
   }
   
   .widget h4 {
-    background-color: #fbf3d5;
+    color: var(--text-color-3);
     margin: 0%;
     padding: 15px;
     border: solid 1px #f1e5bc;
@@ -21,7 +22,7 @@
   }
   
   .right-sidebar-div-1 {
-    background-color: #fdf7e2;
+    background-color: var(--bg-color-1);
     padding: 15px;
     border: solid 1px #f1e5bc;
   }
@@ -46,7 +47,8 @@
   .widget-tags h4 {
     margin: 0%;
     padding: 15px;
-    background-color: #f8f9f9;
+    color: var(--text-color-2);
+    background-color: var(--bg-color-1);
     border: solid 1px #e3e6e8;
     font-size: 13px;
   }
@@ -63,7 +65,7 @@
   
   .widget-tags-div p {
     padding: 5px;
-    background-color: #e1ecf4;
+    background-color: var(--bg-color-1);
     color: #39739d;
     border-radius: 2px;
     font-size: 13px;
