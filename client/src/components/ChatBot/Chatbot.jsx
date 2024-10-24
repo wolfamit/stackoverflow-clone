@@ -6,10 +6,10 @@ import { SiOpenai } from "react-icons/si";
 import { AiFillCloseSquare } from "react-icons/ai";
 
 import { sendEmailOtp , verifyingEmailOtp } from '../../actions/user'
-import './chatbot.css';
 import { ThemeContext } from '../../contextAPI/ThemeContext';
+import './chatbot.css';
 
-const Chatbot = ({ user }) => {
+const Chatbot = () => {
   
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([{ text: "Hii there ✋🏼! ask me anything related to programming 🖥️.", sender: 'bot' }]); // State to store chat messages
@@ -21,7 +21,8 @@ const Chatbot = ({ user }) => {
   const [verifyingEmail, setVerifyingEmail] = useState(false);
   const [otp, setOtp] = useState('');
   const [email, setEmail] = useState('');
-  const {isDaytime} = useContext(ThemeContext)
+  const {isDaytime} = useContext(ThemeContext);
+  const user = useSelector((state) => state.CurrentUserReducer);
   const messagesEndRef = useRef(null);
   const dispatch = useDispatch()
   

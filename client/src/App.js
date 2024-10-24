@@ -16,34 +16,16 @@ import './App.css';
 import { ThemeContext } from './contextAPI/ThemeContext.js';
 
 function App() {
-  // const [isDaytime, setIsDaytime] = useState(localStorage.getItem('isDarkMode'));
-
   const dispatch = useDispatch();
   const user = useSelector(state => state.CurrentUserReducer);
   const { isDaytime } = useContext(ThemeContext);
+
   useEffect(() => {
     dispatch(fetchAllQuestions())
     dispatch(fetchAllUsers())
     dispatch(getAllPost())
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition(position => {
-  //     const latitude = position.coords.latitude;
-  //     const longitude = position.coords.longitude;
-  //     const apikey = process.env.REACT_APP_WEATHER_API_KEY;
-  //     const baseUrl = `https://api.weatherapi.com/v1/current.json?key=${apikey}&lat=${latitude}&long=${longitude}&q=India`;
-  //     fetch(baseUrl)
-  //       .then(response => response.json())
-  //       .then(data => {
-  //         const isDay = data?.current.is_day;
-  //         localStorage.setItem("isDarkMode", isDay ? '1' : '0');
-  //         setIsDaytime(isDay);
-  //       })
-  //       .finally(() => console.log("Finished setting theme"));
-  //   })
-  // }, []);
-  
   return (
     <div className="App" data-theme={
       isDaytime ? "" : "dark"}

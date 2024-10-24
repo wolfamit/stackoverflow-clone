@@ -8,10 +8,11 @@ import EditProfileForm from './EditProfileFrom'
 import ProfileBio from './ProfileBio'
 import './UserProfile.css'
 
-const UserProfile = ({ user }) => {
+const UserProfile = () => {
 
     const { id } = useParams();
     const Users = useSelector(state => state.usersReducer);
+    const user = useSelector((state) => state.CurrentUserReducer);
     const currentProfile = Users.find(user => user._id === id);
     const [Switch, setSwitch] = useState(false);
 

@@ -6,7 +6,6 @@ const Vippasses = () => {
   return (
     <div className='vip-container'>
        <CheckoutPage />
-        
     </div>
   )
 }

@@ -9,7 +9,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import { postAction } from '../../actions/posts'
 import './public.css';
 
-const Publichome = ({ User }) => {
+const Publichome = () => {
     const [visibleComments, setVisibleComments] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [description, setDescription] = useState('');
@@ -18,7 +18,8 @@ const Publichome = ({ User }) => {
     const [loading , setLoading] = useState(false);
 
     /* Reducers*/
-    const posts = useSelector(state => state.PostReducer)
+    const posts = useSelector(state => state.PostReducer);
+    const User = useSelector((state) => state.CurrentUserReducer);
     
     const newpostref = useRef(null);
     const dispatch = useDispatch();
