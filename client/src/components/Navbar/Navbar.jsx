@@ -57,7 +57,6 @@ const Navbar = () => {
     const handleLogOut = async () => {
         await dispatch({ type: "LOGOUT" });
         await dispatch(setCurrentUser(null));
-        dispatch(sethamToggle(false));
         navigate('/Auth');
         throwToast();
     };
