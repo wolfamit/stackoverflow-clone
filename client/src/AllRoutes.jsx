@@ -18,12 +18,12 @@ import PaymentSuccess from './pages/CheckoutPage/PaymentSuccess';
 import Homemain from './components/HomeMain/Homemain';
 import ErrorNotfound from './components/ErrorNotfound/ErrorNotfound.js';
 
-const AllRoutes = ({isDaytime}) => {
+const AllRoutes = () => {
   const user = useSelector((state) => state.CurrentUserReducer);
   return (
     <Routes>
         <Route exact path='/' element={<Home/>}/>
-        <Route exact path='/Auth' element={<Auth isDaytime={isDaytime}/>}/>
+        <Route exact path='/Auth' element={<Auth/>}/>
         <Route exact path='/public' element={<Publichome User={user}/>}/>
         <Route exact path='/questions' element={<Homemain/>}/>
         <Route exact path='/Ask-questions' element={<Askquestion/>}/>

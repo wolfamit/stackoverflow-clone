@@ -4,9 +4,9 @@ import './index.css';
 /* React Redux, redux, redux-thunk setup */
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
-import {thunk} from 'redux-thunk'; // Import thunk middleware
+import { thunk } from 'redux-thunk'; // Import thunk middleware
 import rootReducers from './Reducers';
-
+import { ThemeProvider } from './contextAPI/ThemeContext';
 import App from './App';
 
 // Create the Redux store with middleware (thunk in this case)
@@ -20,7 +20,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <React.StrictMode>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </React.StrictMode>
   </Provider>
 );

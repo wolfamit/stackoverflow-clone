@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import logo from '../../assets/icon.png'
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,15 +9,17 @@ import { RxAvatar } from "react-icons/rx";
 import { CiUnlock } from "react-icons/ci";
 import Spinner from '../../components/Spinner/Spinner';
 import './Auth.css';
+import { ThemeContext } from '../../contextAPI/ThemeContext';
 
 
-const Auth = ({isDaytime}) => {
+const Auth = () => {
   const [signedIn, setsignedIn] = useState(true);
   const [loading, setLoading] = useState(false);
   const [backendMessage, setBackendMessage] = useState(false);
   const [name, setname] = useState('');
   const [email, setemail] = useState('test@test.com');
   const [password, setpassword] = useState('12345');
+  const {isDaytime} = useContext(ThemeContext);
   const user = useSelector(state=>state.CurrentUserReducer);
   const navigate = useNavigate();
   const dispatch = useDispatch();

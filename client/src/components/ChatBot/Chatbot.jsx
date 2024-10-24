@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast  } from 'react-toastify';
 import { SiChatbot, SiEightsleep } from 'react-icons/si';
@@ -7,8 +7,9 @@ import { AiFillCloseSquare } from "react-icons/ai";
 
 import { sendEmailOtp , verifyingEmailOtp } from '../../actions/user'
 import './chatbot.css';
+import { ThemeContext } from '../../contextAPI/ThemeContext';
 
-const Chatbot = ({ isDaytime, user }) => {
+const Chatbot = ({ user }) => {
   
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([{ text: "Hii there ✋🏼! ask me anything related to programming 🖥️.", sender: 'bot' }]); // State to store chat messages
@@ -20,7 +21,7 @@ const Chatbot = ({ isDaytime, user }) => {
   const [verifyingEmail, setVerifyingEmail] = useState(false);
   const [otp, setOtp] = useState('');
   const [email, setEmail] = useState('');
-  
+  const {isDaytime} = useContext(ThemeContext)
   const messagesEndRef = useRef(null);
   const dispatch = useDispatch()
   

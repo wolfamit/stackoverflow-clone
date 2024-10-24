@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -13,13 +13,14 @@ import Avatar from '../../components/Avatar/Avatar';
 import { setCurrentUser } from '../../actions/currentUser.js';
 import Dropdown from './dropdown.jsx';
 import { sethamToggle } from '../../actions/hamburgerToggle.js';
+import { ThemeContext } from '../../contextAPI/ThemeContext.js';
 import "./Navbar.css";
 
-const Navbar = ({ isDaytime, setIsDaytime }) => {
+const Navbar = () => {
     const [toggle, setToggle] = useState(false); //state to manage toggle leftnavbar
     const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility
     const [isHidden, setIsHidden] = useState(false);   // animation for top nav bar
-
+    const {isDaytime, setIsDaytime} = useContext(ThemeContext);
     // Navbar on scroll animation logic
     let previousScrollPosition = window.pageYOffset;
     useEffect(() => {
@@ -79,7 +80,6 @@ const Navbar = ({ isDaytime, setIsDaytime }) => {
     // Event handler to toggle dropdown of avatar visibility
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
-        // localStorage.setItem("isDarkMode", isDaytime);
     };
 
     const handleToggle = async () => {
@@ -153,7 +153,9 @@ const Navbar = ({ isDaytime, setIsDaytime }) => {
                             <button onClick={handleLogOut}>Log out</button>
                         </div>
                         :
-                        ""}
+                        <div style={{border :"none" , maxWidth: "120px" }} className='d-flex'>
+                            <button onClick={()=>navigate('/Auth')}>Log In</button>
+                        </div>}
                 </div>
             </nav >
         </>
