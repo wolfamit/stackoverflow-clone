@@ -1,33 +1,54 @@
+/* Footer container */
 .footer-container {
-    background-color: var(--bg-color-2, #f8f9fa); /* Fallback added */
     font-family: 'Arial', sans-serif;
-    color: var(--text-color-1, #000); /* Fallback added */
+    color: var(--text-color-1, #eaeaea); /* Fallback added */
     width: 100%;
 }
 
+/* Footer with animated background */
 .footer {
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
     flex-wrap: wrap;
     padding: 20px;
-    background-color: var(--bg-color-4, #e0e0e0); /* Fallback added */
+    background: linear-gradient(45deg, var(--footer-bg-color, rgb(31, 31, 66)), #1e1e3a, #2d2d5a, #1e1e3a);
+    background-size: 400% 400%;
+    animation: gradientShift 10s ease infinite;
 }
 
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Logo styling with pulsing animation */
 .logo img {
     max-width: 200px;
+    animation: pulse 5s ease infinite;
 }
 
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.9; }
+}
+
+/* Footer sections */
 .footer-section {
     margin: 10px 0;
     padding: 5px 0;
 }
 
+/* Smooth hover effect on footer links */
 .footer-section div:hover {
-    color: var(--hover-color, #007bff); /* Fallback added */
+    color: var(--hover-color, #007bff);
     cursor: pointer;
+    transform: scale(1.05);
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
+/* Company info styling */
 .footer-company {
     display: flex;
     flex-direction: column;
@@ -38,14 +59,19 @@
 }
 
 .footer-company div:hover {
-    color: var(--hover-color, #007bff); /* Fallback added */
+    color: var(--hover-color, #007bff);
 }
 
+/* Copyright section */
 .footer-copyright {
     text-align: center;
     padding: 10px;
-    background-color: var(--footer-bg-color, #343a40); /* Fallback added */
-    color: var(--footer-text-color, #ffffff); /* Fallback added */
+    /* background-color: var(--footer-bg-color, #343a40);
+     */
+    /* color: var(--footer-text-color, #ffffff);
+     */
+    background-color: #eaeaea;
+    color: #343a40;
     font-size: 14px;
 }
 

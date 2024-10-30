@@ -62,6 +62,7 @@ const Navbar = () => {
     };
 
     useEffect(() => {
+        setToggle(false);
         const token = user?.data?.token;
         if (token) {
             const decodedToken = jwtDecode(token).exp * 1000;
@@ -81,8 +82,8 @@ const Navbar = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
-    const handleToggle = async () => {
-        await setToggle(prev => {
+    const handleToggle = () => {
+            setToggle(prev => {
             const newToggle = !prev;
             dispatch(sethamToggle(newToggle));
             return newToggle;

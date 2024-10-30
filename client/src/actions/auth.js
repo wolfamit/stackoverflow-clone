@@ -21,9 +21,19 @@ export const signup = (authdata , navigate) => async (dispatch) => {
         dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
         navigate('/')
        } catch (error) {
-              // If not, log the error for debugging purposes
               console.error('Error during signup:', error.message);
           }
+};
+
+export const GoogleSignup = (userInfo , navigate) => async (dispatch) => {
+    try {
+        const data = await api.GoogleSignup(userInfo);
+        dispatch({type: 'AUTH' , data})
+        dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
+        navigate('/')
+       } catch (error) {
+              console.error('Error during signup:', error.message);
+       }
 };
 
 

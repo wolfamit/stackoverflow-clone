@@ -12,7 +12,11 @@ const userSchema = mongoose.Schema({
                 unique: true,
         },
         password: {
-                type: String, required: true, min: 5,
+                type: String, required: function() {return !this.uid;} , min: 5,
+        },
+        uid: { 
+                type: String, 
+                required: false // UID for Google-authenticated users
         },
         picturePath: {
                 type: String,

@@ -4,12 +4,15 @@ import logo from '../../assets/icon.png'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import Aboutauth from './Aboutauth'
-import { signin, signup } from "../../actions/auth";
+import { signin, signup  , GoogleSignup} from "../../actions/auth";
 import { RxAvatar } from "react-icons/rx";
 import { CiUnlock } from "react-icons/ci";
 import Spinner from '../../components/Spinner/Spinner';
-import './Auth.css';
+import { FcGoogle } from "react-icons/fc";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../../firebase.config";
 import { ThemeContext } from '../../contextAPI/ThemeContext';
+import './Auth.css';
 
 
 const Auth = () => {
@@ -23,7 +26,8 @@ const Auth = () => {
   const user = useSelector(state=>state.CurrentUserReducer);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+  const provider = new GoogleAuthProvider();
+
   
   useEffect(()=>{
     if(user){
@@ -64,6 +68,37 @@ const Auth = () => {
       setLoading(false);
     }
   }
+
+  // Function to handle Google Sign-In
+const signInWithGoogle = async (e) => {
+  e.preventDefault(); // for stopping the page to reload when submitted
+  setLoading(true);
+  try { 
+    const result = await signInWithPopup(auth, provider);
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+
+    // The signed-in user info.
+    const user = result.user;
+    const userInfo = {
+      name: user.displayName,
+      email: user.email,
+      uid: user.uid, // Firebase user ID, useful for unique identification
+    };
+
+    // Dispatch an action to log in or register the user
+    await dispatch(GoogleSignup(userInfo, navigate));
+    console.log("User Info:", userInfo); // Optional: Display user info in console
+
+    return { user, token }; // Optionally return user and token
+  } catch (error) {
+    console.error("Error during Google sign-in:", error.message);
+    return null; // Return null if sign-in failed
+  }finally {
+    setLoading(false);
+  }
+};
 
   return (
     <>
@@ -144,6 +179,12 @@ const Auth = () => {
              {loading ? <Spinner /> : <button className='auth-btn'>Sign Up</button>}
             </div>
           )}
+          <br />
+          <div style={{textAlign: 'center'}}>-or-</div>
+          <br />
+           <div className='btn-wrapper'>
+             <div onClick={signInWithGoogle} className='google-btn'><div><FcGoogle/></div><p>Sign Up with google</p></div>
+            </div>
 
 
           {!signedIn && <p className='auth-subheading'> By clicking “Sign up”, you agree to our <span style={{ color: 'blue', cursor: 'pointer' }}>terms of <br /> service </span>and acknowledge you have read our <br /> <span style={{ color: 'blue', cursor: 'pointer' }}>privacy policy.</span> </p>}
@@ -159,6 +200,7 @@ const Auth = () => {
         {
           !signedIn && <p className='auth-subheading'>Already have an account ? <button className='auth-btn-switch' onClick={handleSwitch}>Log In</button></p>
         }
+        
       </div>
     </section>
     </>

@@ -116,6 +116,44 @@
     background-color: rgba(0, 87, 128, 0.893);
     color: #dbe2c3;
 }
+/* =================
+google button styling
+=================== */
+
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border: 1px solid #4285F4;
+    border-radius: 6px;
+    background-color: white;
+    color: #4285F4;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .google-btn:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .google-btn div {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 20px; /* Adjust icon size */
+  }
+  
+  .google-btn p {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+
 
 @media screen and (max-width: 768px) {
     .auth-sec{

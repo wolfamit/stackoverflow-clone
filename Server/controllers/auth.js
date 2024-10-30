@@ -12,7 +12,12 @@ export const signup = async (req, res) => {
 
     if (existingUser) {
       // User already exists, return an appropriate response
-      return res.status(409).json({ message: 'User already exists' });
+      const token = jwt.sign(
+        { email: existingUser.email, id: existingUser._id },
+        process.env.SECRET_KEY,
+        { expiresIn: '1h' }
+      );
+      res.status(200).json({ result: existingUser, token});
     }
 
     // Hash the password
@@ -52,6 +57,57 @@ export const signup = async (req, res) => {
     res.status(200).json({ result: newUser, token, stripeCustomerId: customer.id });
   } catch (error) {
     console.error('Error in signup:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+export const googleSignIn = async (req, res) => {
+  const { name, email, uid } = req.body;
+  try {
+    // Check if the user already exists
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      // User already exists, generate a token and return
+      const token = jwt.sign(
+        { email: existingUser.email, id: existingUser._id },
+        process.env.SECRET_KEY,
+        { expiresIn: '1h' }
+      );
+      return res.status(200).json({ result: existingUser, token });
+    }
+
+    // Create Stripe customer
+    const customer = await stripe.customers.create(
+      {
+        email: email,
+        name: name,
+        description: 'Subscription to customer',
+      },
+      {
+        apiKey: process.env.STRIPE_SECRET_KEY,
+      }
+    );
+
+    // Create a new user
+    const newUser = await User.create({
+      name,
+      email,
+      uid,
+      stripeCustomerId: customer.id,
+    });
+
+    // Generate a JWT token
+    const token = jwt.sign(
+      { email: newUser.email, id: newUser._id },
+      process.env.SECRET_KEY,
+      { expiresIn: '1h' }
+    );
+
+    // Send a successful response with user data and token
+    res.status(200).json({ result: newUser, token, stripeCustomerId: customer.id });
+  } catch (error) {
+    console.error('Error in Google Sign-In:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };

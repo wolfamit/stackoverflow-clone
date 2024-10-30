@@ -11,6 +11,7 @@ API.interceptors.request.use((req) => {
 
 export const signin = (authData) => API.post('/user/signin', authData)
 export const signup = (authData) => API.post('/user/signup', authData);
+export const GoogleSignup = (userInfo) => API.post('/user/googleSigning', userInfo);
 
 export const postQuestion = (questionData) => API.post('/question/Ask', questionData);
 export const getAllQuestions = () => API.get('/question/get')

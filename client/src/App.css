@@ -11,6 +11,7 @@
 
   --text-color-1: #0F0F0F;
   --text-color-2: #2D033B;
+  --footer-bg-color : rgb(192, 221, 230);
 }
 
 .App[data-theme="dark"] {
@@ -19,7 +20,9 @@
   --bg-color-3: #1d2a35;
   --bg-color-4: #000301;
   --text-color-1: #ffffff;
+  --footer-bg-color : rgb(31, 31, 66);
   --text-color-2: #bbbcbc;
+  
 }
 
 *,
